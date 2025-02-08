@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<!-- upto 2 directory depth-->
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin"/>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;700;800&amp;display=swap"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;700;800&amp;display=swap" media="print" onload="this.media='all'"/>
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;700;800&amp;display=swap"/>
+    </noscript>
+    <link href="./css/font-awesome/css/all.min.css?ver=1.2.0" rel="stylesheet">
+    <link href="./css/bootstrap-icons/bootstrap-icons.css?ver=1.2.0" rel="stylesheet">
+    <link href="./css/bootstrap.min.css?ver=1.2.0" rel="stylesheet">
+    <link href="./css/aos.css?ver=1.2.0" rel="stylesheet">
+    <link href="./css/main.css?ver=1.2.0" rel="stylesheet">
+    <noscript>
+      <style type="text/css">
+        [data-aos] {
+            opacity: 1 !important;
+            transform: translate(0) scale(1) !important;
+        }
+      </style>
+    </noscript>
+  </head>
+  <body id="top">
+    <header class="bg-light" style="transition: background-color 0.3s;">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light" id="header-nav" role="navigation">
+        <div class="container">
+          <a class="link-dark navbar-brand site-title mb-0" href="#"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto me-2">
+              <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+              <li class="nav-item"><a class="nav-link" href="#services">Expertise</a></li>
+              <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+              <li class="nav-item"><a class="nav-link" href="#portfolio">Credentials</a></li>
+              <li class="nav-item"><a class="nav-link" href="#experience">Ventures</a></li>
+              <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    
+    <style>
+      header:hover {
+        background-color: #d8b3ff !important; /* Light purple color */
+      }
+      .nav-link:hover {
+        color: #a855f7 !important; /* Purple color on hover */
+      }
+    </style>
+    <div class="page-content">
+      <div id="content">
+<header>
+  <div class="cover bg-light">
+    <div class="container px-3">
+      <div class="row">
+        <div class="col-lg-6 p-2">
+          <img class="img-fluid" src="images/illustrations/folks-man-programmer-writing-code.png" alt="Hello, I'm a Software Developer" />
+        </div>
+        <div class="col-lg-6">
+          <div class="mt-5">
+            <p class="lead text-uppercase mb-1" data-aos="fade-up" data-aos-delay="100">Hello!</p>
+            <h1 class="intro-title marker" id="typing-name" data-aos="fade-left" data-aos-delay="200"></h1>
+            <p class="lead fw-normal mt-3" data-aos="fade-up" data-aos-delay="300">I’m a Software Developer.</p>
+            <div class="social-nav" data-aos="fade-up" data-aos-delay="500">
+              <nav role="navigation">
+                <ul class="nav justify-content-left">
+                  <li class="nav-item"><a class="nav-link" href="https://twitter.com/MacekeCarven" title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                  <li class="nav-item"><a class="nav-link" href="https://www.facebook.com/carven.axe.5" title="Facebook"><i class="fab fa-facebook"></i></a></li>
+                  <li class="nav-item"><a class="nav-link" href="https://www.instagram.com/carven_sa15" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                  <li class="nav-item"><a class="nav-link" href="https://www.linkedin.com/in/carven-maceke-a29985235" title="LinkedIn"><i class="fab fa-linkedin"></i></a></li>
+                </ul>
+              </nav>
+            </div>
+            <div class="mt-3" data-aos="fade-up" data-aos-delay="600">
+              <a class="btn btn-primary shadow-sm mt-1 hover-effect" href="#contact">Let’s Connect <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <audio id="type-sound" src="https://www.fesliyanstudios.com/play-mp3/4386" preload="auto"></audio>
+  
+  <script>
+    const nameElement = document.getElementById("typing-name");
+    const nameText = "I’m Carven Maceke";
+    const typeSound = document.getElementById("type-sound");
+    let index = 0;
+  
+    function typeEffect() {
+      if (index < nameText.length) {
+        nameElement.innerHTML += `<span style='opacity:0;'>${nameText.charAt(index)}</span>`;
+        setTimeout(() => {
+          nameElement.lastChild.style.opacity = 1;
+          typeSound.currentTime = 0;
+          typeSound.play();
+        }, 50);
+        index++;
+        setTimeout(typeEffect, 100);
+      }
+    }
+  
+    document.addEventListener("DOMContentLoaded", () => {
+      setTimeout(typeEffect, 500);
+    });
+  </script>
+  
+  <div class="wave-bg"></div>
+</header>
+<div class="section pt-4 px-3 px-lg-4" id="about">
+  <div class="container-narrow">
+    <div class="row">
+      <div class="col-md-6" data-aos="fade-right" data-aos-delay="200">
+        <h2 class="h4 my-2">About Me</h2>
+        <p data-aos="fade-up" data-aos-delay="300">I’m a Software Developer with expertise in Java, SQL, Spring Boot, and Full Stack Development. I specialize in backend engineering, web applications, and database management. With hands-on experience as a Junior Java Developer at Zaio Technology (Pty) Ltd, I focus on building scalable and efficient solutions.</p>
+        
+        <p data-aos="fade-up" data-aos-delay="400">Passionate about problem-solving and innovation, I enjoy contributing to projects that make a real impact. Let’s connect and explore how we can create solutions together! 🚀</p>
+        
+        <div class="row mt-3">
+          <div class="col-sm-2" data-aos="fade-up" data-aos-delay="500">
+            <div class="pb-1">Age:</div>
+          </div>
+          <div class="col-sm-10" data-aos="fade-up" data-aos-delay="600">
+            <div class="pb-1 fw-bolder">22</div>
+          </div>
+          <div class="col-sm-2" data-aos="fade-up" data-aos-delay="700">
+            <div class="pb-1">Email:</div>
+          </div>
+          <div class="col-sm-10" data-aos="fade-up" data-aos-delay="800">
+            <div class="pb-1 fw-bolder">Carvenmaceke9@gmail.com</div>
+          </div>
+          <div class="col-sm-2" data-aos="fade-up" data-aos-delay="900">
+            <div class="pb-1">Phone:</div>
+          </div>
+          <div class="col-sm-10" data-aos="fade-up" data-aos-delay="1000">
+            <div class="pb-1 fw-bolder">+277607950837</div>
+          </div>
+          <div class="col-sm-2" data-aos="fade-up" data-aos-delay="1100">
+            <div class="pb-1">Location:</div>
+          </div>
+          <div class="col-sm-10" data-aos="fade-up" data-aos-delay="1200">
+            <div class="pb-1 fw-bolder">Pretoria, South Africa</div>
+          </div>
+          <div class="col-sm-2" data-aos="fade-up" data-aos-delay="1300">
+            <div class="pb-1">Status:</div>
+          </div>
+          <div class="col-sm-10" data-aos="fade-up" data-aos-delay="1400">
+            <div class="pb-1 fw-bolder">Available for Opportunities</div>
+          </div>
+        </div>
+
+        <!-- Request CV Button aligned to the left -->
+        <div class="mt-4">
+          <a href="#contact" class="btn btn-primary">Request CV</a>
+        </div>
+      </div>
+      <div class="col-md-5 offset-md-1" data-aos="zoom-in" data-aos-delay="500">
+        <img class="avatar img-fluid mt-2" src="images/WhatsApp Image 2024-02-08 at 18.17.09.jpeg" width="400" height="400" alt="Carven Maceke"/>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Technical Proficiencies</title>
+
+  <!-- AOS CSS for animations -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+  <style>
+    /* Custom styles */
+    .section {
+      padding-top: 5rem;
+    }
+    .skill-item img {
+      transition: transform 0.3s ease;
+    }
+    .skill-item img:hover {
+      transform: scale(1.1);
+    }
+    .skill-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    .skill-container .skill-item {
+      width: 18%;
+      margin-bottom: 20px;
+    }
+    .navigation-buttons {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    .navigation-buttons button {
+      padding: 10px 20px;
+      margin: 0 10px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #F6E05E;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      
+    }
+    .navigation-buttons button:hover {
+      background-color: #F6E05E;
+    }
+  </style>
+</head>
+<body>
+
+
+
+
+
+
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Proficiencies</title>
+  
+    <!-- AOS CSS for animations -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  
+    <style>
+      /* Custom styles */
+      .section {
+        padding-top: 5rem;
+      }
+      .skill-item img {
+        transition: transform 0.3s ease;
+      }
+      .skill-item img:hover {
+        transform: scale(1.1);
+      }
+      .skill-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+      .skill-container .skill-item {
+        width: 18%;
+        margin-bottom: 20px;
+      }
+      /* Button styling */
+      .button-container {
+        text-align: center; /* Align button to the left */
+        margin-top: 30px;
+
+        
+      }
+      .more-btn, .less-btn {
+        padding: 10px 20px;
+      margin: 0 10px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #F6E05E;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      }
+      .more-btn:hover, .less-btn:hover {
+        background-color: #F6E05E;
+      }
+    </style>
+    
+  </head>
+  <body>
+  
+    <div class="section px-3 px-lg-4 pt-5" id="services">
+      <div class="container-narrow">
+        <div class="text-center mb-5">
+          <h2 class="marker marker-center">Technical Proficiencies</h2>
+        </div>
+        <div class="text-center">
+          <p class="mx-auto mb-3" style="max-width:600px">Proficient in a diverse range of programming languages and technologies.</p>
+        </div>
+  
+        <div id="skills-container" class="skill-container">
+          <!-- Skill items will be dynamically added here -->
+        </div>
+  
+        <!-- Button container -->
+        <div class="button-container">
+          <button class="less-btn" id="less-btn" onclick="changeSkills('less')" style="display: none;">Less</button>
+          <button class="more-btn" id="more-btn" onclick="changeSkills('more')">More</button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- AOS JS -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    
+    <script>
+      const skills = [
+        { name: 'C#', image: 'images/services/c-sharp_6132221.png' },
+        { name: 'Python', image: 'images/services/icons8-python-48.png' },
+        { name: 'Java', image: 'images/services/icons8-java-60.png' },
+        { name: 'JavaScript', image: 'images/services/icons8-javascript-58.png' },
+        { name: 'HTML & CSS', image: 'images/services/html_8177233.png' },
+        { name: 'ASP.NET', image: 'images/services/icons8-asp-64.png' },
+        { name: 'PHP', image: 'images/services/icons8-php-64.png' },
+        { name: 'Data Analyst [Anaconda]', image: 'images/services/icons8-data-migration-48.png' },
+        { name: 'Django', image: 'images/services/icons8-program-64.png' },
+        { name: 'Computer Literacy', image: 'images/services/icons8-literacy-64.png' },
+        { name: 'SDLC', image: 'images/services/icons8-data-center-100.png' },
+        { name: 'MySQL', image: 'images/services/icons8-sql-64.png' },
+        { name: 'Spring Boot', image: 'images/services/icons8-spring-boot-48.png' },
+        { name: 'Git', image: 'images/services/icons8-git-64.png' }
+      ];
+  
+      let currentIndex = 0;
+      const itemsPerPage = 5;
+  
+      // Function to render skills
+      function renderSkills() {
+        const skillsContainer = document.getElementById('skills-container');
+        skillsContainer.innerHTML = ''; // Clear the container
+  
+        // Slice skills array to get the skills for the current page
+        const skillsToDisplay = skills.slice(currentIndex, currentIndex + itemsPerPage);
+  
+        skillsToDisplay.forEach((skill, index) => {
+          const skillDiv = document.createElement('div');
+          skillDiv.classList.add('skill-item');
+          skillDiv.setAttribute('data-aos', 'fade-up');
+          skillDiv.setAttribute('data-aos-delay', index * 100); // Stagger animations
+          skillDiv.innerHTML = `
+            <img class="mb-2" src="${skill.image}" width="96" height="96" alt="${skill.name}"/>
+            <div class="h5">${skill.name}</div>
+          `;
+          skillsContainer.appendChild(skillDiv);
+        });
+  
+        // Show/hide buttons based on the current index
+        if (currentIndex + itemsPerPage >= skills.length) {
+          document.getElementById('more-btn').style.display = 'none';
+        } else {
+          document.getElementById('more-btn').style.display = 'inline-block';
+        }
+  
+        if (currentIndex === 0) {
+          document.getElementById('less-btn').style.display = 'none';
+        } else {
+          document.getElementById('less-btn').style.display = 'inline-block';
+        }
+      }
+  
+      // Function to change the displayed skills based on the direction
+      function changeSkills(direction) {
+        if (direction === 'more' && currentIndex + itemsPerPage < skills.length) {
+          currentIndex += itemsPerPage;
+        } else if (direction === 'less' && currentIndex - itemsPerPage >= 0) {
+          currentIndex -= itemsPerPage;
+        }
+        renderSkills();
+      }
+  
+      // Initialize AOS animations
+      AOS.init();
+  
+      // Initialize the page by rendering the first 5 skills
+      window.onload = function() {
+        renderSkills();
+      }
+    </script>
+  
+  </body>
+  </html>
+  
+
+
+<!-- Include the AOS CSS and JS libraries (ensure they are included in your project) -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+<!-- Centering the entire section with top margin for spacing -->
+<div class="container d-flex justify-content-center align-items-center mt-5" style="height: 100vh;">
+  <!-- Soft Skills Section -->
+  <div class="row text-center text-dark" data-aos="fade-up">
+    <!-- Soft Skills Heading with top margin for spacing -->
+    <div class="col-12 mb-4" data-aos="zoom-in" data-aos-duration="800">
+      <h2 class="fw-bold" data-aos="zoom-in" data-aos-duration="800">Soft Skills</h2>
+      <p class="lead" data-aos="fade-up" data-aos-duration="1000">Watch them come to life!</p>
+    </div>
+
+    <!-- Soft Skills Progress Bars -->
+    <div class="col-md-8 mx-auto">
+      <!-- Skill 1: Problem-Solving -->
+      <div class="py-1" data-aos="fade-up" data-aos-delay="200">
+        <div class="d-flex text-small fw-bolder">
+          <span class="me-auto">Problem-Solving</span>
+          <span>90%</span>
+        </div>
+        <div class="progress my-1">
+          <div class="progress-bar bg-primary" role="progressbar" data-aos="zoom-in-right" data-aos-delay="400" data-aos-anchor=".skills-section" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+
+      <!-- Skill 2: Communication -->
+      <div class="py-1" data-aos="fade-up" data-aos-delay="300">
+        <div class="d-flex text-small fw-bolder">
+          <span class="me-auto">Communication</span>
+          <span>85%</span>
+        </div>
+        <div class="progress my-1">
+          <div class="progress-bar bg-primary" role="progressbar" data-aos="zoom-in-right" data-aos-delay="500" data-aos-anchor=".skills-section" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+
+      <!-- Skill 3: Collaboration & Teamwork -->
+      <div class="py-1" data-aos="fade-up" data-aos-delay="400">
+        <div class="d-flex text-small fw-bolder">
+          <span class="me-auto">Collaboration & Teamwork</span>
+          <span>80%</span>
+        </div>
+        <div class="progress my-1">
+          <div class="progress-bar bg-primary" role="progressbar" data-aos="zoom-in-right" data-aos-delay="600" data-aos-anchor=".skills-section" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+
+      <!-- Skill 4: Adaptability -->
+      <div class="py-1" data-aos="fade-up" data-aos-delay="500">
+        <div class="d-flex text-small fw-bolder">
+          <span class="me-auto">Adaptability</span>
+          <span>85%</span>
+        </div>
+        <div class="progress my-1">
+          <div class="progress-bar bg-primary" role="progressbar" data-aos="zoom-in-right" data-aos-delay="700" data-aos-anchor=".skills-section" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+
+      <!-- Skill 5: Time Management -->
+      <div class="py-1" data-aos="fade-up" data-aos-delay="600">
+        <div class="d-flex text-small fw-bolder">
+          <span class="me-auto">Time Management</span>
+          <span>80%</span>
+        </div>
+        <div class="progress my-1">
+          <div class="progress-bar bg-primary" role="progressbar" data-aos="zoom-in-right" data-aos-delay="800" data-aos-anchor=".skills-section" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+
+      <!-- Skill 6: Leadership -->
+      <div class="py-1" data-aos="fade-up" data-aos-delay="700">
+        <div class="d-flex text-small fw-bolder">
+          <span class="me-auto">Leadership</span>
+          <span>85%</span>
+        </div>
+        <div class="progress my-1">
+          <div class="progress-bar bg-primary" role="progressbar" data-aos="zoom-in-right" data-aos-delay="900" data-aos-anchor=".skills-section" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+
+      <!-- Skill 7: Critical Thinking -->
+      <div class="py-1" data-aos="fade-up" data-aos-delay="800">
+        <div class="d-flex text-small fw-bolder">
+          <span class="me-auto">Critical Thinking</span>
+          <span>90%</span>
+        </div>
+        <div class="progress my-1">
+          <div class="progress-bar bg-primary" role="progressbar" data-aos="zoom-in-right" data-aos-delay="1000" data-aos-anchor=".skills-section" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+
+      <!-- Skill 8: Attention to Detail -->
+      <div class="py-1" data-aos="fade-up" data-aos-delay="900">
+        <div class="d-flex text-small fw-bolder">
+          <span class="me-auto">Attention to Detail</span>
+          <span>95%</span>
+        </div>
+        <div class="progress my-1">
+          <div class="progress-bar bg-primary" role="progressbar" data-aos="zoom-in-right" data-aos-delay="1100" data-aos-anchor=".skills-section" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AOS initialization script -->
+<script>
+  // Initialize AOS for animation effects
+  AOS.init({
+    startEvent: 'DOMContentLoaded', // Ensures the animation starts when the DOM is fully loaded
+    once: true, // Animation triggers only once
+    duration: 1000, // Duration of the animation
+    easing: 'ease-in-out', // Easing for smooth transitions
+  });
+
+  // To animate progress bars smoothly when the page loads
+  document.addEventListener('DOMContentLoaded', function() {
+    let progressBars = document.querySelectorAll('.progress-bar');
+    progressBars.forEach(function(progressBar) {
+      let width = progressBar.getAttribute('aria-valuenow');
+      progressBar.style.transition = 'width 1s ease-in-out';
+      progressBar.style.width = `${width}%`;
+    });
+  });
+</script>
+
+
+
+
+
+
+
+
+<style>
+  /* Style for the card container */
+  .carousel-item .card {
+    width: 90%;
+    max-width: 600px;
+    margin: auto;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  /* Slight zoom effect when hovering over cards */
+  .carousel-item .card:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Smaller image thumbnails */
+  .carousel-item .card img {
+    width: 100px;
+    height: auto;
+    border-radius: 8px;
+    margin-right: 15px;
+  }
+
+  /* Arrange text and image side by side */
+  .card-body {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Hide full text by default */
+  .full-text {
+    display: none;
+  }
+
+  /* Style for Read More button */
+  .read-more {
+    color: blue;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  /* Button to view document */
+  .view-btn {
+    background-color: black;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    display: block;
+    margin-top: 10px;
+    width: fit-content;
+  }
+
+  /* Increase visibility of buttons */
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    background-color: black;
+    padding: 10px;
+    border-radius: 50%;
+  }
+
+  .carousel-control-prev, .carousel-control-next {
+    width: 10%;
+  }
+</style>
+
+<div class="section px-3 px-lg-4 pt-5" id="experience">
+  <div class="container-narrow">
+    <div class="text-center mb-5">
+      <h2 class="marker marker-center">Ventures</h2>
+    </div>
+
+    <!-- Bootstrap Carousel -->
+    <div id="venturesCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+
+        <!-- Java Backend Developer -->
+        <div class="carousel-item active">
+          <div class="card p-3">
+            <div class="card-header">
+              <h3 class="h5 mb-1">Java Backend Developer</h3>
+              <div class="text-muted">Zaio Technologies (2023-2024)</div>
+            </div>
+            <div class="card-body">
+              <img src="dc/Screenshot 2025-02-08 140647.png" alt="Backend Development"/>
+              <p>
+                As a Java Backend Developer intern, I worked with Spring Boot and SQL to develop efficient server-side applications. 
+                <span class="short-text">I optimized database queries...</span>
+                <span class="full-text">My responsibilities included optimizing database queries, implementing RESTful APIs, and debugging application performance issues.</span>
+                <span class="read-more" onclick="toggleText(this)">Read More</span>
+              </p>
+            </div>
+            <button class="view-btn" onclick="window.open('dc/REFERRAL LETTER.pdf', '_blank')">View</button>
+          </div>
+        </div>
+
+        <!-- 3rd Year Project -->
+        <div class="carousel-item">
+          <div class="card p-3">
+            <div class="card-header">
+              <h3 class="h5 mb-1">3rd Year Project</h3>
+              <div class="text-muted">Nelson Mandela University (2023)</div>
+            </div>
+            <div class="card-body">
+              <img src="images/images.png" alt="App Development"/>
+              <p>
+                For my 3rd-year final project, I developed a dynamic web application that utilized HTML, CSS, Bootstrap, JavaScript, and MySQL. The project was structured using the MVC (Model-View-Controller) architectural pattern, which helped organize the application efficiently and maintain a clear separation of concerns between the frontend and backend.
+        
+                <span class="short-text">The goal of the project was to create a responsive, user-friendly web application that followed modern design practices. I focused on making the user interface intuitive and optimized for various devices, ensuring a seamless experience for users. On the backend, I used MySQL to manage data storage, enabling efficient handling of user interactions and data processing....</span>
+                <span class="full-text" style="display:none;">This project allowed me to integrate both frontend and backend technologies to build a fully functional web application, showcasing my ability to create scalable, responsive, and well-structured web solutions. </span>
+                <span class="read-more" onclick="toggleText(this)">Read More</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- Hackathon: 4IR AquaTech -->
+        <div class="carousel-item">
+          <div class="card p-3">
+            <div class="card-header">
+              <h3 class="h5 mb-1">4IR AquaTech Hackathon</h3>
+              <div class="text-muted">(2021)</div>
+            </div>
+            <div class="card-body">
+              <img src="How-do-hackathons-work.png" alt="Hackathon"/>
+              <p>
+                Focused on solving real-world challenges in Water, Energy, and Food sustainability using ICT solutions.    
+                <span class="short-text"> Collaborated with...</span>
+                <span class="full-text">a team to develop an innovative technology-driven approach to address critical resource management issues.</span>
+                <span class="read-more" onclick="toggleText(this)">Read More</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hackathon: ICT Challenge -->
+        <div class="carousel-item">
+          <div class="card p-3">
+            <div class="card-header">
+              <h3 class="h5 mb-1">East London IDZ</h3>
+              <div class="text-muted">ICT Hackathon Challenge (2020-2021)</div>
+            </div>
+            <div class="card-body">
+              <img src="istockphoto-1189767041-612x612.jpg" alt="ICT Challenge"/>
+              <p>
+                Designed and implemented ICT solutions for economic and skills development. Worked in a team to create a functional prototype that aimed to enhance digital transformation and employment opportunities through technology.
+
+
+                <span class="short-text">These ...</span>
+                <span class="full-text">hackathons strengthened my problem-solving, teamwork, and rapid prototyping skills, reinforcing my ability to develop innovative tech solutions under time constraints.</span>
+                <span class="read-more" onclick="toggleText(this)">Read More</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Carousel Controls -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#venturesCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#venturesCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleText(element) {
+    let shortText = element.previousElementSibling.previousElementSibling;
+    let fullText = element.previousElementSibling;
+
+    if (fullText.style.display === "none" || fullText.style.display === "") {
+      fullText.style.display = "inline";
+      shortText.style.display = "none";
+      element.textContent = "Read Less";
+    } else {
+      fullText.style.display = "none";
+      shortText.style.display = "inline";
+      element.textContent = "Read More";
+    }
+  }
+</script>
+
+
+
+
+ 
+<div class="section px-3 px-lg-4 pt-5" id="testimonials">
+  <div class="container-narrow">
+    <div class="text-center mb-5">
+      <h2 class="marker marker-center"> Testimonials</h2>
+    </div>
+    <div class="row"> 
+      <div class="col-md-6 mb-5" data-aos="fade-right" data-aos-delay="100">
+        <div class="d-flex ms-md-3">
+          <span><i class="fas fa-2x fa-quote-left"></i></span>
+          <span class="m-2"> What I admire most about Carven is his ability to adapt and thrive in a field that's constantly changing. Whether it's learning a new programming language, exploring the latest advancements in cybersecurity, or diving into the world of data science, he approaches every challenge with determination and a thirst for knowledge.</span>
+        </div>
+        <div class="d-flex justify-content-end align-items-end">
+          <div class="text-end me-2">
+            <div class="fw-bolder">Irvin Maceke </div>
+            <div class="text-small">Senior Technical Support Analyst </div>
+          </div>
+          <img class="me-md-3 rounded" src="images/clients/1659092172338.jpeg" width="96" height="96" alt="client 1"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section px-2 px-lg-4 pb-4 pt-5 mb-5" id="contact">
+  <div class="container-narrow">
+    <div class="text-center mb-5">
+      <h2 class="marker marker-center">Contact Me</h2>
+    </div>
+    <div class="row">
+      <div class="col-md-6" data-aos="zoom-in" data-aos-delay="100">
+        <div class="bg-light my-2 p-3 pt-2">
+          <form action="https://formspree.io/f/mleqnpqq" method="POST">
+            <div class="form-group my-2">
+              <label for="name" class="form-label fw-bolder">Name</label>
+              <input class="form-control" type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group my-2">
+              <label for="email" class="form-label fw-bolder">Email</label>
+              <input class="form-control" type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group my-2">
+              <label for="message" class="form-label fw-bolder">Message</label>
+              <textarea class="form-control" style="resize: none;" id="message" name="message" rows="4" required></textarea>
+            </div>
+            <button class="btn btn-primary mt-2" type="submit">Send</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="col-md-6" data-aos="fade-left" data-aos-delay="300">
+        <div class="mt-3 px-1">
+          <div class="h5">Contact Me</div>
+          <p>Available for Hire | CV Available Upon Request</p>
+        </div>
+        <div class="mt-3 px-1">
+          <div class="row"> 
+            <div class="col-sm-2">
+              <div class="pb-1">Email:</div>
+            </div>
+            <div class="col-sm-10">
+              <div class="pb-1 fw-bolder">carvenmaceke9@gmail.com</div>
+            </div>
+            <div class="col-sm-2">
+              <div class="pb-1">Phone:</div>
+            </div>
+            <div class="col-sm-10">
+              <div class="pb-1 fw-bolder">+2760-795-0837</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="pt-4 pb-4 text-center bg-light">
+  <div class="container">
+    <div class="my-3">
+       
+      <div class="social-nav">
+        <nav role="navigation">
+          <ul class="nav justify-content-center">
+            <li class="nav-item"><a class="nav-link" href="https://twitter.com/MacekeCarven" title="Twitter"><i class="fab fa-twitter"></i><span class="menu-title sr-only">Twitter</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="https://www.facebook.com/carven.axe.5" title="Facebook"><i class="fab fa-facebook"></i><span class="menu-title sr-only">Facebook</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="https://www.instagram.com/carven_sa15" title="Instagram"><i class="fab fa-instagram"></i><span class="menu-title sr-only">Instagram</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="https://www.linkedin.com/in/carven-maceke-a29985235" title="LinkedIn"><i class="fab fa-linkedin"></i><span class="menu-title sr-only">LinkedIn</span></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="text-small text-secondary">
+      <div class="mb-1">&copy; version 2.0 2025.</div>
+      <div></div>
+    </div>
+  </div>
+</footer>
+
+</footer></div>
+    </div>
+    <div id="scrolltop"><a class="btn btn-secondary" href="#top"><span class="icon"><i class="fas fa-angle-up fa-x"></i></span></a></div>
+    <script src="./scripts/imagesloaded.pkgd.min.js?ver=1.2.0"></script>
+    <script src="./scripts/masonry.pkgd.min.js?ver=1.2.0"></script>
+    <script src="./scripts/BigPicture.min.js?ver=1.2.0"></script>
+    <script src="./scripts/purecounter.min.js?ver=1.2.0"></script>
+    <script src="./scripts/bootstrap.bundle.min.js?ver=1.2.0"></script>
+    <script src="./scripts/aos.min.js?ver=1.2.0"></script>
+    <script src="./scripts/main.js?ver=1.2.0"></script>
+  </body>
+</html>
