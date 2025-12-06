@@ -26,6 +26,162 @@
     </noscript>
   </head>
   <body id="top">
+
+<!-- ======================== PUZZLE INTRO (BLUR + STYLE D + NO LOCALSTORAGE) ======================== -->
+
+<style>
+  #pzl-wrapper {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100vh;
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    background: rgba(255, 255, 255, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 999999;
+  }
+
+  #pzl-board {
+    width: 360px;
+    height: 360px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    padding: 12px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 10px;
+    backdrop-filter: blur(3px);
+  }
+
+  .pzl-title {
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #111;
+    font-size: 24px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+
+  .pzl-piece {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 3px solid #ccc;
+    background: white;
+    box-shadow: 0px 8px 15px rgba(0,0,0,0.25);
+    cursor: grab;
+    transition: transform .3s ease, box-shadow .3s ease;
+  }
+
+  .pzl-piece:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 12px 20px rgba(0,0,0,0.35);
+  }
+
+  .pzl-hint {
+    margin-top: 15px;
+    color: #333;
+    font-size: 14px;
+  }
+
+  #pzl-wrapper.pzl-fade-out {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    transition: opacity 1s ease-out, backdrop-filter 1s ease-out;
+    pointer-events: none;
+  }
+</style>
+
+<div id="pzl-wrapper">
+  <h2 class="pzl-title">Solve the Puzzle to Enter</h2>
+
+  <div id="pzl-board">
+    <img draggable="true" class="pzl-piece" src="images/top_left.jpg"     data-correct="1">
+    <img draggable="true" class="pzl-piece" src="images/top_right.jpg"    data-correct="2">
+    <img draggable="true" class="pzl-piece" src="images/bottom_left.jpg"  data-correct="3">
+    <img draggable="true" class="pzl-piece" src="images/bottom_right.jpg" data-correct="4">
+  </div>
+
+  <p class="pzl-hint">Drag the pieces into the correct positions</p>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const board = document.getElementById("pzl-board");
+
+    function shufflePieces() {
+        let tiles = Array.from(board.children);
+
+        for (let i = tiles.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            board.appendChild(tiles[j]);
+            tiles.splice(j, 1);
+        }
+
+        Array.from(board.children).forEach(tile => {
+            let deg = Math.random() * 14 - 7;
+            tile.style.transform = "rotate(" + deg + "deg)";
+        });
+    }
+    shufflePieces();
+
+    let dragged = null;
+    const pieces = document.querySelectorAll(".pzl-piece");
+
+    pieces.forEach(piece => {
+
+        piece.addEventListener("dragstart", () => dragged = piece);
+        piece.addEventListener("dragover", e => e.preventDefault());
+
+        piece.addEventListener("drop", e => {
+            e.preventDefault();
+            if (dragged !== piece) {
+
+                let tempSrc = piece.src;
+                piece.src = dragged.src;
+                dragged.src = tempSrc;
+
+                let tempCorrect = piece.dataset.correct;
+                piece.dataset.correct = dragged.dataset.correct;
+                dragged.dataset.correct = tempCorrect;
+
+                checkPuzzle();
+            }
+        });
+    });
+
+    function checkPuzzle() {
+        const items = Array.from(board.children);
+        let solved = true;
+
+        items.forEach((img, index) => {
+            if (parseInt(img.dataset.correct) !== index + 1) solved = false;
+        });
+
+        if (solved) {
+
+            items.forEach(img => img.style.transform = "rotate(0deg)");
+
+            let wrap = document.getElementById("pzl-wrapper");
+            wrap.classList.add("pzl-fade-out");
+
+            setTimeout(() => wrap.style.display = "none", 1200);
+        }
+    }
+
+});
+</script>
+
+<!-- ======================== END PUZZLE INTRO SECTION ======================== -->
+
+    
     <header class="bg-light" style="transition: background-color 0.3s;">
       <nav class="navbar navbar-expand-lg navbar-light bg-light" id="header-nav" role="navigation">
         <div class="container">
@@ -87,8 +243,7 @@
       </div>
     </div>
   </div>
-  
-  <audio id="type-sound" src="https://www.fesliyanstudios.com/play-mp3/4386" preload="auto"></audio>
+   
   
   <script>
     const nameElement = document.getElementById("typing-name");
@@ -121,7 +276,11 @@
     <div class="row">
       <div class="col-md-6" data-aos="fade-right" data-aos-delay="200">
         <h2 class="h4 my-2">About Me</h2>
-        <p data-aos="fade-up" data-aos-delay="300">I’m a Software Developer with expertise in Java, SQL, Spring Boot, and Full Stack Development. I specialize in backend engineering, web applications, and database management. With hands-on experience as a Junior Java Developer at Zaio Technology (Pty) Ltd, I focus on building scalable and efficient solutions.</p>
+        <p data-aos="fade-up" data-aos-delay="300">I’m an IT graduate with experience in software development and enterprise technology environments. My background includes working on backend systems, supporting technical teams, and contributing to projects that improve how people interact with technology. 
+          
+          I enjoy building practical solutions, learning continuously, and working in spaces where collaboration and growth are encouraged.
+
+I’m passionate about creating meaningful digital experiences and developing myself further in the tech industry. I’m currently focused on opportunities where I can contribute, grow, and make a real impact through technology.</p>
         
         <p data-aos="fade-up" data-aos-delay="400">Passionate about problem-solving and innovation, I enjoy contributing to projects that make a real impact. Let’s connect and explore how we can create solutions together! 🚀</p>
         
@@ -130,7 +289,7 @@
             <div class="pb-1">Age:</div>
           </div>
           <div class="col-sm-10" data-aos="fade-up" data-aos-delay="600">
-            <div class="pb-1 fw-bolder">22</div>
+            <div class="pb-1 fw-bolder">23</div>
           </div>
           <div class="col-sm-2" data-aos="fade-up" data-aos-delay="700">
             <div class="pb-1">Email:</div>
@@ -148,7 +307,7 @@
             <div class="pb-1">Location:</div>
           </div>
           <div class="col-sm-10" data-aos="fade-up" data-aos-delay="1200">
-            <div class="pb-1 fw-bolder">Pretoria, South Africa</div>
+            <div class="pb-1 fw-bolder"> South Africa</div>
           </div>
           <div class="col-sm-2" data-aos="fade-up" data-aos-delay="1300">
             <div class="pb-1">Status:</div>
@@ -159,16 +318,27 @@
         </div>
 
         <!-- Request CV Button aligned to the left -->
-        <div class="mt-4">
-          <a href="#contact" class="btn btn-primary">Request CV</a>
-        </div>
+       <div class="mt-4">
+ <a href="CarvenMaceke_Resume.pdf" download class="btn btn-primary">Download CV</a>
+
+</div>
+
       </div>
       <div class="col-md-5 offset-md-1" data-aos="zoom-in" data-aos-delay="500">
-        <img class="avatar img-fluid mt-2" src="images/WhatsApp Image 2024-02-08 at 18.17.09.jpeg" width="400" height="400" alt="Carven Maceke"/>
+        <img class="avatar img-fluid mt-2" src="images/WhatsApp Image 2025-04-11 at 16.25.33_7bceeb2f.jpg" width="400" height="400" alt="Carven Maceke"/>
       </div>
     </div>
   </div>
 </div>
+
+
+
+
+
+
+
+
+
 
 
 
@@ -176,217 +346,760 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Technical Proficiencies</title>
-
-  <!-- AOS CSS for animations -->
-  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-
+  <meta charset="UTF-8" />
+  <title>Animated Interactive Skills Section</title>
   <style>
-    /* Custom styles */
-    .section {
-      padding-top: 5rem;
+    :root {
+      /* Light theme to match your portfolio */
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --card-soft: #f9fafb;
+      --accent: #a855f7; /* purple-ish like your nav hover */
+      --accent-soft: rgba(168, 85, 247, 0.12);
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --bar-bg: #e5e7eb;
+      --bar-fill: linear-gradient(90deg, #6366f1, #a855f7);
     }
-    .skill-item img {
-      transition: transform 0.3s ease;
+
+    * {
+      box-sizing: border-box;
     }
-    .skill-item img:hover {
-      transform: scale(1.1);
+
+    /* No centering / full-screen here – your main page layout handles that */
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text-main);
+      background-color: var(--bg);
     }
-    .skill-container {
+
+    .skills-shell {
+      max-width: 1140px;
+      width: 100%;
+      margin: 40px auto;
+      background: var(--card);
+      border-radius: 24px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+      padding: 24px 24px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skills-shell::before {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, var(--accent-soft), transparent 65%);
+      top: -70px;
+      right: -40px;
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    .skills-header {
       display: flex;
-      flex-wrap: wrap;
       justify-content: space-between;
-    }
-    .skill-container .skill-item {
-      width: 18%;
+      gap: 24px;
+      align-items: center;
       margin-bottom: 20px;
     }
-    .navigation-buttons {
+
+    .skills-heading-block h2 {
+      margin: 0 0 4px;
+      font-size: 1.6rem;
+      letter-spacing: 0.03em;
       display: flex;
-      justify-content: center;
-      margin-top: 30px;
+      align-items: center;
+      gap: 10px;
     }
-    .navigation-buttons button {
-      padding: 10px 20px;
-      margin: 0 10px;
-      font-size: 16px;
-      cursor: pointer;
-      background-color: #F6E05E;
-      color: white;
+
+    .accent-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(168, 85, 247, 0.85);
+    }
+
+    .skills-heading-block p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .skills-meta-chip {
+      border-radius: 999px;
+      border: 1px solid #e5e7eb;
+      padding: 6px 12px;
+      font-size: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      background-color: #ffffff;
+    }
+
+    .skills-meta-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.8);
+    }
+
+    .skills-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 800px) {
+      .skills-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .skills-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    .skills-left {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 14px 14px 16px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .skills-tabs {
+      display: inline-flex;
+      border-radius: 999px;
+      background: #f3f4f6;
+      padding: 3px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .skills-tab {
       border: none;
-      border-radius: 5px;
-      
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
     }
-    .navigation-buttons button:hover {
-      background-color: #F6E05E;
+
+    .skills-tab span.icon {
+      font-size: 0.85rem;
+    }
+
+    .skills-tab.active {
+      background: #ffffff;
+      color: var(--accent);
+      transform: translateY(-1px);
+      box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.25);
+    }
+
+    .skills-tab:not(.active):hover {
+      color: #111827;
+    }
+
+    .skills-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .skill-row {
+      padding: 8px 10px 9px;
+      border-radius: 12px;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-row::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(168, 85, 247, 0.08), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      pointer-events: none;
+    }
+
+    .skill-row:hover::before,
+    .skill-row.active::before {
+      opacity: 1;
+    }
+
+    .skill-row:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08);
+      border-color: rgba(148, 163, 184, 0.8);
+    }
+
+    .skill-row.active {
+      border-color: rgba(168, 85, 247, 0.9);
+      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.1);
+      background: #f9fafb;
+    }
+
+    .skill-header-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .skill-name {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .skill-percent {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+
+    .skill-bar {
+      position: relative;
+      width: 100%;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--bar-bg);
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .skill-bar-fill {
+      position: absolute;
+      inset: 0;
+      width: 0;
+      border-radius: inherit;
+      background: var(--bar-fill);
+      box-shadow: 0 0 12px rgba(99, 102, 241, 0.5);
+      transform-origin: left;
+      transition: width 0.5s ease;
+    }
+
+    .skill-row.active .skill-bar-fill {
+      box-shadow: 0 0 18px rgba(99, 102, 241, 0.7);
+    }
+
+    .skill-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      z-index: 1;
+      position: relative;
+      flex-wrap: wrap;
+    }
+
+    .skill-meta-pill {
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      white-space: nowrap;
+    }
+
+    .skill-meta-pill.key {
+      border-color: rgba(168, 85, 247, 0.7);
+      color: #4b5563;
+      background-color: #fff7ff;
+    }
+
+    .skills-right {
+      background: var(--card-soft);
+      border-radius: 18px;
+      padding: 14px 16px 16px;
+      border: 1px solid #e5e7eb;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skills-right::before {
+      content: "";
+      position: absolute;
+      width: 170px;
+      height: 170px;
+      background: radial-gradient(circle, rgba(148, 163, 184, 0.2), transparent 65%);
+      bottom: -80px;
+      left: -40px;
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    .skill-detail-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .skill-detail-title {
+      font-size: 1.05rem;
+      margin: 0 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .skill-detail-title span.pulse-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 14px rgba(168, 85, 247, 0.9);
+      animation: pulse 1.6s infinite;
+    }
+
+    .skill-detail-years {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .skill-detail-tools {
+      font-size: 0.8rem;
+      color: #111827;
+      margin-bottom: 12px;
+    }
+
+    .skill-detail-tools span.label {
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.68rem;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .skill-detail-project {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .skill-detail-project strong {
+      color: #111827;
+    }
+
+    .skill-detail-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-ghost,
+    .btn-primary {
+      border-radius: 999px;
+      font-size: 0.75rem;
+      padding: 6px 11px;
+      border: 1px solid #e5e7eb;
+      background: #ffffff;
+      color: var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+    }
+
+    .btn-primary {
+      border-color: rgba(168, 85, 247, 0.9);
+      background: linear-gradient(90deg, #6366f1, #a855f7);
+      color: #ffffff;
+    }
+
+    .btn-ghost:hover,
+    .btn-primary:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.05);
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(148, 163, 184, 1);
+      background: #f9fafb;
+    }
+
+    .btn-ghost span.icon,
+    .btn-primary span.icon {
+      font-size: 0.85rem;
+    }
+
+    .skill-detail-empty {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .fade-enter {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+
+    .fade-enter-active {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.22s ease, transform 0.22s ease;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.15);
+        opacity: 0.6;
+      }
     }
   </style>
 </head>
 <body>
+  <section class="skills-shell" id="interactive-skills-animated">
+    <header class="skills-header">
+      <div class="skills-heading-block">
+        <h2><span class="accent-dot"></span> Skills I bring to your projects</h2>
+        <p>Switch between categories, then click a specific skill to see experience, tools, and a real project example.</p>
+      </div>
+      <div class="skills-meta-chip">
+        <span class="skills-meta-dot"></span>
+        Open to junior dev, data & lecturer roles
+      </div>
+    </header>
 
-
-
-
-
-
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Technical Proficiencies</title>
-  
-    <!-- AOS CSS for animations -->
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-  
-    <style>
-      /* Custom styles */
-      .section {
-        padding-top: 5rem;
-      }
-      .skill-item img {
-        transition: transform 0.3s ease;
-      }
-      .skill-item img:hover {
-        transform: scale(1.1);
-      }
-      .skill-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-      }
-      .skill-container .skill-item {
-        width: 18%;
-        margin-bottom: 20px;
-      }
-      /* Button styling */
-      .button-container {
-        text-align: center; /* Align button to the left */
-        margin-top: 30px;
-
-        
-      }
-      .more-btn, .less-btn {
-        padding: 10px 20px;
-      margin: 0 10px;
-      font-size: 16px;
-      cursor: pointer;
-      background-color: #F6E05E;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      }
-      .more-btn:hover, .less-btn:hover {
-        background-color: #F6E05E;
-      }
-    </style>
-    
-  </head>
-  <body>
-  
-    <div class="section px-3 px-lg-4 pt-5" id="services">
-      <div class="container-narrow">
-        <div class="text-center mb-5">
-          <h2 class="marker marker-center">Technical Proficiencies</h2>
+    <div class="skills-layout">
+      <div class="skills-left">
+        <div class="skills-tabs" role="tablist">
+          <button class="skills-tab active" data-category="web" role="tab"><span class="icon">🟦</span>Web development</button>
+          <button class="skills-tab" data-category="backend" role="tab"><span class="icon">🟧</span>Backend & databases</button>
+          <button class="skills-tab" data-category="support" role="tab"><span class="icon">🟫</span>IT support & systems</button>
+          <button class="skills-tab" data-category="tools" role="tab"><span class="icon">🟩</span>Software tools</button>
         </div>
-        <div class="text-center">
-          <p class="mx-auto mb-3" style="max-width:600px">Proficient in a diverse range of programming languages and technologies.</p>
-        </div>
-  
-        <div id="skills-container" class="skill-container">
-          <!-- Skill items will be dynamically added here -->
-        </div>
-  
-        <!-- Button container -->
-        <div class="button-container">
-          <button class="less-btn" id="less-btn" onclick="changeSkills('less')" style="display: none;">Less</button>
-          <button class="more-btn" id="more-btn" onclick="changeSkills('more')">More</button>
+
+        <p class="skills-subtitle">Tap a skill row to see years of experience, tools I use, and where I've applied it.</p>
+
+        <div class="skills-list" id="skills-list">
+          <!-- Skill rows will be injected here by JavaScript -->
         </div>
       </div>
+
+      <aside class="skills-right" aria-live="polite">
+        <div id="skill-detail" class="fade-enter fade-enter-active">
+          <div class="skill-detail-label">Skill spotlight</div>
+          <h3 class="skill-detail-title">
+            <span class="pulse-dot"></span>
+            <span id="detail-name">Pick a skill on the left</span>
+          </h3>
+          <div id="detail-years" class="skill-detail-years">
+            I’ll show you how long I’ve been using it and in what context.
+          </div>
+          <div id="detail-tools" class="skill-detail-tools">
+            <span class="label">TOOLS & STACK</span>
+            <span id="detail-tools-text">Select a skill to see the exact tools and technologies I use.</span>
+          </div>
+          <div id="detail-project" class="skill-detail-project">
+            <strong>Project example:</strong>
+            <span id="detail-project-text">Once you choose a skill, I’ll show a practical way I've applied it in studies or work.</span>
+          </div>
+          <div class="skill-detail-actions">
+             
+            <a href="#contact" class="btn-ghost">
+              <span class="icon">✉️</span>
+              Talk to me about this skill
+            </a>
+          </div>
+        </div>
+      </aside>
     </div>
-  
-    <!-- AOS JS -->
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    
-    <script>
-      const skills = [
-        { name: 'C#', image: 'images/services/c-sharp_6132221.png' },
-        { name: 'Python', image: 'images/services/icons8-python-48.png' },
-        { name: 'Java', image: 'images/services/icons8-java-60.png' },
-        { name: 'JavaScript', image: 'images/services/icons8-javascript-58.png' },
-        { name: 'HTML & CSS', image: 'images/services/html_8177233.png' },
-        { name: 'ASP.NET', image: 'images/services/icons8-asp-64.png' },
-        { name: 'PHP', image: 'images/services/icons8-php-64.png' },
-        { name: 'Data Analyst [Anaconda]', image: 'images/services/icons8-data-migration-48.png' },
-        { name: 'Django', image: 'images/services/icons8-program-64.png' },
-        { name: 'Computer Literacy', image: 'images/services/icons8-literacy-64.png' },
-        { name: 'SDLC', image: 'images/services/icons8-data-center-100.png' },
-        { name: 'MySQL', image: 'images/services/icons8-sql-64.png' },
-        { name: 'Spring Boot', image: 'images/services/icons8-spring-boot-48.png' },
-        { name: 'Git', image: 'images/services/icons8-git-64.png' }
-      ];
-  
-      let currentIndex = 0;
-      const itemsPerPage = 5;
-  
-      // Function to render skills
-      function renderSkills() {
-        const skillsContainer = document.getElementById('skills-container');
-        skillsContainer.innerHTML = ''; // Clear the container
-  
-        // Slice skills array to get the skills for the current page
-        const skillsToDisplay = skills.slice(currentIndex, currentIndex + itemsPerPage);
-  
-        skillsToDisplay.forEach((skill, index) => {
-          const skillDiv = document.createElement('div');
-          skillDiv.classList.add('skill-item');
-          skillDiv.setAttribute('data-aos', 'fade-up');
-          skillDiv.setAttribute('data-aos-delay', index * 100); // Stagger animations
-          skillDiv.innerHTML = `
-            <img class="mb-2" src="${skill.image}" width="96" height="96" alt="${skill.name}"/>
-            <div class="h5">${skill.name}</div>
-          `;
-          skillsContainer.appendChild(skillDiv);
-        });
-  
-        // Show/hide buttons based on the current index
-        if (currentIndex + itemsPerPage >= skills.length) {
-          document.getElementById('more-btn').style.display = 'none';
-        } else {
-          document.getElementById('more-btn').style.display = 'inline-block';
+  </section>
+
+  <script>
+    const skillData = {
+      web: [
+        {
+          name: "Java",
+          level: 90,
+          years: "3+ years of academic + project experience",
+          key: "Backend logic & application development",
+          tools: "Java SE, OOP, Spring Boot basics",
+          project: "Backend features in university software development projects (e.g. business logic, data handling)."
+        },
+        {
+          name: "Spring Boot",
+          level: 85,
+          years: "2+ years exposure through projects",
+          key: "API design & backend services",
+          tools: "Spring Boot, Controllers, REST basics",
+          project: "Integrated Spring Boot in backend modules to expose REST endpoints and handle service logic."
+        },
+        {
+          name: "HTML / CSS",
+          level: 88,
+          years: "3+ years building small web apps",
+          key: "Responsive layouts & clean UI",
+          tools: "HTML5, CSS3, Bootstrap",
+          project: "Front-end for course-based web applications with responsive layouts and structured content."
+        },
+        {
+          name: "JavaScript",
+          level: 80,
+          years: "2+ years in front-end projects",
+          key: "Client-side logic & interactivity",
+          tools: "JavaScript fundamentals, DOM handling",
+          project: "Validation and interactivity in web-based university projects (forms, dynamic UI updates)."
         }
-  
-        if (currentIndex === 0) {
-          document.getElementById('less-btn').style.display = 'none';
-        } else {
-          document.getElementById('less-btn').style.display = 'inline-block';
+      ],
+      backend: [
+        {
+          name: "SQL",
+          level: 92,
+          years: "4+ years writing queries and reports",
+          key: "Database queries, CRUD & reporting",
+          tools: "SQL Server Management Studio (SSMS), MySQL, joins, indexing basics",
+          project: "Building and managing relational databases for final-year projects and reporting tasks."
+        },
+        {
+          name: "Database Management",
+          level: 90,
+          years: "3+ years designing and optimising databases",
+          key: "Design, optimisation & maintenance",
+          tools: "ERD design, SQL Server, MySQL, data modelling",
+          project: "Full database design for academic software development assessments, including relationships and constraints."
+        },
+        {
+          name: "IBM Content Manager",
+          level: 75,
+          years: "Practical exposure during work experience",
+          key: "Enterprise content management",
+          tools: "IBM Content Manager, document indexing, metadata handling",
+          project: "Supporting enterprise content workflows during YES4Youth work experience."
+        },
+        {
+          name: "Web Server & Publishing",
+          level: 82,
+          years: "1–2 years in controlled environments",
+          key: "System configuration & deployment",
+          tools: "Web server management, deployment in test/controlled environments",
+          project: "Deploying small applications for functional system testing and validation."
+        }
+      ],
+      support: [
+        {
+          name: "IT Support",
+          level: 90,
+          years: "Hands-on work experience under YES4Youth",
+          key: "Hardware, software & network troubleshooting",
+          tools: "User support, device setup, troubleshooting, ticket handling",
+          project: "Supporting users across printers, PCs, and software systems in a real work environment."
+        },
+        {
+          name: "Windows Server",
+          level: 78,
+          years: "Practical exposure in support contexts",
+          key: "User, software & storage management",
+          tools: "Windows Server admin basics, roles, users, updates",
+          project: "Assisting with server-related support activities such as user management and basic maintenance."
+        },
+        {
+          name: "Linux (Red Hat)",
+          level: 72,
+          years: "Exposure through training",
+          key: "Basic Linux operations & navigation",
+          tools: "RHEL fundamentals, basic commands",
+          project: "Linux-based configurations and tasks in training labs."
+        },
+        {
+          name: "Networks (Cisco)",
+          level: 80,
+          years: "Certified through Cisco Networking Academy",
+          key: "Foundational networking principles",
+          tools: "CCNAv7 basics, routing concepts, IP addressing",
+          project: "Network configuration labs and scenarios completed during Cisco training."
+        }
+      ],
+      tools: [
+        {
+          name: "SQL Server Management Studio",
+          level: 95,
+          years: "Used extensively in studies and projects",
+          key: "Database admin & querying",
+          tools: "SSMS, query editor, execution plans, basic tuning",
+          project: "Managing and querying SQL Server databases for assignments and practical projects."
+        },
+        {
+          name: "MySQL",
+          level: 85,
+          years: "Several projects and academic work",
+          key: "Database creation & manipulation",
+          tools: "MySQL, phpMyAdmin or CLI, schema creation",
+          project: "Creating and maintaining MySQL databases for web applications and prototypes."
+        },
+        {
+          name: "Microsoft Office",
+          level: 90,
+          years: "Daily use for academic and work tasks",
+          key: "Documentation, analysis & presentations",
+          tools: "Excel, Word, PowerPoint for reports and documentation",
+          project: "Preparing reports, documentation and slide decks for projects, training and presentations."
+        },
+        {
+          name: "Git & GitHub",
+          level: 80,
+          years: "Version control for software projects",
+          key: "Source control & collaboration",
+          tools: "Git, GitHub, branching, commits, pull/push",
+          project: "Managing code for university and personal projects using Git and GitHub repositories."
+        }
+      ]
+    };
+
+    const tabs = document.querySelectorAll(".skills-tab");
+    const skillsListEl = document.getElementById("skills-list");
+
+    const detailNameEl = document.getElementById("detail-name");
+    const detailYearsEl = document.getElementById("detail-years");
+    const detailToolsTextEl = document.getElementById("detail-tools-text");
+    const detailProjectTextEl = document.getElementById("detail-project-text");
+    const detailContainer = document.getElementById("skill-detail");
+
+    function setActiveTab(category) {
+      tabs.forEach((tab) => {
+        tab.classList.toggle("active", tab.dataset.category === category);
+      });
+    }
+
+    function createSkillRow(skill, index) {
+      const row = document.createElement("div");
+      row.className = "skill-row fade-enter";
+      row.dataset.index = index;
+
+      const header = document.createElement("div");
+      header.className = "skill-header-line";
+      header.innerHTML = `<span class="skill-name">${skill.name}</span><span class="skill-percent">${skill.level}%</span>`;
+
+      const bar = document.createElement("div");
+      bar.className = "skill-bar";
+      const barFill = document.createElement("div");
+      barFill.className = "skill-bar-fill";
+      barFill.style.width = "0";
+      bar.appendChild(barFill);
+
+      const metaRow = document.createElement("div");
+      metaRow.className = "skill-meta-row";
+      metaRow.innerHTML = `
+        <span class="skill-meta-pill key">${skill.key}</span>
+        <span class="skill-meta-pill">${skill.years}</span>
+      `;
+
+      row.appendChild(header);
+      row.appendChild(bar);
+      row.appendChild(metaRow);
+
+      requestAnimationFrame(() => {
+        row.classList.add("fade-enter-active");
+        barFill.style.width = skill.level + "%";
+      });
+
+      row.addEventListener("click", () => {
+        document
+          .querySelectorAll(".skill-row")
+          .forEach((r) => r.classList.remove("active"));
+        row.classList.add("active");
+        updateDetail(skill);
+      });
+
+      return row;
+    }
+
+    function updateDetail(skill) {
+      detailContainer.classList.remove("fade-enter-active");
+      detailContainer.classList.add("fade-enter");
+
+      setTimeout(() => {
+        detailNameEl.textContent = skill.name;
+        detailYearsEl.textContent = skill.years;
+        detailToolsTextEl.textContent = skill.tools;
+        detailProjectTextEl.textContent = skill.project;
+
+        detailContainer.classList.remove("fade-enter");
+        detailContainer.classList.add("fade-enter-active");
+      }, 80);
+    }
+
+    function renderSkills(category) {
+      skillsListEl.innerHTML = "";
+      const skills = skillData[category] || [];
+      skills.forEach((skill, index) => {
+        const row = createSkillRow(skill, index);
+        skillsListEl.appendChild(row);
+      });
+
+      if (skills.length > 0) {
+        const firstRow = skillsListEl.querySelector(".skill-row");
+        if (firstRow) {
+          firstRow.classList.add("active");
+          updateDetail(skills[0]);
         }
       }
-  
-      // Function to change the displayed skills based on the direction
-      function changeSkills(direction) {
-        if (direction === 'more' && currentIndex + itemsPerPage < skills.length) {
-          currentIndex += itemsPerPage;
-        } else if (direction === 'less' && currentIndex - itemsPerPage >= 0) {
-          currentIndex -= itemsPerPage;
-        }
-        renderSkills();
-      }
-  
-      // Initialize AOS animations
-      AOS.init();
-  
-      // Initialize the page by rendering the first 5 skills
-      window.onload = function() {
-        renderSkills();
-      }
-    </script>
-  
-  </body>
-  </html>
-  
+    }
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const category = tab.dataset.category;
+        setActiveTab(category);
+        renderSkills(category);
+      });
+    });
+
+    setActiveTab("web");
+    renderSkills("web");
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
 
 
 <!-- Include the AOS CSS and JS libraries (ensure they are included in your project) -->
@@ -394,107 +1107,7 @@
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 
 <!-- Centering the entire section with top margin for spacing -->
-<div class="container d-flex justify-content-center align-items-center mt-5" style="height: 100vh;">
-  <!-- Soft Skills Section -->
-  <div class="row text-center text-dark" data-aos="fade-up">
-    <!-- Soft Skills Heading with top margin for spacing -->
-    <div class="col-12 mb-4" data-aos="zoom-in" data-aos-duration="800">
-      <h2 class="fw-bold" data-aos="zoom-in" data-aos-duration="800">Soft Skills</h2>
-      <p class="lead" data-aos="fade-up" data-aos-duration="1000">Watch them come to life!</p>
-    </div>
-
-    <!-- Soft Skills Progress Bars -->
-    <div class="col-md-8 mx-auto">
-      <!-- Skill 1: Problem-Solving -->
-      <div class="py-1" data-aos="fade-up" data-aos-delay="200">
-        <div class="d-flex text-small fw-bolder">
-          <span class="me-auto">Problem-Solving</span>
-          <span>90%</span>
-        </div>
-        <div class="progress my-1">
-          <div class="progress-bar bg-primary" role="progressbar" data-aos="zoom-in-right" data-aos-delay="400" data-aos-anchor=".skills-section" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-      </div>
-
-      <!-- Skill 2: Communication -->
-      <div class="py-1" data-aos="fade-up" data-aos-delay="300">
-        <div class="d-flex text-small fw-bolder">
-          <span class="me-auto">Communication</span>
-          <span>85%</span>
-        </div>
-        <div class="progress my-1">
-          <div class="progress-bar bg-primary" role="progressbar" data-aos="zoom-in-right" data-aos-delay="500" data-aos-anchor=".skills-section" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-      </div>
-
-      <!-- Skill 3: Collaboration & Teamwork -->
-      <div class="py-1" data-aos="fade-up" data-aos-delay="400">
-        <div class="d-flex text-small fw-bolder">
-          <span class="me-auto">Collaboration & Teamwork</span>
-          <span>80%</span>
-        </div>
-        <div class="progress my-1">
-          <div class="progress-bar bg-primary" role="progressbar" data-aos="zoom-in-right" data-aos-delay="600" data-aos-anchor=".skills-section" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-      </div>
-
-      <!-- Skill 4: Adaptability -->
-      <div class="py-1" data-aos="fade-up" data-aos-delay="500">
-        <div class="d-flex text-small fw-bolder">
-          <span class="me-auto">Adaptability</span>
-          <span>85%</span>
-        </div>
-        <div class="progress my-1">
-          <div class="progress-bar bg-primary" role="progressbar" data-aos="zoom-in-right" data-aos-delay="700" data-aos-anchor=".skills-section" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-      </div>
-
-      <!-- Skill 5: Time Management -->
-      <div class="py-1" data-aos="fade-up" data-aos-delay="600">
-        <div class="d-flex text-small fw-bolder">
-          <span class="me-auto">Time Management</span>
-          <span>80%</span>
-        </div>
-        <div class="progress my-1">
-          <div class="progress-bar bg-primary" role="progressbar" data-aos="zoom-in-right" data-aos-delay="800" data-aos-anchor=".skills-section" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-      </div>
-
-      <!-- Skill 6: Leadership -->
-      <div class="py-1" data-aos="fade-up" data-aos-delay="700">
-        <div class="d-flex text-small fw-bolder">
-          <span class="me-auto">Leadership</span>
-          <span>85%</span>
-        </div>
-        <div class="progress my-1">
-          <div class="progress-bar bg-primary" role="progressbar" data-aos="zoom-in-right" data-aos-delay="900" data-aos-anchor=".skills-section" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-      </div>
-
-      <!-- Skill 7: Critical Thinking -->
-      <div class="py-1" data-aos="fade-up" data-aos-delay="800">
-        <div class="d-flex text-small fw-bolder">
-          <span class="me-auto">Critical Thinking</span>
-          <span>90%</span>
-        </div>
-        <div class="progress my-1">
-          <div class="progress-bar bg-primary" role="progressbar" data-aos="zoom-in-right" data-aos-delay="1000" data-aos-anchor=".skills-section" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-      </div>
-
-      <!-- Skill 8: Attention to Detail -->
-      <div class="py-1" data-aos="fade-up" data-aos-delay="900">
-        <div class="d-flex text-small fw-bolder">
-          <span class="me-auto">Attention to Detail</span>
-          <span>95%</span>
-        </div>
-        <div class="progress my-1">
-          <div class="progress-bar bg-primary" role="progressbar" data-aos="zoom-in-right" data-aos-delay="1100" data-aos-anchor=".skills-section" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+ 
 
 <!-- AOS initialization script -->
 <script>
@@ -518,6 +1131,376 @@
 </script>
 
 
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Projects & Internships Flip Cards</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+    body {
+      background-color: #f8fafc;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .flip-section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .flip-section-subtitle {
+      max-width: 650px;
+      margin: 0 auto 2rem;
+      color: #6b7280;
+    }
+
+    .flip-card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .flip-card {
+      background: transparent;
+      perspective: 1000px;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 290px;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-face {
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      backface-visibility: hidden;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.06);
+      padding: 1.2rem 1.3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .flip-card-back {
+      transform: rotateY(180deg);
+      background: linear-gradient(145deg, #f9fafb, #fdf4ff);
+    }
+
+    .flip-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: #f3e8ff;
+      color: #6b21a8;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .flip-badge span.dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #a855f7;
+    }
+
+    .flip-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-top: 0.6rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .flip-subtitle {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-bottom: 0.5rem;
+    }
+
+    .flip-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.4rem;
+    }
+
+    .flip-tag {
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      color: #4b5563;
+    }
+
+    .flip-front-footer {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-top: 0.7rem;
+    }
+
+    .flip-back-heading {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .flip-back-text {
+      font-size: 0.8rem;
+      color: #4b5563;
+      margin-bottom: 0.4rem;
+    }
+
+    .flip-back-list {
+      padding-left: 1.1rem;
+      margin: 0;
+      font-size: 0.78rem;
+      color: #4b5563;
+    }
+
+    .flip-back-list li {
+      margin-bottom: 0.18rem;
+    }
+
+    .flip-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #a855f7;
+      text-decoration: none;
+      margin-top: 0.5rem;
+    }
+
+    .flip-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body class="bg-light">
+  <div class="section px-3 px-lg-4 pt-5" id="projects">
+    <div class="container-narrow">
+      <div class="text-center mb-4">
+        <h2  >Projects & Internships</h2>
+        <p class="flip-section-subtitle">
+          Hover over each card to flip it and see what I actually did – tools, responsibilities, and outcomes.
+        </p>
+      </div>
+
+      <div class="flip-card-grid">
+        <!-- Card 1: Java Backend Internship -->
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <!-- FRONT -->
+            <div class="flip-card-face flip-card-front">
+              <div>
+                <div class="flip-badge">
+                  <span class="dot"></span>
+                  Internship
+                </div>
+                <div class="flip-title">Java Backend Developer Intern</div>
+                <div class="flip-subtitle">Zaio Technologies · 2023–2024</div>
+
+                <div class="flip-tags">
+                  <span class="flip-tag">Java</span>
+                  <span class="flip-tag">Spring Boot</span>
+                  <span class="flip-tag">REST APIs</span>
+                  <span class="flip-tag">SQL</span>
+                </div>
+              </div>
+              <div class="flip-front-footer">
+                Hover to see the backend tasks I handled and the impact I made.
+              </div>
+            </div>
+
+            <!-- BACK -->
+            <div class="flip-card-face flip-card-back">
+              <div>
+                <div class="flip-back-heading">What I worked on</div>
+                <p class="flip-back-text">
+                  I contributed to backend features for training and internal projects, focusing on clean,
+                  testable code.
+                </p>
+                <ul class="flip-back-list">
+                  <li>Implemented and debugged REST API endpoints in Spring Boot.</li>
+                  <li>Wrote SQL queries to fetch, filter and update data.</li>
+                  <li>Worked with mentors on code reviews and best practices.</li>
+                </ul>
+              </div>
+              <a href="#" class="flip-link" target="_blank">
+
+               
+ <a href="dc/REFERRAL LETTER.pdf" class="flip-link" target="_blank">
+                Referral letter →
+
+              </a>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: 3rd Year Project -->
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <!-- FRONT -->
+            <div class="flip-card-face flip-card-front">
+              <div>
+                <div class="flip-badge">
+                  <span class="dot"></span>
+                  Final Year Project
+                </div>
+                <div class="flip-title">Clinic Management Web App</div>
+                <div class="flip-subtitle">Nelson Mandela University · 2023</div>
+
+                <div class="flip-tags">
+                  <span class="flip-tag">HTML/CSS</span>
+                  <span class="flip-tag">Bootstrap</span>
+                  <span class="flip-tag">JavaScript</span>
+                  <span class="flip-tag">MySQL</span>
+                </div>
+              </div>
+              <div class="flip-front-footer">
+                Hover to see how I structured the app and used the tech stack.
+              </div>
+            </div>
+
+            <!-- BACK -->
+            <div class="flip-card-face flip-card-back">
+              <div>
+                <div class="flip-back-heading">What I built</div>
+                <p class="flip-back-text">
+                  A role-based web application for clinic appointments and patient management using the MVC
+                  pattern.
+                </p>
+                <ul class="flip-back-list">
+                  <li>Designed the database schema in MySQL and implemented CRUD operations.</li>
+                  <li>Built responsive UI with Bootstrap and custom CSS.</li>
+                  <li>Used JavaScript to handle validation and improve user interactions.</li>
+                </ul>
+              </div>
+               
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Hackathon -->
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <!-- FRONT -->
+            <div class="flip-card-face flip-card-front">
+              <div>
+                <div class="flip-badge">
+                  <span class="dot"></span>
+                  Hackathon
+                </div>
+                <div class="flip-title">4IR AquaTech Challenge</div>
+                <div class="flip-subtitle">Water · Energy · Food Sustainability</div>
+
+                <div class="flip-tags">
+                  <span class="flip-tag">Prototyping</span>
+                  <span class="flip-tag">Teamwork</span>
+                  <span class="flip-tag">Problem-Solving</span>
+                </div>
+              </div>
+              <div class="flip-front-footer">
+                Hover to see the solution we worked on and my role in the team.
+              </div>
+            </div>
+
+            <!-- BACK -->
+            <div class="flip-card-face flip-card-back">
+              <div>
+                <div class="flip-back-heading">My contribution</div>
+                <p class="flip-back-text">
+                  Worked with a small team to design a tech-driven solution to improve resource management.
+                </p>
+                <ul class="flip-back-list">
+                  <li>Helped define the problem statement and user requirements.</li>
+                  <li>Prototyped interface ideas and data flows for the solution.</li>
+                  <li>Pitched the concept to judges with a clear, structured presentation.</li>
+                </ul>
+              </div>
+              <a href="https://wefnexus.org/event/welcome-to-aquatech-hackathon-2021/" class="flip-link" target="_blank">
+                View hackathon summary →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4: IT Software & Networks Intern – K and K Media -->
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <!-- FRONT -->
+            <div class="flip-card-face flip-card-front">
+              <div>
+                <div class="flip-badge">
+                  <span class="dot"></span>
+                  Internship
+                </div>
+                <div class="flip-title">IT Software &amp; Networks Intern</div>
+                <div class="flip-subtitle">K and K Media · 2025–2026</div>
+
+                <div class="flip-tags">
+                  <span class="flip-tag">IT Support</span>
+                  <span class="flip-tag">Networking</span>
+                  <span class="flip-tag">Server Security</span>
+                  <span class="flip-tag">Hardware &amp; Software</span>
+                </div>
+              </div>
+              <div class="flip-front-footer">
+                Hover to see how I supported users, systems and networks in a real office environment.
+              </div>
+            </div>
+
+            <!-- BACK -->
+            <div class="flip-card-face flip-card-back">
+              <div>
+                <div class="flip-back-heading">What I did</div>
+                <p class="flip-back-text">
+                  I helped keep day-to-day IT operations running smoothly at Constantia Square Office Park in Midrand.
+                </p>
+                <ul class="flip-back-list">
+                  <li>Improved operational efficiency through practical technology solutions.</li>
+                  <li>Provided IT support (helpdesk &amp; basic server security monitoring).</li>
+                  <li>Performed software updates and routine hardware maintenance.</li>
+                  <li>Supported and maintained data communication networks.</li>
+                </ul>
+                <p class="flip-back-text mb-0">
+                  <strong>Key skills:</strong> IT Support, Troubleshooting, Server Security, Hardware/Software Maintenance, Networking.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div> <!-- /.flip-card-grid -->
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
 
 
 
@@ -594,96 +1577,7 @@
   }
 </style>
 
-<div class="section px-3 px-lg-4 pt-5" id="experience">
-  <div class="container-narrow">
-    <div class="text-center mb-5">
-      <h2 class="marker marker-center">Ventures</h2>
-    </div>
-
-    <!-- Bootstrap Carousel -->
-    <div id="venturesCarousel" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-
-        <!-- Java Backend Developer -->
-        <div class="carousel-item active">
-          <div class="card p-3">
-            <div class="card-header">
-              <h3 class="h5 mb-1">Java Backend Developer</h3>
-              <div class="text-muted">Zaio Technologies (2023-2024)</div>
-            </div>
-            <div class="card-body">
-              <img src="dc/Screenshot 2025-02-08 140647.png" alt="Backend Development"/>
-              <p>
-                As a Java Backend Developer intern, I worked with Spring Boot and SQL to develop efficient server-side applications. 
-                <span class="short-text">I optimized database queries...</span>
-                <span class="full-text">My responsibilities included optimizing database queries, implementing RESTful APIs, and debugging application performance issues.</span>
-                <span class="read-more" onclick="toggleText(this)">Read More</span>
-              </p>
-            </div>
-            <button class="view-btn" onclick="window.open('dc/REFERRAL LETTER.pdf', '_blank')">View</button>
-          </div>
-        </div>
-
-        <!-- 3rd Year Project -->
-        <div class="carousel-item">
-          <div class="card p-3">
-            <div class="card-header">
-              <h3 class="h5 mb-1">3rd Year Project</h3>
-              <div class="text-muted">Nelson Mandela University (2023)</div>
-            </div>
-            <div class="card-body">
-              <img src="images/images.png" alt="App Development"/>
-              <p>
-                For my 3rd-year final project, I developed a dynamic web application that utilized HTML, CSS, Bootstrap, JavaScript, and MySQL. The project was structured using the MVC (Model-View-Controller) architectural pattern, which helped organize the application efficiently and maintain a clear separation of concerns between the frontend and backend.
-        
-                <span class="short-text">The goal of the project was to create a responsive, user-friendly web application that followed modern design practices. I focused on making the user interface intuitive and optimized for various devices, ensuring a seamless experience for users. On the backend, I used MySQL to manage data storage, enabling efficient handling of user interactions and data processing....</span>
-                <span class="full-text" style="display:none;">This project allowed me to integrate both frontend and backend technologies to build a fully functional web application, showcasing my ability to create scalable, responsive, and well-structured web solutions. </span>
-                <span class="read-more" onclick="toggleText(this)">Read More</span>
-              </p>
-            </div>
-          </div>
-        </div>
-        <!-- Hackathon: 4IR AquaTech -->
-        <div class="carousel-item">
-          <div class="card p-3">
-            <div class="card-header">
-              <h3 class="h5 mb-1">4IR AquaTech Hackathon</h3>
-              <div class="text-muted">(2021)</div>
-            </div>
-            <div class="card-body">
-              <img src="How-do-hackathons-work.png" alt="Hackathon"/>
-              <p>
-                Focused on solving real-world challenges in Water, Energy, and Food sustainability using ICT solutions.    
-                <span class="short-text"> Collaborated with...</span>
-                <span class="full-text">a team to develop an innovative technology-driven approach to address critical resource management issues.</span>
-                <span class="read-more" onclick="toggleText(this)">Read More</span>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Hackathon: ICT Challenge -->
-        <div class="carousel-item">
-          <div class="card p-3">
-            <div class="card-header">
-              <h3 class="h5 mb-1">East London IDZ</h3>
-              <div class="text-muted">ICT Hackathon Challenge (2020-2021)</div>
-            </div>
-            <div class="card-body">
-              <img src="istockphoto-1189767041-612x612.jpg" alt="ICT Challenge"/>
-              <p>
-                Designed and implemented ICT solutions for economic and skills development. Worked in a team to create a functional prototype that aimed to enhance digital transformation and employment opportunities through technology.
-
-
-                <span class="short-text">These ...</span>
-                <span class="full-text">hackathons strengthened my problem-solving, teamwork, and rapid prototyping skills, reinforcing my ability to develop innovative tech solutions under time constraints.</span>
-                <span class="read-more" onclick="toggleText(this)">Read More</span>
-              </p>
-            </div>
-          </div>
-        </div>
-
-      </div>
+ 
 
       <!-- Carousel Controls -->
       <button class="carousel-control-prev" type="button" data-bs-target="#venturesCarousel" data-bs-slide="prev">
@@ -770,27 +1664,35 @@
       </div>
 
       <div class="col-md-6" data-aos="fade-left" data-aos-delay="300">
-        <div class="mt-3 px-1">
-          <div class="h5">Contact Me</div>
-          <p>Available for Hire | CV Available Upon Request</p>
-        </div>
-        <div class="mt-3 px-1">
-          <div class="row"> 
-            <div class="col-sm-2">
-              <div class="pb-1">Email:</div>
-            </div>
-            <div class="col-sm-10">
-              <div class="pb-1 fw-bolder">carvenmaceke9@gmail.com</div>
-            </div>
-            <div class="col-sm-2">
-              <div class="pb-1">Phone:</div>
-            </div>
-            <div class="col-sm-10">
-              <div class="pb-1 fw-bolder">+2760-795-0837</div>
-            </div>
-          </div>
-        </div>
+  <div class="mt-3 px-1">
+    <div class="h5">Contact Me</div>
+    <p>
+      Available for Hire.  
+      If you have any ideas on how I can improve my website —  
+      whether it's design, usability, features, or content —  
+      please don’t hesitate to reach out. Your feedback helps me grow.
+    </p>
+  </div>
+
+  <div class="mt-3 px-1">
+    <div class="row"> 
+      <div class="col-sm-2">
+        <div class="pb-1">Email:</div>
       </div>
+      <div class="col-sm-10">
+        <div class="pb-1 fw-bolder">carvenmaceke9@gmail.com</div>
+      </div>
+
+      <div class="col-sm-2">
+        <div class="pb-1">Phone:</div>
+      </div>
+      <div class="col-sm-10">
+        <div class="pb-1 fw-bolder">+2760-795-0837</div>
+      </div>
+    </div>
+  </div>
+</div>
+
     </div>
   </div>
 </div>
@@ -817,7 +1719,25 @@
   </div>
 </footer>
 
-</footer></div>
+ 
+<footer class="pt-4 pb-4 text-center bg-light">
+  <div class="container">
+    <div class="my-3">
+       
+      <div class="social-nav">
+        <nav role="navigation">
+          <ul class="nav justify-content-center">
+             
+            <li class="nav-item"><a class="nav-link" href="https://www.linkedin.com/in/carven-maceke-a29985235" title="LinkedIn"><i class="fab fa-linkedin"></i><span class="menu-title sr-only">LinkedIn</span></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="text-small text-secondary">
+      <div class="mb-1">&copy; version 2.0 2025.</div>
+      <div></div>
+    </div>
+  </div>/footer></div>
     </div>
     <div id="scrolltop"><a class="btn btn-secondary" href="#top"><span class="icon"><i class="fas fa-angle-up fa-x"></i></span></a></div>
     <script src="./scripts/imagesloaded.pkgd.min.js?ver=1.2.0"></script>
