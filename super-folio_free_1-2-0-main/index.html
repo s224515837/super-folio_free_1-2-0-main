@@ -28,168 +28,6 @@
   </head>
   <body id="top">
 
-<!-- ======================== PUZZLE INTRO (BLUR + STYLE D + NO LOCALSTORAGE) ======================== -->
-
-<style>
-  #pzl-wrapper {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100vh;
-
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-
-    background: rgba(255, 255, 255, 0.3);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    z-index: 999999;
-  }
-
-  #pzl-board {
-    width: 360px;
-    height: 360px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
-    padding: 12px;
-    background: rgba(255,255,255,0.9);
-    border-radius: 10px;
-    backdrop-filter: blur(3px);
-  }
-
-  .pzl-title {
-    margin-bottom: 20px;
-    font-weight: bold;
-    color: #111;
-    font-size: 24px;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
-  }
-
-  .pzl-piece {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 12px;
-    border: 3px solid #ccc;
-    background: white;
-    box-shadow: 0px 8px 15px rgba(0,0,0,0.25);
-    cursor: grab;
-    transition: transform .3s ease, box-shadow .3s ease;
-  }
-
-  .pzl-piece:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 12px 20px rgba(0,0,0,0.35);
-  }
-
-  .pzl-hint {
-    margin-top: 15px;
-    color: #333;
-    font-size: 14px;
-  }
-
-  #pzl-wrapper.pzl-fade-out {
-    opacity: 0;
-    backdrop-filter: blur(0px);
-    -webkit-backdrop-filter: blur(0px);
-    transition: opacity 1s ease-out, backdrop-filter 1s ease-out;
-    pointer-events: none;
-  }
-/* Hide all left/right arrows on page */
-.carousel-control-prev,
-.carousel-control-next,
-.slick-prev,
-.slick-next {
-  display: none !important;
-}
-
-  
-</style>
-
-<div id="pzl-wrapper">
-  <h2 class="pzl-title">Solve the Puzzle to Enter</h2>
-
-  <div id="pzl-board">
-    <img draggable="true" class="pzl-piece" src="images/top_left.jpg"     data-correct="1">
-    <img draggable="true" class="pzl-piece" src="images/top_right.jpg"    data-correct="2">
-    <img draggable="true" class="pzl-piece" src="images/bottom_left.jpg"  data-correct="3">
-    <img draggable="true" class="pzl-piece" src="images/bottom_right.jpg" data-correct="4">
-  </div>
-
-  <p class="pzl-hint">Drag the pieces into the correct positions</p>
-</div>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-
-    const board = document.getElementById("pzl-board");
-
-    function shufflePieces() {
-        let tiles = Array.from(board.children);
-
-        for (let i = tiles.length - 1; i > 0; i--) {
-            let j = Math.floor(Math.random() * (i + 1));
-            board.appendChild(tiles[j]);
-            tiles.splice(j, 1);
-        }
-
-        Array.from(board.children).forEach(tile => {
-            let deg = Math.random() * 14 - 7;
-            tile.style.transform = "rotate(" + deg + "deg)";
-        });
-    }
-    shufflePieces();
-
-    let dragged = null;
-    const pieces = document.querySelectorAll(".pzl-piece");
-
-    pieces.forEach(piece => {
-
-        piece.addEventListener("dragstart", () => dragged = piece);
-        piece.addEventListener("dragover", e => e.preventDefault());
-
-        piece.addEventListener("drop", e => {
-            e.preventDefault();
-            if (dragged !== piece) {
-
-                let tempSrc = piece.src;
-                piece.src = dragged.src;
-                dragged.src = tempSrc;
-
-                let tempCorrect = piece.dataset.correct;
-                piece.dataset.correct = dragged.dataset.correct;
-                dragged.dataset.correct = tempCorrect;
-
-                checkPuzzle();
-            }
-        });
-    });
-
-    function checkPuzzle() {
-        const items = Array.from(board.children);
-        let solved = true;
-
-        items.forEach((img, index) => {
-            if (parseInt(img.dataset.correct) !== index + 1) solved = false;
-        });
-
-        if (solved) {
-
-            items.forEach(img => img.style.transform = "rotate(0deg)");
-
-            let wrap = document.getElementById("pzl-wrapper");
-            wrap.classList.add("pzl-fade-out");
-
-            setTimeout(() => wrap.style.display = "none", 1200);
-        }
-    }
-
-});
-</script>
-
-<!-- ======================== END PUZZLE INTRO SECTION ======================== -->
 
     
     <header class="bg-light" style="transition: background-color 0.3s;">
@@ -1944,6 +1782,491 @@ function sendWhatsApp(e) {
 <script src="./scripts/bootstrap.bundle.min.js?ver=1.2.0"></script>
 <script src="./scripts/aos.min.js?ver=1.2.0"></script>
 <script src="./scripts/main.js?ver=1.2.0"></script>
+
+
+<!-- ══════════════════════════════════════════════
+     SLOW — Carven's Portfolio Chatbot
+══════════════════════════════════════════════════ -->
+<style>
+  /* ── Chatbot bubble & panel ────────────────── */
+  #slow-bubble {
+    position: fixed;
+    bottom: 24px;
+    right: 80px;
+    z-index: 9000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+  }
+  #slow-bubble-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0F2B4A, #00A8B5);
+    border: none;
+    box-shadow: 0 6px 24px rgba(0,168,181,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+  #slow-bubble-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 28px rgba(0,168,181,0.6);
+  }
+  #slow-bubble-btn svg { width: 26px; height: 26px; }
+  #slow-pulse {
+    position: absolute;
+    top: -3px; right: -3px;
+    width: 14px; height: 14px;
+    background: #22c55e;
+    border-radius: 50%;
+    border: 2px solid white;
+    animation: slow-pulse-ring 1.8s infinite;
+  }
+  @keyframes slow-pulse-ring {
+    0%,100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.25); opacity: 0.7; }
+  }
+  #slow-label {
+    background: #0F2B4A;
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    white-space: nowrap;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.2);
+    letter-spacing: 0.03em;
+    animation: slow-label-pop 0.5s 1.5s both;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  @keyframes slow-label-pop {
+    from { opacity: 0; transform: translateX(10px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ── Chat panel ───────────────────────────── */
+  #slow-panel {
+    position: fixed;
+    bottom: 96px;
+    right: 24px;
+    width: 360px;
+    max-width: calc(100vw - 32px);
+    height: 520px;
+    max-height: calc(100vh - 110px);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 16px 56px rgba(15,43,74,0.28);
+    display: flex;
+    flex-direction: column;
+    z-index: 9001;
+    transform: scale(0.85) translateY(20px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1), opacity 0.22s ease;
+  }
+  #slow-panel.open {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    pointer-events: all;
+  }
+  /* Header */
+  #slow-header {
+    background: linear-gradient(135deg, #0F2B4A 0%, #1A4A6E 70%, #0F5F6E 100%);
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  #slow-avatar {
+    width: 40px; height: 40px;
+    background: rgba(0,168,181,0.25);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    border: 2px solid rgba(0,168,181,0.5);
+  }
+  #slow-header-info { flex: 1; }
+  #slow-header-name {
+    color: #fff;
+    font-weight: 800;
+    font-size: 0.95rem;
+    line-height: 1.2;
+    font-family: 'Nunito Sans', sans-serif;
+  }
+  #slow-header-status {
+    color: rgba(255,255,255,0.65);
+    font-size: 0.72rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  #slow-header-status::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: #22c55e;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  #slow-close {
+    background: rgba(255,255,255,0.12);
+    border: none;
+    color: #fff;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  #slow-close:hover { background: rgba(255,255,255,0.22); }
+
+  /* Messages */
+  #slow-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px 14px 6px;
+    background: #F7FAFE;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    scroll-behavior: smooth;
+  }
+  #slow-messages::-webkit-scrollbar { width: 4px; }
+  #slow-messages::-webkit-scrollbar-track { background: transparent; }
+  #slow-messages::-webkit-scrollbar-thumb { background: #DCE6F0; border-radius: 4px; }
+
+  .slow-msg {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+    animation: slow-msg-in 0.22s ease both;
+  }
+  @keyframes slow-msg-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .slow-msg.user { flex-direction: row-reverse; }
+  .slow-msg-icon {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: linear-gradient(135deg, #0F2B4A, #00A8B5);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; flex-shrink: 0; color: white;
+  }
+  .slow-bubble-text {
+    max-width: 82%;
+    padding: 9px 13px;
+    border-radius: 16px;
+    font-size: 0.85rem;
+    line-height: 1.55;
+    font-family: 'Nunito Sans', sans-serif;
+  }
+  .slow-msg.bot .slow-bubble-text {
+    background: #fff;
+    color: #1A2B3C;
+    border-bottom-left-radius: 4px;
+    border: 1px solid #DCE6F0;
+  }
+  .slow-msg.user .slow-bubble-text {
+    background: linear-gradient(135deg, #0F2B4A, #00838F);
+    color: #fff;
+    border-bottom-right-radius: 4px;
+  }
+  .slow-bubble-text a {
+    color: #00A8B5;
+    text-decoration: underline;
+  }
+  .slow-msg.user .slow-bubble-text a { color: #E0F7FA; }
+
+  /* Chips */
+  #slow-chips {
+    padding: 8px 14px 6px;
+    background: #F7FAFE;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    flex-shrink: 0;
+    border-top: 1px solid #DCE6F0;
+  }
+  .slow-chip {
+    background: #E0F7FA;
+    color: #007A85;
+    border: 1.5px solid rgba(0,168,181,0.3);
+    border-radius: 20px;
+    padding: 4px 11px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s;
+    font-family: 'Nunito Sans', sans-serif;
+  }
+  .slow-chip:hover {
+    background: #00A8B5;
+    color: white;
+    border-color: #00A8B5;
+  }
+
+  /* Input */
+  #slow-input-row {
+    display: flex;
+    gap: 8px;
+    padding: 10px 14px;
+    background: #fff;
+    border-top: 1px solid #DCE6F0;
+    flex-shrink: 0;
+  }
+  #slow-input {
+    flex: 1;
+    border: 1.5px solid #DCE6F0;
+    border-radius: 24px;
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    outline: none;
+    font-family: 'Nunito Sans', sans-serif;
+    color: #1A2B3C;
+    transition: border-color 0.2s;
+  }
+  #slow-input:focus { border-color: #00A8B5; }
+  #slow-send {
+    width: 38px; height: 38px;
+    background: linear-gradient(135deg, #0F2B4A, #00A8B5);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  #slow-send:hover {
+    transform: scale(1.08);
+    box-shadow: 0 4px 14px rgba(0,168,181,0.4);
+  }
+  #slow-send svg { width: 16px; height: 16px; }
+
+  /* Typing indicator */
+  .slow-typing-dots {
+    display: flex; gap: 4px; align-items: center; padding: 4px 2px;
+  }
+  .slow-typing-dots span {
+    width: 7px; height: 7px; background: #00A8B5;
+    border-radius: 50%;
+    animation: slow-dot 1.2s infinite;
+  }
+  .slow-typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .slow-typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes slow-dot {
+    0%,60%,100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-5px); opacity: 1; }
+  }
+</style>
+
+<!-- Bubble trigger -->
+<div id="slow-bubble">
+  <div id="slow-label">👋 Ask me anything</div>
+  <button id="slow-bubble-btn" aria-label="Open Slow chatbot">
+    <div id="slow-pulse"></div>
+    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+  </button>
+</div>
+
+<!-- Chat panel -->
+<div id="slow-panel" role="dialog" aria-label="Slow chatbot">
+  <div id="slow-header">
+    <div id="slow-avatar">🤖</div>
+    <div id="slow-header-info">
+      <div id="slow-header-name">Slow</div>
+      <div id="slow-header-status">Carven's portfolio assistant</div>
+    </div>
+    <button id="slow-close" aria-label="Close chatbot">✕</button>
+  </div>
+
+  <div id="slow-messages"></div>
+
+  <div id="slow-chips">
+    <button class="slow-chip" data-q="skills">💻 Skills</button>
+    <button class="slow-chip" data-q="experience">💼 Experience</button>
+    <button class="slow-chip" data-q="aws">☁️ AWS</button>
+    <button class="slow-chip" data-q="projects">🚀 Projects</button>
+    <button class="slow-chip" data-q="certifications">📜 Certs</button>
+    <button class="slow-chip" data-q="contact">📞 Contact</button>
+  </div>
+
+  <div id="slow-input-row">
+    <input id="slow-input" type="text" placeholder="Ask me about Carven..." maxlength="200" autocomplete="off"/>
+    <button id="slow-send" aria-label="Send">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="22" y1="2" x2="11" y2="13"/>
+        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+(function() {
+  // ── Knowledge base ───────────────────────────────────────────
+  const KB = {
+    greeting: "Hi! 👋 I'm <strong>Slow</strong>, Carven's portfolio assistant. I can tell you about his skills, experience, projects, certifications, and more. What would you like to know?",
+
+    summary: "Carven Maceke is an IT graduate with hands-on experience in <strong>software development, cloud computing, web development, and IT support</strong>. He works with Java, Spring Boot, SQL, WordPress, and AWS. He's focused on backend and full-stack development, with strong problem-solving skills and a drive for continuous learning. 🚀",
+
+    skills: "Here's what Carven brings to the table:<br><br>☕ <strong>Programming:</strong> Java, Spring Boot, C#, Python, JavaScript<br>🌐 <strong>Web:</strong> HTML, CSS, JavaScript, WordPress, PHP<br>🗄️ <strong>Databases:</strong> MySQL, SQL Server<br>☁️ <strong>Cloud:</strong> AWS (EC2, S3, IAM, VPC, CloudWatch), Linux<br>🛠️ <strong>Tools:</strong> Git/GitHub, Microsoft Excel, Word, PowerPoint<br>🖥️ <strong>IT Support:</strong> Networking, hardware/software troubleshooting",
+
+    experience: "Carven has 3 roles worth highlighting:<br><br>☁️ <strong>AWS re/Start Intern</strong> – Forge Academy × Nokia (2026–Present)<br>&nbsp;&nbsp;→ Cloud training, AWS services, Linux, cloud architecture<br><br>🖥️ <strong>IT &amp; Web Support Intern</strong> – K &amp; K Media (Sep 2025–Mar 2026)<br>&nbsp;&nbsp;→ WordPress, Excel data analysis, IT helpdesk, hardware support<br><br>☕ <strong>Junior Java Developer</strong> – ZAIO Institute (2023–2024)<br>&nbsp;&nbsp;→ Java, Spring Boot, REST APIs, SQL, debugging, documentation",
+
+    aws: "Carven is currently training in AWS Cloud at <strong>Forge Academy × Nokia</strong> (Clearwater Office Park, Roodepoort):<br><br>• AWS EC2, S3, IAM, VPC, CloudWatch<br>• Linux system administration<br>• Cloud architecture &amp; deployment<br>• Security and networking fundamentals<br>• Preparing for AWS certification ☁️",
+
+    java: "Carven has strong Java backend experience from his time at ZAIO:<br><br>• Built backend services using <strong>Java &amp; Spring Boot</strong><br>• Created REST APIs and database integrations<br>• Designed SQL queries for reporting<br>• Debugging, system testing, and documentation<br>• API Integration and environment configuration ☕",
+
+    web: "Carven's web development skills include:<br><br>• <strong>HTML, CSS, JavaScript</strong> – responsive, interactive UIs<br>• <strong>WordPress</strong> – CMS management, plugins, themes (K &amp; K Media)<br>• <strong>PHP</strong> – server-side scripting<br>• Responsive UI/UX design<br>• Deployment via Netlify 🌐",
+
+    projects: "Here are Carven's key projects:<br><br>🌐 <strong>Portfolio Website</strong><br>&nbsp;&nbsp;Built with HTML, CSS, JavaScript — deployed on Netlify<br>&nbsp;&nbsp;<a href='https://carven.netlify.app' target='_blank'>carven.netlify.app ↗</a><br><br>🏥 <strong>Healthcare System (NMU Final Year)</strong><br>&nbsp;&nbsp;MVC architecture, MySQL database, Git/GitHub collaboration<br>&nbsp;&nbsp;Full documentation and system presentations",
+
+    certifications: "📜 Carven's certifications:<br><br>• ☕ Java Certification – ZAIO Institute (Dec 2023)<br>• 🗄️ SQL Certification – ZAIO Institute (Dec 2023)<br>• 🔐 Cybersecurity for Everyone – University of Maryland (Feb 2024)<br>• 🌐 CCNAv7: Introduction to Networks – Cisco<br>• 🔒 Introduction to Cybersecurity – Cisco<br>• 🏅 Quality Work Experience – YES4Youth (Sep 2024)",
+
+    education: "🎓 <strong>National Diploma in Information Technology</strong> (Software Development)<br>Nelson Mandela University — NQF Level 6 — Completed 2024",
+
+    database: "Carven's database skills:<br><br>• <strong>MySQL</strong> – database design, CRUD, query optimisation<br>• <strong>SQL Server (SSMS)</strong> – querying, reporting<br>• Data cleaning and analysis with Excel<br>• Database integration in MVC applications<br>• ERD design and data modelling",
+
+    support: "Carven's IT Support skills include:<br><br>• Laptop troubleshooting &amp; repair<br>• Wi-Fi, printer &amp; email configuration<br>• IT helpdesk and user support<br>• Hardware/software maintenance<br>• Basic server security monitoring<br>• Network setup (CCNA certified)",
+
+    contact: "📞 Want to reach Carven?<br><br>• 📧 <a href='mailto:Carvenmaceke9@gmail.com'>Carvenmaceke9@gmail.com</a><br>• 📱 <a href='tel:+27607950837'>060 795 0837</a><br>• 🌐 <a href='https://carven.netlify.app' target='_blank'>carven.netlify.app</a><br>• 💼 <a href='https://www.linkedin.com/in/carven-maceke-a29985235' target='_blank'>LinkedIn Profile</a>",
+
+    portfolio: "Carven's portfolio is live at 🌐 <a href='https://carven.netlify.app' target='_blank'>carven.netlify.app</a> — it includes his projects, experience, skills, and certifications. You're on it right now! 😄",
+
+    fallback: "I can answer questions about Carven's <strong>skills, experience, projects, certifications, education, or contact details</strong>. Try asking something like:<br><br>• "What skills does he have?"<br>• "Tell me about his AWS experience"<br>• "What projects has he built?"<br>• "How do I contact him?""
+  };
+
+  // ── Intent detection ─────────────────────────────────────────
+  function detect(q) {
+    q = q.toLowerCase().trim();
+    if (/^(hi|hello|hey|howzit|sup|good|greet)/.test(q)) return "greeting";
+    if (/summary|who is|about carven|tell me about him|introduce/.test(q)) return "summary";
+    if (/aws|cloud|ec2|s3|iam|vpc|cloudwatch|forge|nokia/.test(q)) return "aws";
+    if (/java|spring boot|spring|backend|api|rest/.test(q)) return "java";
+    if (/wordp|wordpress|php|web dev|html|css|netlify|frontend/.test(q)) return "web";
+    if (/skill|know|can he|tech|language|stack|tools/.test(q)) return "skills";
+    if (/experi|work|intern|job|role|career|zaio|k.*k|media|solwazi/.test(q)) return "experience";
+    if (/project|built|portfolio|healthcare|clinic|university/.test(q)) return "projects";
+    if (/cert|certifi|cisco|ccna|coursera|maryland/.test(q)) return "certifications";
+    if (/educat|degree|diploma|university|study|qualif|nmu|mandela/.test(q)) return "education";
+    if (/database|sql|mysql|db|data|query/.test(q)) return "database";
+    if (/support|helpdesk|hardware|laptop|repair|network|trouble/.test(q)) return "support";
+    if (/contact|email|phone|reach|hire|available|linkedin/.test(q)) return "contact";
+    if (/portfolio|website|site|link|url/.test(q)) return "portfolio";
+    return "fallback";
+  }
+
+  // ── DOM ──────────────────────────────────────────────────────
+  const bubble    = document.getElementById("slow-bubble");
+  const bubbleBtn = document.getElementById("slow-bubble-btn");
+  const label     = document.getElementById("slow-label");
+  const panel     = document.getElementById("slow-panel");
+  const closeBtn  = document.getElementById("slow-close");
+  const messages  = document.getElementById("slow-messages");
+  const input     = document.getElementById("slow-input");
+  const sendBtn   = document.getElementById("slow-send");
+  const chips     = document.querySelectorAll(".slow-chip");
+  let isOpen = false;
+
+  function openChat() {
+    isOpen = true;
+    panel.classList.add("open");
+    label.style.display = "none";
+    input.focus();
+    if (messages.children.length === 0) {
+      setTimeout(() => addBotMsg(KB.greeting), 300);
+    }
+  }
+
+  function closeChat() {
+    isOpen = false;
+    panel.classList.remove("open");
+    setTimeout(() => { label.style.display = "flex"; }, 600);
+  }
+
+  bubbleBtn.addEventListener("click", () => isOpen ? closeChat() : openChat());
+  closeBtn.addEventListener("click", closeChat);
+
+  // chip quick-replies
+  chips.forEach(chip => {
+    chip.addEventListener("click", () => {
+      const q = chip.dataset.q;
+      addUserMsg(chip.textContent.replace(/^[^\s]+\s/, "").trim());
+      showTyping(() => addBotMsg(KB[q] || KB.fallback));
+    });
+  });
+
+  function addMsg(html, role) {
+    const row = document.createElement("div");
+    row.className = `slow-msg ${role}`;
+    const icon = document.createElement("div");
+    icon.className = "slow-msg-icon";
+    icon.textContent = role === "bot" ? "🤖" : "👤";
+    const bub = document.createElement("div");
+    bub.className = "slow-bubble-text";
+    bub.innerHTML = html;
+    row.appendChild(icon);
+    row.appendChild(bub);
+    messages.appendChild(row);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function addBotMsg(html) { addMsg(html, "bot"); }
+  function addUserMsg(text) { addMsg(text, "user"); }
+
+  function showTyping(cb) {
+    const row = document.createElement("div");
+    row.className = "slow-msg bot";
+    row.id = "slow-typing-row";
+    const icon = document.createElement("div");
+    icon.className = "slow-msg-icon";
+    icon.textContent = "🤖";
+    const bub = document.createElement("div");
+    bub.className = "slow-bubble-text";
+    bub.innerHTML = '<div class="slow-typing-dots"><span></span><span></span><span></span></div>';
+    row.appendChild(icon);
+    row.appendChild(bub);
+    messages.appendChild(row);
+    messages.scrollTop = messages.scrollHeight;
+    setTimeout(() => {
+      const t = document.getElementById("slow-typing-row");
+      if (t) t.remove();
+      cb();
+    }, 900 + Math.random() * 400);
+  }
+
+  function handleSend() {
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = "";
+    addUserMsg(text);
+    const intent = detect(text);
+    showTyping(() => addBotMsg(KB[intent]));
+    if (!isOpen) openChat();
+  }
+
+  sendBtn.addEventListener("click", handleSend);
+  input.addEventListener("keydown", e => { if (e.key === "Enter") handleSend(); });
+
+  // Hide label after 5s
+  setTimeout(() => {
+    if (!isOpen) label.style.opacity = "0";
+    setTimeout(() => { if (!isOpen) label.style.display = "none"; }, 600);
+  }, 5000);
+})();
+</script>
 
   </body>
 </html>
