@@ -106,59 +106,80 @@
   #typing-role { min-height:1.5em; display:inline-block; }
   </style>
   <script>
-  // Web Audio keyboard click synthesiser
-  let audioCtx = null;
-  function getCtx() {
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    return audioCtx;
+  // ── Keyboard synthesiser (fixed: resumes suspended AudioContext) ──
+  var _actx = null;
+  var _unlocked = false;
+
+  function unlockAudio() {
+    if (_unlocked) return;
+    try {
+      _actx = new (window.AudioContext || window.webkitAudioContext)();
+      var buf = _actx.createBuffer(1, 1, 22050);
+      var src = _actx.createBufferSource();
+      src.buffer = buf;
+      src.connect(_actx.destination);
+      src.start(0);
+      _actx.resume();
+      _unlocked = true;
+    } catch(e) {}
   }
+
   function playClick() {
     try {
-      const ctx = getCtx();
-      const len = Math.floor(ctx.sampleRate * 0.028);
-      const buf = ctx.createBuffer(1, len, ctx.sampleRate);
-      const data = buf.getChannelData(0);
-      for (let i = 0; i < len; i++) {
-        data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3.5);
+      if (!_actx || !_unlocked) return;
+      if (_actx.state === "suspended") { _actx.resume(); return; }
+      var len = Math.floor(_actx.sampleRate * 0.025);
+      var buf = _actx.createBuffer(1, len, _actx.sampleRate);
+      var data = buf.getChannelData(0);
+      for (var i = 0; i < len; i++) {
+        data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3);
       }
-      const src = ctx.createBufferSource();
-      const gain = ctx.createGain();
-      gain.gain.value = 0.22;
+      var src = _actx.createBufferSource();
+      var gain = _actx.createGain();
+      gain.gain.value = 0.30;
       src.buffer = buf;
       src.connect(gain);
-      gain.connect(ctx.destination);
+      gain.connect(_actx.destination);
       src.start();
     } catch(e) {}
   }
-  function typeText(el, text, baseDelay, onDone) {
-    let i = 0;
+
+  function typeText(el, text, delay, onDone) {
+    var i = 0;
     function step() {
       if (i < text.length) {
         el.textContent += text[i];
         playClick();
         i++;
-        setTimeout(step, baseDelay + Math.random() * 45 - 10);
+        setTimeout(step, delay + Math.random() * 40 - 8);
       } else if (onDone) {
-        setTimeout(onDone, 350);
+        setTimeout(onDone, 380);
       }
     }
     step();
   }
-  document.addEventListener("DOMContentLoaded", () => {
-    const nameEl = document.getElementById("typing-name");
-    const roleEl = document.getElementById("typing-role");
-    // Unlock AudioContext on first interaction (mobile)
-    document.body.addEventListener("click", getCtx, { once: true });
-    setTimeout(() => {
-      typeText(nameEl, "I’m Carven Maceke", 85, () => {
+
+  // Unlock audio on FIRST interaction so sounds work
+  ["click","touchstart","keydown","scroll","mousemove"].forEach(function(ev) {
+    document.addEventListener(ev, unlockAudio, { once: true, passive: true });
+  });
+
+  document.addEventListener("DOMContentLoaded", function() {
+    var nameEl = document.getElementById("typing-name");
+    var roleEl = document.getElementById("typing-role");
+
+    // Try to unlock early (works in some browsers without gesture)
+    setTimeout(unlockAudio, 100);
+
+    setTimeout(function() {
+      typeText(nameEl, "I’m Carven Maceke", 90, function() {
         if (roleEl) {
           roleEl.style.opacity = "1";
-          typeText(roleEl, "A Software Developer.", 72, null);
+          typeText(roleEl, "A Software Developer.", 78, null);
         }
       });
-    }, 700);
+    }, 900);
   });
-  </script>
   </script>
   
   <div class="wave-bg"></div>
@@ -684,8 +705,6 @@ I’m passionate about creating meaningful digital experiences and developing my
       }
     }
   </style>
-</head>
-<body>
   <section class="skills-shell" id="services">
     <header class="skills-header">
       <div class="skills-heading-block">
@@ -1017,8 +1036,6 @@ I’m passionate about creating meaningful digital experiences and developing my
     setActiveTab("web");
     renderSkills("web");
   </script>
-</body>
-</html>
 
 
 
@@ -1226,8 +1243,6 @@ I’m passionate about creating meaningful digital experiences and developing my
       text-decoration: underline;
     }
   </style>
-</head>
-<body class="bg-light">
   <div class="section px-3 px-lg-4 pt-5" id="skills">
     <div class="container-narrow">
       <div class="text-center mb-4">
@@ -1469,8 +1484,6 @@ I’m passionate about creating meaningful digital experiences and developing my
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
 
 
 
