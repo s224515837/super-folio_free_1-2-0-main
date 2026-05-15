@@ -240,7 +240,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="mt-5">
             <p class="lead text-uppercase mb-1" data-aos="fade-up" data-aos-delay="100">Hello!</p>
             <h1 class="intro-title marker" id="typing-name" data-aos="fade-left" data-aos-delay="200"></h1>
-            <p class="lead fw-normal mt-3" data-aos="fade-up" data-aos-delay="300">I’m a Software Developer.</p>
+            <p class="lead fw-normal mt-2" data-aos="fade-up" data-aos-delay="300"><span id="typing-role" style="opacity:0;transition:opacity 0.4s;"></span></p>
             <div class="social-nav" data-aos="fade-up" data-aos-delay="500">
               <nav role="navigation">
                 <ul class="nav justify-content-left">
@@ -262,28 +262,65 @@ document.addEventListener("DOMContentLoaded", () => {
   </div>
    
   
+  <style>
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+  #typing-name::after { content:"|"; color:var(--teal,#00A8B5); font-weight:300; animation:blink 0.85s step-start infinite; margin-left:2px; }
+  #typing-role { min-height:1.5em; display:inline-block; }
+  </style>
   <script>
-    const nameElement = document.getElementById("typing-name");
-    const nameText = "I’m Carven Maceke";
-    const typeSound = document.getElementById("type-sound");
-    let index = 0;
-  
-    function typeEffect() {
-      if (index < nameText.length) {
-        nameElement.innerHTML += `<span style='opacity:0;'>${nameText.charAt(index)}</span>`;
-        setTimeout(() => {
-          nameElement.lastChild.style.opacity = 1;
-          typeSound.currentTime = 0;
-          typeSound.play();
-        }, 50);
-        index++;
-        setTimeout(typeEffect, 100);
+  // Web Audio keyboard click synthesiser
+  let audioCtx = null;
+  function getCtx() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    return audioCtx;
+  }
+  function playClick() {
+    try {
+      const ctx = getCtx();
+      const len = Math.floor(ctx.sampleRate * 0.028);
+      const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+      const data = buf.getChannelData(0);
+      for (let i = 0; i < len; i++) {
+        data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3.5);
+      }
+      const src = ctx.createBufferSource();
+      const gain = ctx.createGain();
+      gain.gain.value = 0.22;
+      src.buffer = buf;
+      src.connect(gain);
+      gain.connect(ctx.destination);
+      src.start();
+    } catch(e) {}
+  }
+  function typeText(el, text, baseDelay, onDone) {
+    let i = 0;
+    function step() {
+      if (i < text.length) {
+        el.textContent += text[i];
+        playClick();
+        i++;
+        setTimeout(step, baseDelay + Math.random() * 45 - 10);
+      } else if (onDone) {
+        setTimeout(onDone, 350);
       }
     }
-  
-    document.addEventListener("DOMContentLoaded", () => {
-      setTimeout(typeEffect, 500);
-    });
+    step();
+  }
+  document.addEventListener("DOMContentLoaded", () => {
+    const nameEl = document.getElementById("typing-name");
+    const roleEl = document.getElementById("typing-role");
+    // Unlock AudioContext on first interaction (mobile)
+    document.body.addEventListener("click", getCtx, { once: true });
+    setTimeout(() => {
+      typeText(nameEl, "I’m Carven Maceke", 85, () => {
+        if (roleEl) {
+          roleEl.style.opacity = "1";
+          typeText(roleEl, "A Software Developer.", 72, null);
+        }
+      });
+    }, 700);
+  });
+  </script>
   </script>
   
   <div class="wave-bg"></div>
@@ -293,7 +330,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="row">
       <div class="col-md-6" data-aos="fade-right" data-aos-delay="200">
         <h2 class="h4 my-2">About Me</h2>
-        <p data-aos="fade-up" data-aos-delay="300">I’m an IT graduate with experience in software development and enterprise technology environments. My background includes working on backend systems, supporting technical teams, and contributing to projects that improve how people interact with technology. 
+        <p data-aos="fade-up" data-aos-delay="300">I’m an IT graduate and aspiring cloud & software developer, currently completing an AWS re/Start internship at Forge Academy × Nokia in Roodepoort. My background spans Java/Spring Boot backend development, WordPress web support, data analysis with Excel, and hands-on IT support — and I’m passionate about building practical, scalable solutions that make a real impact. 
           
           I enjoy building practical solutions, learning continuously, and working in spaces where collaboration and growth are encouraged.
 
@@ -302,6 +339,12 @@ I’m passionate about creating meaningful digital experiences and developing my
         <p data-aos="fade-up" data-aos-delay="400">Passionate about problem-solving and innovation, I enjoy contributing to projects that make a real impact. Let’s connect and explore how we can create solutions together! 🚀</p>
         
         <div class="row mt-3">
+          <div class="col-sm-2" data-aos="fade-up" data-aos-delay="500">
+            <div class="pb-1">Degree:</div>
+          </div>
+          <div class="col-sm-10" data-aos="fade-up" data-aos-delay="600">
+            <div class="pb-1 fw-bolder">National Diploma in IT (Software Dev) – NMU, 2024</div>
+          </div>
           <div class="col-sm-2" data-aos="fade-up" data-aos-delay="500">
             <div class="pb-1">Age:</div>
           </div>
@@ -318,7 +361,7 @@ I’m passionate about creating meaningful digital experiences and developing my
             <div class="pb-1">Phone:</div>
           </div>
           <div class="col-sm-10" data-aos="fade-up" data-aos-delay="1000">
-            <div class="pb-1 fw-bolder">+277607950837</div>
+            <div class="pb-1 fw-bolder">+27 60 795 0837</div>
           </div>
           <div class="col-sm-2" data-aos="fade-up" data-aos-delay="1100">
             <div class="pb-1">Location:</div>
@@ -897,6 +940,22 @@ I’m passionate about creating meaningful digital experiences and developing my
           key: "Client-side logic & interactivity",
           tools: "JavaScript fundamentals, DOM handling",
           project: "Validation and interactivity in web-based university projects (forms, dynamic UI updates)."
+        },
+        {
+          name: "WordPress",
+          level: 78,
+          years: "1+ year – K & K Media internship",
+          key: "CMS management & web content updates",
+          tools: "WordPress CMS, plugin & theme customisation, content management",
+          project: "Updated and maintained a live WordPress website for K & K Media / Solwazi Institute, including content updates, plugin management, and basic theme adjustments."
+        },
+        {
+          name: "PHP",
+          level: 65,
+          years: "Academic + WordPress context",
+          key: "Server-side scripting",
+          tools: "PHP basics, WordPress template files",
+          project: "Used PHP alongside WordPress and in academic web development modules."
         }
       ],
       backend: [
@@ -965,6 +1024,14 @@ I’m passionate about creating meaningful digital experiences and developing my
           key: "Foundational networking principles",
           tools: "CCNAv7 basics, routing concepts, IP addressing",
           project: "Network configuration labs and scenarios completed during Cisco training."
+        },
+        {
+          name: "AWS Cloud",
+          level: 72,
+          years: "Current – Forge Academy x Nokia (2026)",
+          key: "Cloud infrastructure & services",
+          tools: "AWS EC2, S3, IAM, VPC, CloudWatch, Linux, cloud architecture",
+          project: "Currently completing AWS re/Start training at Forge Academy x Nokia — building cloud solutions, working with core AWS services, and preparing for AWS certification."
         }
       ],
       tools: [
@@ -983,6 +1050,14 @@ I’m passionate about creating meaningful digital experiences and developing my
           key: "Database creation & manipulation",
           tools: "MySQL, phpMyAdmin or CLI, schema creation",
           project: "Creating and maintaining MySQL databases for web applications and prototypes."
+        },
+        {
+          name: "Microsoft Excel",
+          level: 88,
+          years: "1+ year – K & K Media data work",
+          key: "Data analysis, cleaning & reporting",
+          tools: "Excel pivot tables, formulas, data cleaning, report generation",
+          project: "Processed and structured large application datasets at K & K Media, improving data accuracy and accessibility for internal reporting."
         },
         {
           name: "Microsoft Office",
@@ -1325,6 +1400,47 @@ I’m passionate about creating meaningful digital experiences and developing my
       </div>
 
       <div class="flip-card-grid">
+        <!-- Card 0: Forge Academy x Nokia – CURRENT ROLE -->
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <!-- FRONT -->
+            <div class="flip-card-face flip-card-front" style="border-top: 3px solid #00A8B5;">
+              <div>
+                <div class="flip-badge" style="background:#e0f7fa;color:#007A85;">
+                  <span class="dot" style="background:#00A8B5;"></span>
+                  Current Role
+                </div>
+                <div class="flip-title">AWS re/Start Intern</div>
+                <div class="flip-subtitle">Forge Academy x Nokia · Mar 2026 – Present</div>
+                <div class="flip-tags">
+                  <span class="flip-tag">AWS</span>
+                  <span class="flip-tag">Cloud Computing</span>
+                  <span class="flip-tag">Linux</span>
+                  <span class="flip-tag">Networking</span>
+                </div>
+              </div>
+              <div class="flip-front-footer">
+                Hover to see what I'm learning and building in the cloud.
+              </div>
+            </div>
+            <!-- BACK -->
+            <div class="flip-card-face flip-card-back">
+              <div>
+                <div class="flip-back-heading">What I'm doing</div>
+                <p class="flip-back-text">
+                  Completing cloud computing training at Clearwater Office Park, Roodepoort, aligned with AWS certification pathways.
+                </p>
+                <ul class="flip-back-list">
+                  <li>Training on AWS services: EC2, S3, IAM, VPC, and CloudWatch.</li>
+                  <li>Preparing for AWS certification with focus on cloud architecture, security, and deployment.</li>
+                  <li>Gaining practical experience through real-world cloud labs and scenarios.</li>
+                  <li>Applying Linux and networking fundamentals in cloud environments.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Card 1: Java Backend Internship -->
         <div class="flip-card">
           <div class="flip-card-inner">
@@ -1359,9 +1475,10 @@ I’m passionate about creating meaningful digital experiences and developing my
                   testable code.
                 </p>
                 <ul class="flip-back-list">
-                  <li>Implemented and debugged REST API endpoints in Spring Boot.</li>
-                  <li>Wrote SQL queries to fetch, filter and update data.</li>
-                  <li>Worked with mentors on code reviews and best practices.</li>
+                  <li>Developed backend services and API integrations using Java and Spring Boot.</li>
+                  <li>Designed SQL queries for reporting and data analysis.</li>
+                  <li>Assisted with system testing, deployments, and environment configuration.</li>
+                  <li>Created technical documentation for features and system support processes.</li>
                 </ul>
               </div>
               <a href="#" class="flip-link" target="_blank">
@@ -1474,14 +1591,14 @@ I’m passionate about creating meaningful digital experiences and developing my
                   <span class="dot"></span>
                   Internship
                 </div>
-                <div class="flip-title">IT Software &amp; Networks Intern</div>
-                <div class="flip-subtitle">K and K Media · 2025–2026</div>
+                <div class="flip-title">IT &amp; Web Support Intern</div>
+                <div class="flip-subtitle">K &amp; K Media / Solwazi · Sep 2025 – Mar 2026</div>
 
                 <div class="flip-tags">
+                  <span class="flip-tag">WordPress</span>
+                  <span class="flip-tag">Excel</span>
                   <span class="flip-tag">IT Support</span>
-                  <span class="flip-tag">Networking</span>
-                  <span class="flip-tag">Server Security</span>
-                  <span class="flip-tag">Hardware &amp; Software</span>
+                  <span class="flip-tag">Data Analysis</span>
                 </div>
               </div>
               <div class="flip-front-footer">
@@ -1494,17 +1611,15 @@ I’m passionate about creating meaningful digital experiences and developing my
               <div>
                 <div class="flip-back-heading">What I did</div>
                 <p class="flip-back-text">
-                  I helped keep day-to-day IT operations running smoothly at Constantia Square Office Park in Midrand.
+                  Supported IT operations and web/data tasks at Constantia Square Office Park, Midrand.
                 </p>
                 <ul class="flip-back-list">
-                  <li>Improved operational efficiency through practical technology solutions.</li>
-                  <li>Provided IT support (helpdesk &amp; basic server security monitoring).</li>
-                  <li>Performed software updates and routine hardware maintenance.</li>
-                  <li>Supported and maintained data communication networks.</li>
+                  <li>Analysed and cleaned application data using Microsoft Excel for internal reporting.</li>
+                  <li>Updated and maintained a WordPress-based website (content, plugins, themes).</li>
+                  <li>Repaired laptops and resolved hardware/software issues for staff.</li>
+                  <li>Configured email accounts, Wi-Fi connections, and printers.</li>
+                  <li>Supported daily admin tasks using Microsoft Word and Excel.</li>
                 </ul>
-                <p class="flip-back-text mb-0">
-                  <strong>Key skills:</strong> IT Support, Troubleshooting, Server Security, Hardware/Software Maintenance, Networking.
-                </p>
               </div>
             </div>
           </div>
