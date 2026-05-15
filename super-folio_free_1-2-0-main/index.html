@@ -195,7 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <header class="bg-light" style="transition: background-color 0.3s;">
       <nav class="navbar navbar-expand-lg navbar-light bg-light" id="header-nav" role="navigation">
         <div class="container">
-          <a class="link-dark navbar-brand site-title mb-0" href="#"></a>
+          <a class="navbar-brand site-title mb-0" href="#top">Carven <span class="accent">Maceke</span></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -216,12 +216,7 @@ document.addEventListener("DOMContentLoaded", () => {
     </header>
     
     <style>
-      header:hover {
-        background-color: #d8b3ff !important; /* Light purple color */
-      }
-      .nav-link:hover {
-        color: #a855f7 !important; /* Purple color on hover */
-      }
+      /* Theme colours handled by main.css */
 
       /* Hide all left/right arrows on page */
 .carousel-control-prev,
@@ -235,7 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="page-content">
       <div id="content">
 <header>
-  <div class="cover bg-light">
+  <div class="cover">
     <div class="container px-3">
       <div class="row">
         <div class="col-lg-6 p-2">
@@ -253,6 +248,7 @@ document.addEventListener("DOMContentLoaded", () => {
                   <li class="nav-item"><a class="nav-link" href="https://www.facebook.com/carven.axe.5" title="Facebook"><i class="fab fa-facebook"></i></a></li>
                   <li class="nav-item"><a class="nav-link" href="https://www.instagram.com/carven_sa15" title="Instagram"><i class="fab fa-instagram"></i></a></li>
                   <li class="nav-item"><a class="nav-link" href="https://www.linkedin.com/in/carven-maceke-a29985235" title="LinkedIn"><i class="fab fa-linkedin"></i></a></li>
+                  <li class="nav-item"><a class="nav-link" href="https://github.com/s224515837" title="GitHub" target="_blank" rel="noopener"><i class="fab fa-github"></i></a></li>
                 </ul>
               </nav>
             </div>
@@ -375,12 +371,12 @@ I’m passionate about creating meaningful digital experiences and developing my
       --bg: #f8fafc;
       --card: #ffffff;
       --card-soft: #f9fafb;
-      --accent: #a855f7; /* purple-ish like your nav hover */
+      --accent: #00A8B5; /* teal */
       --accent-soft: rgba(168, 85, 247, 0.12);
       --text-main: #111827;
       --text-muted: #6b7280;
       --bar-bg: #e5e7eb;
-      --bar-fill: linear-gradient(90deg, #6366f1, #a855f7);
+      --bar-fill: linear-gradient(90deg, #00838F, #00A8B5);
     }
 
     * {
@@ -756,7 +752,7 @@ I’m passionate about creating meaningful digital experiences and developing my
 
     .btn-primary {
       border-color: rgba(168, 85, 247, 0.9);
-      background: linear-gradient(90deg, #6366f1, #a855f7);
+      background: linear-gradient(90deg, #00838F, #00A8B5);
       color: #ffffff;
     }
 
@@ -1242,7 +1238,7 @@ I’m passionate about creating meaningful digital experiences and developing my
       width: 7px;
       height: 7px;
       border-radius: 999px;
-      background: #a855f7;
+      background: #00A8B5;
     }
 
     .flip-title {
@@ -1308,7 +1304,7 @@ I’m passionate about creating meaningful digital experiences and developing my
       gap: 6px;
       font-size: 0.78rem;
       font-weight: 600;
-      color: #a855f7;
+      color: #00A8B5;
       text-decoration: none;
       margin-top: 0.5rem;
     }
@@ -1640,7 +1636,7 @@ I’m passionate about creating meaningful digital experiences and developing my
 <div class="section px-3 px-lg-4 pt-5" id="certificate"></div>
 
 <div id="certificates" class="py-5" style="background: #f8f9fa;">
-  <h2 class="text-center mb-5" style="color: #4B0082;">My Certificates</h2>
+  <h2 class="text-center mb-5" style="color: var(--navy, #0F2B4A);">My Certificates</h2>
   <div class="container">
     <div class="row g-4">
 
@@ -1802,58 +1798,26 @@ function sendWhatsApp(e) {
 </script>
 
 
-<<footer class="pt-4 pb-4 text-center bg-light">
-  <div class="container">
-    <!-- Social Links -->
-    <div class="my-3">
-      <div class="social-nav">
-        <nav role="navigation">
-          <ul class="nav justify-content-center">
-            <li class="nav-item">
-              <a class="nav-link" href="https://twitter.com/MacekeCarven" title="Twitter" target="_blank">
-                <i class="fab fa-twitter"></i>
-                <span class="sr-only">Twitter</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://www.facebook.com/carven.axe.5" title="Facebook" target="_blank">
-                <i class="fab fa-facebook"></i>
-                <span class="sr-only">Facebook</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://www.instagram.com/carven_sa15" title="Instagram" target="_blank">
-                <i class="fab fa-instagram"></i>
-                <span class="sr-only">Instagram</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://www.linkedin.com/in/carven-maceke-a29985235" title="LinkedIn" target="_blank">
-                <i class="fab fa-linkedin"></i>
-                <span class="sr-only">LinkedIn</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+<footer>
+  <div class="container text-center">
+    <div class="h4 mb-1">Carven Maceke</div>
+    <p style="color:rgba(255,255,255,0.5);font-size:0.85rem;margin-bottom:1rem;">Software Developer · Java · Spring Boot · SQL</p>
+    <div class="social-nav">
+      <nav role="navigation">
+        <ul class="nav justify-content-center">
+          <li class="nav-item"><a class="nav-link" href="https://twitter.com/MacekeCarven" title="Twitter" target="_blank"><i class="fab fa-twitter"></i></a></li>
+          <li class="nav-item"><a class="nav-link" href="https://www.facebook.com/carven.axe.5" title="Facebook" target="_blank"><i class="fab fa-facebook"></i></a></li>
+          <li class="nav-item"><a class="nav-link" href="https://www.instagram.com/carven_sa15" title="Instagram" target="_blank"><i class="fab fa-instagram"></i></a></li>
+          <li class="nav-item"><a class="nav-link" href="https://www.linkedin.com/in/carven-maceke-a29985235" title="LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+          <li class="nav-item"><a class="nav-link" href="https://github.com/s224515837" title="GitHub" target="_blank"><i class="fab fa-github"></i></a></li>
+        </ul>
+      </nav>
     </div>
-
-    <!-- Contact Info -->
-    <div class="mb-2">
-      <p class="text-secondary mb-1">Email: <a href="mailto:carvenmaceke9@gmail.com">carvenmaceke9@gmail.com</a> | Phone: <a href="tel:+27607950837">060 795 0837</a></p>
-    </div>
-
-    <!-- Copyright -->
-    <div class="text-small text-secondary">
-      &copy; Carven Maceke 2025. Version 2.0
-    </div>
+    <hr class="footer-divider">
+    <div class="footer-copyright">&copy; 2025 Carven Maceke. All rights reserved.</div>
   </div>
-
-  <!-- Scroll to Top -->
-  <div id="scrolltop" class="mt-3">
-    <a class="btn btn-secondary" href="#top">
-      <span class="icon"><i class="fas fa-angle-up fa-x"></i></span>
-    </a>
+  <div id="scrolltop">
+    <a class="btn btn-secondary" href="#top"><i class="fas fa-angle-up"></i></a>
   </div>
 </footer>
 
