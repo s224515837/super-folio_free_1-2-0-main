@@ -106,79 +106,54 @@
   #typing-role { min-height:1.5em; display:inline-block; }
   </style>
   <script>
-  // ── Keyboard synthesiser (fixed: resumes suspended AudioContext) ──
-  var _actx = null;
-  var _unlocked = false;
-
-  function unlockAudio() {
-    if (_unlocked) return;
+  /* ── Keyboard click sound: new AudioContext per click (no gesture lock) ── */
+  function playKey() {
     try {
-      _actx = new (window.AudioContext || window.webkitAudioContext)();
-      var buf = _actx.createBuffer(1, 1, 22050);
-      var src = _actx.createBufferSource();
-      src.buffer = buf;
-      src.connect(_actx.destination);
-      src.start(0);
-      _actx.resume();
-      _unlocked = true;
-    } catch(e) {}
-  }
-
-  function playClick() {
-    try {
-      if (!_actx || !_unlocked) return;
-      if (_actx.state === "suspended") { _actx.resume(); return; }
-      var len = Math.floor(_actx.sampleRate * 0.025);
-      var buf = _actx.createBuffer(1, len, _actx.sampleRate);
-      var data = buf.getChannelData(0);
-      for (var i = 0; i < len; i++) {
-        data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3);
-      }
-      var src = _actx.createBufferSource();
-      var gain = _actx.createGain();
-      gain.gain.value = 0.30;
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      var ctx = new AC();
+      var rate = ctx.sampleRate;
+      var len  = Math.floor(rate * 0.022);
+      var buf  = ctx.createBuffer(1, len, rate);
+      var d    = buf.getChannelData(0);
+      for (var i = 0; i < len; i++) d[i] = (Math.random()*2-1) * Math.pow(1 - i/len, 2.8);
+      var src  = ctx.createBufferSource();
+      var gain = ctx.createGain();
+      gain.gain.value = 0.28;
       src.buffer = buf;
       src.connect(gain);
-      gain.connect(_actx.destination);
-      src.start();
+      gain.connect(ctx.destination);
+      src.start(0);
+      /* auto-close context after clip finishes */
+      src.onended = function(){ try{ ctx.close(); }catch(e){} };
     } catch(e) {}
   }
 
-  function typeText(el, text, delay, onDone) {
+  function typeWords(el, text, speed, done) {
     var i = 0;
-    function step() {
+    (function tick() {
       if (i < text.length) {
-        el.textContent += text[i];
-        playClick();
-        i++;
-        setTimeout(step, delay + Math.random() * 40 - 8);
-      } else if (onDone) {
-        setTimeout(onDone, 380);
+        el.textContent += text[i++];
+        playKey();
+        setTimeout(tick, speed + Math.random()*35 - 8);
+      } else if (done) {
+        setTimeout(done, 360);
       }
-    }
-    step();
+    })();
   }
 
-  // Unlock audio on FIRST interaction so sounds work
-  ["click","touchstart","keydown","scroll","mousemove"].forEach(function(ev) {
-    document.addEventListener(ev, unlockAudio, { once: true, passive: true });
-  });
-
-  document.addEventListener("DOMContentLoaded", function() {
-    var nameEl = document.getElementById("typing-name");
-    var roleEl = document.getElementById("typing-role");
-
-    // Try to unlock early (works in some browsers without gesture)
-    setTimeout(unlockAudio, 100);
-
+  document.addEventListener('DOMContentLoaded', function() {
+    var nameEl = document.getElementById('typing-name');
+    var roleEl = document.getElementById('typing-role');
+    if (!nameEl) return;
     setTimeout(function() {
-      typeText(nameEl, "I’m Carven Maceke", 90, function() {
+      typeWords(nameEl, '’m Carven Maceke', 88, function() {
         if (roleEl) {
-          roleEl.style.opacity = "1";
-          typeText(roleEl, "A Software Developer.", 78, null);
+          roleEl.style.opacity = '1';
+          typeWords(roleEl, 'A Software Developer.', 76, null);
         }
       });
-    }, 900);
+    }, 800);
   });
   </script>
   
@@ -1884,11 +1859,7 @@ function sendWhatsApp(e) {
     pointer-events: none;
     transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1), opacity 0.22s ease;
   }
-  #slow-panel.open {
-    transform: scale(1) translateY(0);
-    opacity: 1;
-    pointer-events: all;
-  }
+  /* open state handled via JS style.display */
   /* Header */
   #slow-header {
     background: linear-gradient(135deg, #0F2B4A 0%, #1A4A6E 70%, #0F5F6E 100%);
@@ -2127,159 +2098,142 @@ function sendWhatsApp(e) {
 </div>
 
 <script>
-(function() {
-  // ── Knowledge base ───────────────────────────────────────────
-  const KB = {
-    greeting: "Hi! 👋 I'm <strong>Slow</strong>, Carven's portfolio assistant. I can tell you about his skills, experience, projects, certifications, and more. What would you like to know?",
-
-    summary: "Carven Maceke is an IT graduate with hands-on experience in <strong>software development, cloud computing, web development, and IT support</strong>. He works with Java, Spring Boot, SQL, WordPress, and AWS. He's focused on backend and full-stack development, with strong problem-solving skills and a drive for continuous learning. 🚀",
-
-    skills: "Here's what Carven brings to the table:<br><br>☕ <strong>Programming:</strong> Java, Spring Boot, C#, Python, JavaScript<br>🌐 <strong>Web:</strong> HTML, CSS, JavaScript, WordPress, PHP<br>🗄️ <strong>Databases:</strong> MySQL, SQL Server<br>☁️ <strong>Cloud:</strong> AWS (EC2, S3, IAM, VPC, CloudWatch), Linux<br>🛠️ <strong>Tools:</strong> Git/GitHub, Microsoft Excel, Word, PowerPoint<br>🖥️ <strong>IT Support:</strong> Networking, hardware/software troubleshooting",
-
-    experience: "Carven has 3 roles worth highlighting:<br><br>☁️ <strong>AWS re/Start Intern</strong> – Forge Academy × Nokia (2026–Present)<br>&nbsp;&nbsp;→ Cloud training, AWS services, Linux, cloud architecture<br><br>🖥️ <strong>IT &amp; Web Support Intern</strong> – K &amp; K Media (Sep 2025–Mar 2026)<br>&nbsp;&nbsp;→ WordPress, Excel data analysis, IT helpdesk, hardware support<br><br>☕ <strong>Junior Java Developer</strong> – ZAIO Institute (2023–2024)<br>&nbsp;&nbsp;→ Java, Spring Boot, REST APIs, SQL, debugging, documentation",
-
-    aws: "Carven is currently training in AWS Cloud at <strong>Forge Academy × Nokia</strong> (Clearwater Office Park, Roodepoort):<br><br>• AWS EC2, S3, IAM, VPC, CloudWatch<br>• Linux system administration<br>• Cloud architecture &amp; deployment<br>• Security and networking fundamentals<br>• Preparing for AWS certification ☁️",
-
-    java: "Carven has strong Java backend experience from his time at ZAIO:<br><br>• Built backend services using <strong>Java &amp; Spring Boot</strong><br>• Created REST APIs and database integrations<br>• Designed SQL queries for reporting<br>• Debugging, system testing, and documentation<br>• API Integration and environment configuration ☕",
-
-    web: "Carven's web development skills include:<br><br>• <strong>HTML, CSS, JavaScript</strong> – responsive, interactive UIs<br>• <strong>WordPress</strong> – CMS management, plugins, themes (K &amp; K Media)<br>• <strong>PHP</strong> – server-side scripting<br>• Responsive UI/UX design<br>• Deployment via Netlify 🌐",
-
-    projects: "Here are Carven's key projects:<br><br>🌐 <strong>Portfolio Website</strong><br>&nbsp;&nbsp;Built with HTML, CSS, JavaScript — deployed on Netlify<br>&nbsp;&nbsp;<a href='https://carven.netlify.app' target='_blank'>carven.netlify.app ↗</a><br><br>🏥 <strong>Healthcare System (NMU Final Year)</strong><br>&nbsp;&nbsp;MVC architecture, MySQL database, Git/GitHub collaboration<br>&nbsp;&nbsp;Full documentation and system presentations",
-
-    certifications: "📜 Carven's certifications:<br><br>• ☕ Java Certification – ZAIO Institute (Dec 2023)<br>• 🗄️ SQL Certification – ZAIO Institute (Dec 2023)<br>• 🔐 Cybersecurity for Everyone – University of Maryland (Feb 2024)<br>• 🌐 CCNAv7: Introduction to Networks – Cisco<br>• 🔒 Introduction to Cybersecurity – Cisco<br>• 🏅 Quality Work Experience – YES4Youth (Sep 2024)",
-
-    education: "🎓 <strong>National Diploma in Information Technology</strong> (Software Development)<br>Nelson Mandela University — NQF Level 6 — Completed 2024",
-
-    database: "Carven's database skills:<br><br>• <strong>MySQL</strong> – database design, CRUD, query optimisation<br>• <strong>SQL Server (SSMS)</strong> – querying, reporting<br>• Data cleaning and analysis with Excel<br>• Database integration in MVC applications<br>• ERD design and data modelling",
-
-    support: "Carven's IT Support skills include:<br><br>• Laptop troubleshooting &amp; repair<br>• Wi-Fi, printer &amp; email configuration<br>• IT helpdesk and user support<br>• Hardware/software maintenance<br>• Basic server security monitoring<br>• Network setup (CCNA certified)",
-
-    contact: "📞 Want to reach Carven?<br><br>• 📧 <a href='mailto:Carvenmaceke9@gmail.com'>Carvenmaceke9@gmail.com</a><br>• 📱 <a href='tel:+27607950837'>060 795 0837</a><br>• 🌐 <a href='https://carven.netlify.app' target='_blank'>carven.netlify.app</a><br>• 💼 <a href='https://www.linkedin.com/in/carven-maceke-a29985235' target='_blank'>LinkedIn Profile</a>",
-
-    portfolio: "Carven's portfolio is live at 🌐 <a href='https://carven.netlify.app' target='_blank'>carven.netlify.app</a> — it includes his projects, experience, skills, and certifications. You're on it right now! 😄",
-
-    fallback: "I can answer questions about Carven's <strong>skills, experience, projects, certifications, education, or contact details</strong>. Try asking something like:<br><br>• "What skills does he have?"<br>• "Tell me about his AWS experience"<br>• "What projects has he built?"<br>• "How do I contact him?""
+<script>
+(function(){
+  var KB = {
+    greeting:       `Hi! I'm <strong>Slow</strong> 👋 — Carven's portfolio assistant. Ask me about his skills, experience, projects, certs or contact details!`,
+    summary:        `Carven Maceke is an IT graduate with hands-on experience in <strong>software development, cloud computing, web development and IT support</strong>. He works with Java, Spring Boot, SQL, WordPress and AWS. 🚀`,
+    skills:         `☕ <strong>Programming:</strong> Java, Spring Boot, C#, Python, JavaScript<br>🌐 <strong>Web:</strong> HTML, CSS, JavaScript, WordPress, PHP<br>🗄️ <strong>Databases:</strong> MySQL, SQL Server<br>☁️ <strong>Cloud:</strong> AWS (EC2, S3, IAM, VPC, CloudWatch)<br>🛠️ <strong>Tools:</strong> Git/GitHub, Microsoft Excel, Word<br>💻 <strong>IT Support:</strong> Networking, hardware/software troubleshooting`,
+    experience:     `☁️ <strong>AWS re/Start Intern</strong> — Forge Academy × Nokia (2026–Present)<br>→ Cloud training, AWS services, Linux, cloud architecture<br><br>🖥️ <strong>IT & Web Support Intern</strong> — K & K Media (Sep 2025–Mar 2026)<br>→ WordPress, Excel data analysis, IT helpdesk, hardware support<br><br>☕ <strong>Junior Java Developer</strong> — ZAIO Institute (2023–2024)<br>→ Java, Spring Boot, REST APIs, SQL, debugging, documentation`,
+    aws:            `Currently training at <strong>Forge Academy × Nokia</strong> (Roodepoort):<br>• AWS EC2, S3, IAM, VPC, CloudWatch<br>• Linux system administration<br>• Cloud architecture & deployment<br>• Preparing for AWS certification ☁️`,
+    java:           `Carven's Java backend experience from ZAIO:<br>• Built backend services using <strong>Java & Spring Boot</strong><br>• Created REST APIs and database integrations<br>• Designed SQL queries for reporting<br>• Debugging, testing and documentation ☕`,
+    web:            `• <strong>HTML, CSS, JavaScript</strong> — responsive UIs<br>• <strong>WordPress</strong> — CMS, plugins, themes (K & K Media)<br>• <strong>PHP</strong> — server-side scripting<br>• Netlify deployment 🌐`,
+    projects:       `🌐 <strong>Portfolio Website</strong><br>Built with HTML/CSS/JS, deployed on Netlify<br><a href="https://carven.netlify.app" target="_blank">carven.netlify.app ↗</a><br><br>🏥 <strong>Healthcare System (NMU Final Year)</strong><br>MVC architecture, MySQL database, Git/GitHub, full documentation`,
+    certifications: `• ☕ Java — ZAIO Institute (Dec 2023)<br>• 🗄️ SQL — ZAIO Institute (Dec 2023)<br>• 🔐 Cybersecurity — University of Maryland (Feb 2024)<br>• 🌐 CCNAv7 — Cisco Networking Academy<br>• 🔒 Intro to Cybersecurity — Cisco<br>• 🏅 YES4Youth Work Experience (Sep 2024)`,
+    education:      `🎓 <strong>National Diploma in Information Technology</strong> (Software Development)<br>Nelson Mandela University — NQF Level 6 — Completed 2024`,
+    database:       `• <strong>MySQL</strong> — design, CRUD, query optimisation<br>• <strong>SQL Server (SSMS)</strong> — querying and reporting<br>• Data cleaning and analysis with Excel<br>• ERD design and data modelling`,
+    support:        `• Laptop troubleshooting & repair<br>• Wi-Fi, printer & email configuration<br>• IT helpdesk and user support<br>• Basic server security monitoring<br>• Network setup (CCNA certified)`,
+    contact:        `📧 <a href="mailto:Carvenmaceke9@gmail.com">Carvenmaceke9@gmail.com</a><br>📱 <a href="tel:+27607950837">060 795 0837</a><br>🌐 <a href="https://carven.netlify.app" target="_blank">carven.netlify.app</a><br>💼 <a href="https://www.linkedin.com/in/carven-maceke-a29985235" target="_blank">LinkedIn Profile</a>`,
+    portfolio:      `Carven's portfolio is live at 🌐 <a href="https://carven.netlify.app" target="_blank">carven.netlify.app</a> — you're on it right now! 😄`,
+    fallback:       `I can answer questions about Carven's <strong>skills, experience, projects, certifications, education or contact details</strong>.<br>Try: "What skills does he have?" or "How do I contact him?"`
   };
 
-  // ── Intent detection ─────────────────────────────────────────
   function detect(q) {
-    q = q.toLowerCase().trim();
-    if (/^(hi|hello|hey|howzit|sup|good|greet)/.test(q)) return "greeting";
-    if (/summary|who is|about carven|tell me about him|introduce/.test(q)) return "summary";
-    if (/aws|cloud|ec2|s3|iam|vpc|cloudwatch|forge|nokia/.test(q)) return "aws";
-    if (/java|spring boot|spring|backend|api|rest/.test(q)) return "java";
-    if (/wordp|wordpress|php|web dev|html|css|netlify|frontend/.test(q)) return "web";
-    if (/skill|know|can he|tech|language|stack|tools/.test(q)) return "skills";
-    if (/experi|work|intern|job|role|career|zaio|k.*k|media|solwazi/.test(q)) return "experience";
-    if (/project|built|portfolio|healthcare|clinic|university/.test(q)) return "projects";
-    if (/cert|certifi|cisco|ccna|coursera|maryland/.test(q)) return "certifications";
-    if (/educat|degree|diploma|university|study|qualif|nmu|mandela/.test(q)) return "education";
-    if (/database|sql|mysql|db|data|query/.test(q)) return "database";
-    if (/support|helpdesk|hardware|laptop|repair|network|trouble/.test(q)) return "support";
-    if (/contact|email|phone|reach|hire|available|linkedin/.test(q)) return "contact";
-    if (/portfolio|website|site|link|url/.test(q)) return "portfolio";
-    return "fallback";
+    q = q.toLowerCase();
+    if (/^(hi|hello|hey|howzit|sup|greet)/.test(q))             return 'greeting';
+    if (/summary|who is|about carven|introduce/.test(q))         return 'summary';
+    if (/aws|cloud|ec2|s3|iam|vpc|cloudwatch|forge|nokia/.test(q)) return 'aws';
+    if (/java|spring|backend|api|rest/.test(q))                  return 'java';
+    if (/wordpress|php|web dev|html|css|netlify|frontend/.test(q)) return 'web';
+    if (/skill|know|can he|tech|language|stack|tools/.test(q))   return 'skills';
+    if (/experi|work|intern|job|role|career|zaio|media|kk/.test(q)) return 'experience';
+    if (/project|built|portfolio|healthcare|clinic/.test(q))     return 'projects';
+    if (/cert|certifi|cisco|ccna|maryland/.test(q))              return 'certifications';
+    if (/educat|degree|diploma|university|study|nmu/.test(q))    return 'education';
+    if (/database|sql|mysql|db|data|query/.test(q))              return 'database';
+    if (/support|helpdesk|hardware|laptop|repair|network/.test(q)) return 'support';
+    if (/contact|email|phone|reach|hire|linkedin/.test(q))       return 'contact';
+    if (/portfolio|website|site|link|url/.test(q))               return 'portfolio';
+    return 'fallback';
   }
 
-  // ── DOM ──────────────────────────────────────────────────────
-  const bubble    = document.getElementById("slow-bubble");
-  const bubbleBtn = document.getElementById("slow-bubble-btn");
-  const label     = document.getElementById("slow-label");
-  const panel     = document.getElementById("slow-panel");
-  const closeBtn  = document.getElementById("slow-close");
-  const messages  = document.getElementById("slow-messages");
-  const input     = document.getElementById("slow-input");
-  const sendBtn   = document.getElementById("slow-send");
-  const chips     = document.querySelectorAll(".slow-chip");
-  let isOpen = false;
+  var panel   = document.getElementById('slow-panel');
+  var btn     = document.getElementById('slow-btn');
+  var closeX  = document.getElementById('slow-x');
+  var msgs    = document.getElementById('slow-msgs');
+  var inp     = document.getElementById('slow-inp');
+  var sendBtn = document.getElementById('slow-send');
+  var label   = document.getElementById('slow-label');
 
-  function openChat() {
+  if (!btn || !panel) { console.error('Slow: elements not found'); return; }
+
+  var isOpen   = false;
+  var greeted  = false;
+
+  function openPanel() {
     isOpen = true;
-    panel.classList.add("open");
-    label.style.display = "none";
-    input.focus();
-    if (messages.children.length === 0) {
-      setTimeout(() => addBotMsg(KB.greeting), 300);
-    }
+    panel.style.display = 'flex';
+    if (label) label.style.display = 'none';
+    inp.focus();
+    if (!greeted) { greeted = true; setTimeout(function(){ addBot(KB.greeting); }, 300); }
   }
 
-  function closeChat() {
+  function closePanel() {
     isOpen = false;
-    panel.classList.remove("open");
-    setTimeout(() => { label.style.display = "flex"; }, 600);
+    panel.style.display = 'none';
   }
 
-  bubbleBtn.addEventListener("click", () => isOpen ? closeChat() : openChat());
-  closeBtn.addEventListener("click", closeChat);
+  btn.addEventListener('click',    function(){ isOpen ? closePanel() : openPanel(); });
+  closeX.addEventListener('click', closePanel);
 
-  // chip quick-replies
-  chips.forEach(chip => {
-    chip.addEventListener("click", () => {
-      const q = chip.dataset.q;
-      addUserMsg(chip.textContent.replace(/^[^\s]+\s/, "").trim());
-      showTyping(() => addBotMsg(KB[q] || KB.fallback));
+  document.querySelectorAll('.sc').forEach(function(c) {
+    c.addEventListener('click', function() {
+      addUser(c.textContent.trim());
+      thinking(function(){ addBot(KB[c.dataset.q] || KB.fallback); });
     });
   });
 
-  function addMsg(html, role) {
-    const row = document.createElement("div");
-    row.className = `slow-msg ${role}`;
-    const icon = document.createElement("div");
-    icon.className = "slow-msg-icon";
-    icon.textContent = role === "bot" ? "🤖" : "👤";
-    const bub = document.createElement("div");
-    bub.className = "slow-bubble-text";
+  function addBot(html)  { addMsg(html, 'b'); }
+  function addUser(text) { addMsg(text, 'u'); }
+
+  function addMsg(html, side) {
+    var row = document.createElement('div');
+    row.className = 'sm ' + side;
+    var ico = document.createElement('div');
+    ico.className = 'sm-ico';
+    ico.textContent = side === 'b' ? '🤖' : '👤';
+    var bub = document.createElement('div');
+    bub.className = 'sm-bub';
     bub.innerHTML = html;
-    row.appendChild(icon);
+    row.appendChild(ico);
     row.appendChild(bub);
-    messages.appendChild(row);
-    messages.scrollTop = messages.scrollHeight;
+    msgs.appendChild(row);
+    msgs.scrollTop = msgs.scrollHeight;
   }
 
-  function addBotMsg(html) { addMsg(html, "bot"); }
-  function addUserMsg(text) { addMsg(text, "user"); }
-
-  function showTyping(cb) {
-    const row = document.createElement("div");
-    row.className = "slow-msg bot";
-    row.id = "slow-typing-row";
-    const icon = document.createElement("div");
-    icon.className = "slow-msg-icon";
-    icon.textContent = "🤖";
-    const bub = document.createElement("div");
-    bub.className = "slow-bubble-text";
-    bub.innerHTML = '<div class="slow-typing-dots"><span></span><span></span><span></span></div>';
-    row.appendChild(icon);
+  function thinking(cb) {
+    var row = document.createElement('div');
+    row.className = 'sm b';
+    row.id = 'slow-tr';
+    var ico = document.createElement('div');
+    ico.className = 'sm-ico';
+    ico.textContent = '🤖';
+    var bub = document.createElement('div');
+    bub.className = 'sm-bub';
+    bub.innerHTML = '<div class="tdots"><span></span><span></span><span></span></div>';
+    row.appendChild(ico);
     row.appendChild(bub);
-    messages.appendChild(row);
-    messages.scrollTop = messages.scrollHeight;
-    setTimeout(() => {
-      const t = document.getElementById("slow-typing-row");
+    msgs.appendChild(row);
+    msgs.scrollTop = msgs.scrollHeight;
+    setTimeout(function() {
+      var t = document.getElementById('slow-tr');
       if (t) t.remove();
       cb();
-    }, 900 + Math.random() * 400);
+    }, 900 + Math.random() * 300);
   }
 
-  function handleSend() {
-    const text = input.value.trim();
+  function send() {
+    var text = inp.value.trim();
     if (!text) return;
-    input.value = "";
-    addUserMsg(text);
-    const intent = detect(text);
-    showTyping(() => addBotMsg(KB[intent]));
-    if (!isOpen) openChat();
+    inp.value = '';
+    addUser(text);
+    thinking(function(){ addBot(KB[detect(text)]); });
+    if (!isOpen) openPanel();
   }
 
-  sendBtn.addEventListener("click", handleSend);
-  input.addEventListener("keydown", e => { if (e.key === "Enter") handleSend(); });
+  sendBtn.addEventListener('click', send);
+  inp.addEventListener('keydown', function(e){ if (e.key === 'Enter') send(); });
 
-  // Hide label after 5s
-  setTimeout(() => {
-    if (!isOpen) label.style.opacity = "0";
-    setTimeout(() => { if (!isOpen) label.style.display = "none"; }, 600);
+  setTimeout(function() {
+    if (!isOpen && label) {
+      label.style.transition = 'opacity .5s';
+      label.style.opacity = '0';
+      setTimeout(function(){ if(label) label.style.display = 'none'; }, 500);
+    }
   }, 5000);
 })();
 </script>
+
 
   </body>
 </html>
