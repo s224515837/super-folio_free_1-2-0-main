@@ -1,2239 +1,1082 @@
 <!DOCTYPE html>
-<!-- upto 2 directory depth-->
-<html lang="en-US">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin"/>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;700;800&amp;display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;700;800&amp;display=swap" media="print" onload="this.media='all'"/>
-    <noscript>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;700;800&amp;display=swap"/>
-    </noscript>
-    <link href="./css/font-awesome/css/all.min.css?ver=1.2.0" rel="stylesheet">
-    <link href="./css/bootstrap-icons/bootstrap-icons.css?ver=1.2.0" rel="stylesheet">
-    <link href="./css/bootstrap.min.css?ver=1.2.0" rel="stylesheet">
-    <link href="./css/aos.css?ver=1.2.0" rel="stylesheet">
-    <link href="./css/main.css?ver=1.2.0" rel="stylesheet">
-    <noscript>
-      <style type="text/css">
-        [data-aos] {
-            opacity: 1 !important;
-            transform: translate(0) scale(1) !important;
-        }
-      </style>
-    </noscript>
-    
-  </head>
-  <body id="top">
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carven Maceke | Java Backend Developer & AWS Cloud Practitioner</title>
+  <meta name="description" content="Carven Maceke – Java Backend Developer and AWS Cloud Practitioner. NMU IT Graduate. Open to junior developer roles in South Africa." />
+  <meta name="keywords" content="Java developer, Spring Boot, AWS, SQL, backend developer, South Africa, cloud computing, NMU, Carven Maceke" />
+  <meta name="author" content="Carven Maceke" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://carven.netlify.app/" />
+  <meta property="og:title" content="Carven Maceke | Java Backend Developer & AWS Cloud Practitioner" />
+  <meta property="og:description" content="NMU IT Graduate with Java, Spring Boot, AWS & SQL experience. Available for junior developer roles." />
+  <meta property="og:image" content="https://carven.netlify.app/images/WhatsApp%20Image%202025-04-11%20at%2016.25.33_7bceeb2f.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:creator" content="@MacekeCarven" />
 
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-    
-    <header class="bg-light" style="transition: background-color 0.3s;">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light" id="header-nav" role="navigation">
-        <div class="container">
-          <a class="navbar-brand site-title mb-0" href="#top">Carven <span class="accent">Maceke</span></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto me-2">
-              <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-              <li class="nav-item"><a class="nav-link" href="#services">Expertise</a></li>
-              <li class="nav-item"><a class="nav-link" href="#skills">Background</a></li>
-              <li class="nav-item"><a class="nav-link" href="#portfolio">Reviews</a></li>
-              <li class="nav-item"><a class="nav-link" href="#certificate">Certificates</a></li>
-              <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+  <style>
+    :root {
+      --bg:#03081a; --surface:#071224; --s2:#0d1e38; --s3:#112447;
+      --teal:#00c9a7; --teal-l:#00e5c0; --teal-d:rgba(0,201,167,.12); --teal-b:rgba(0,201,167,.25);
+      --blue:#4f8ef7; --gold:#f0b429;
+      --txt:#dce8f5; --muted:#7a93b3; --dim:#3a5070;
+      --bdr:rgba(255,255,255,.07);
+      --r:12px; --rl:20px;
+      --shadow:0 8px 32px rgba(0,0,0,.45); --glow:0 0 30px rgba(0,201,167,.15);
+      --tr:all .3s cubic-bezier(.4,0,.2,1);
+      --fh:'Syne',sans-serif; --fb:'Outfit',sans-serif; --fm:'JetBrains Mono',monospace;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--txt);font-family:var(--fb);font-size:16px;line-height:1.7;overflow-x:hidden}
+    img{max-width:100%;display:block} a{color:inherit;text-decoration:none} ul{list-style:none}
+    ::-webkit-scrollbar{width:5px} ::-webkit-scrollbar-track{background:var(--surface)}
+    ::-webkit-scrollbar-thumb{background:var(--teal-b);border-radius:3px}
+    h1,h2,h3,h4{font-family:var(--fh);line-height:1.2}
+    .container{max-width:1200px;margin:0 auto;padding:0 24px}
+    .section{padding:100px 0}
+    .lbl{font-family:var(--fm);font-size:12px;color:var(--teal);letter-spacing:3px;text-transform:uppercase;display:flex;align-items:center;gap:12px;margin-bottom:16px}
+    .lbl::after{content:'';flex:1;max-width:50px;height:1px;background:var(--teal);opacity:.4}
+    .stitle{font-size:clamp(1.9rem,4vw,2.8rem);font-weight:700;margin-bottom:14px}
+    .ssub{font-size:1.05rem;color:var(--muted);max-width:580px;margin-bottom:52px}
+    .tag{display:inline-flex;align-items:center;gap:5px;padding:3px 11px;border-radius:100px;font-size:12px;font-weight:500;font-family:var(--fm)}
+    .tt{background:var(--teal-d);color:var(--teal);border:1px solid var(--teal-b)}
+    .tb{background:rgba(79,142,247,.12);color:var(--blue);border:1px solid rgba(79,142,247,.25)}
+    .tg{background:rgba(240,180,41,.12);color:var(--gold);border:1px solid rgba(240,180,41,.25)}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;border-radius:8px;font-family:var(--fb);font-size:15px;font-weight:600;cursor:pointer;transition:var(--tr);border:none}
+    .bp{background:var(--teal);color:#03081a} .bp:hover{background:var(--teal-l);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,201,167,.3)}
+    .bo{background:transparent;color:var(--txt);border:1px solid var(--bdr)} .bo:hover{border-color:var(--teal);color:var(--teal);transform:translateY(-2px)}
+    .bw{background:#25d366;color:#fff} .bw:hover{background:#1fb85a;transform:translateY(-2px)}
+    .fade-in{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+    .fade-in.visible{opacity:1;transform:translateY(0)}
+    body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 24px;transition:var(--tr)}
+    nav.scrolled{background:rgba(3,8,26,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr)}
+    .nav-i{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:70px}
+    .nav-logo{font-family:var(--fh);font-size:22px;font-weight:800} .nav-logo span{color:var(--teal)}
+    .nav-links{display:flex;align-items:center;gap:34px}
+    .nav-links a{font-size:14px;font-weight:500;color:var(--muted);transition:var(--tr);position:relative}
+    .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--teal);transition:width .3s ease}
+    .nav-links a:hover{color:var(--txt)} .nav-links a:hover::after{width:100%}
+    .nav-cta{font-size:14px;font-weight:600;padding:8px 20px;border-radius:7px;background:var(--teal);color:#03081a;border:none;cursor:pointer;transition:var(--tr)}
+    .nav-cta:hover{background:var(--teal-l);transform:translateY(-1px)}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+    .hamburger span{display:block;width:24px;height:2px;background:var(--txt);border-radius:2px;transition:var(--tr)}
+    .mob-menu{display:none;position:fixed;inset:0;background:rgba(3,8,26,.98);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:32px}
+    .mob-menu.open{display:flex}
+    .mob-menu a{font-family:var(--fh);font-size:2rem;font-weight:700;color:var(--txt);transition:var(--tr)} .mob-menu a:hover{color:var(--teal)}
+    .mob-x{position:absolute;top:24px;right:24px;background:none;border:none;color:var(--muted);font-size:24px;cursor:pointer}
+
+    /* HERO */
+    #top{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:80px}
+    #top::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(0,201,167,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,201,167,.03) 1px,transparent 1px);background-size:60px 60px;z-index:0}
+    #top .container{position:relative;z-index:1}
+    .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:100px;background:var(--teal-d);border:1px solid var(--teal-b);font-size:13px;font-family:var(--fm);color:var(--teal);margin-bottom:22px;animation:fadeUp .6s ease both}
+    .hero-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);animation:blink 2s infinite}
+    @keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+
+    /* TYPEWRITER */
+    .hero-name{font-size:clamp(3rem,6vw,5.5rem);font-weight:800;letter-spacing:-2px;line-height:.95;color:var(--txt);margin-bottom:14px;animation:fadeUp .6s .1s ease both;min-height:1.1em}
+    .hero-name span{color:var(--teal)}
+    .hero-role{font-size:clamp(1rem,2vw,1.3rem);color:var(--muted);margin-bottom:20px;animation:fadeUp .6s .2s ease both;min-height:2em}
+    .cursor{display:inline-block;width:3px;background:var(--teal);animation:blink-cur .75s step-end infinite;margin-left:2px;vertical-align:text-bottom}
+    .cursor.role-cursor{height:.9em}
+    .cursor.name-cursor{height:.85em}
+    @keyframes blink-cur{0%,100%{opacity:1}50%{opacity:0}}
+
+    .hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:34px;animation:fadeUp .6s .3s ease both}
+    .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:44px;animation:fadeUp .6s .4s ease both}
+    .hero-social{display:flex;gap:12px;animation:fadeUp .6s .5s ease both}
+    .hero-social a{width:42px;height:42px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--s2);border:1px solid var(--bdr);color:var(--muted);font-size:16px;transition:var(--tr)}
+    .hero-social a:hover{border-color:var(--teal);color:var(--teal);background:var(--teal-d);transform:translateY(-3px)}
+    .hero-vis{position:relative;animation:fadeUp .8s .3s ease both}
+    .hero-glow{position:absolute;inset:-30px;background:radial-gradient(ellipse at center,var(--teal-d) 0%,transparent 70%);z-index:0}
+    .hero-photo{position:relative;z-index:1;width:380px;height:460px;object-fit:cover;object-position:top center;border-radius:24px;border:1px solid var(--teal-b);margin:auto;box-shadow:var(--shadow),var(--glow)}
+    .stat-card{position:absolute;background:var(--s2);border:1px solid var(--teal-b);border-radius:12px;padding:12px 20px;backdrop-filter:blur(10px);z-index:2}
+    .stat-card.bl{bottom:40px;left:-20px} .stat-card.tr{top:40px;right:-20px}
+    .sv{font-family:var(--fh);font-size:20px;font-weight:700;color:var(--teal)} .sl{font-size:11px;font-family:var(--fm);color:var(--muted)}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+    /* ABOUT */
+    #about{background:var(--surface)}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+    .about-text p{color:var(--muted);margin-bottom:18px;font-size:1.05rem} .about-text p strong{color:var(--txt)}
+    .about-details{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px}
+    .detail{padding:16px;background:var(--s2);border-radius:var(--r);border:1px solid var(--bdr)}
+    .dlbl{font-size:11px;font-family:var(--fm);color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+    .dval{font-size:14px;font-weight:500;color:var(--txt)}
+    .about-actions{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+    .about-panels{display:flex;flex-direction:column;gap:18px;padding-top:56px}
+    .about-panel{background:var(--s2);border:1px solid var(--bdr);border-radius:var(--rl);padding:28px}
+    .about-panel p{font-size:14px;color:var(--muted);margin-bottom:10px} .about-panel p:last-child{margin-bottom:0}
+
+    /* SKILLS */
+    #skills{background:var(--bg)}
+    .skills-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px}
+    .stab{padding:8px 20px;border-radius:8px;border:1px solid var(--bdr);background:var(--surface);color:var(--muted);font-size:14px;font-weight:500;cursor:pointer;transition:var(--tr)}
+    .stab:hover,.stab.active{border-color:var(--teal);color:var(--teal);background:var(--teal-d)}
+    .skills-panel{display:none;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+    .skills-panel.active{display:grid}
+    .sc{padding:20px;background:var(--surface);border-radius:var(--r);border:1px solid var(--bdr);transition:var(--tr)}
+    .sc:hover{border-color:var(--teal-b);background:var(--s2);transform:translateY(-3px);box-shadow:var(--glow)}
+    .si{font-size:24px;margin-bottom:10px} .sn{font-size:15px;font-weight:600;color:var(--txt);margin-bottom:3px}
+    .slvl{font-size:12px;font-family:var(--fm);color:var(--teal)}
+    .sbar{margin-top:10px;height:3px;background:var(--bdr);border-radius:2px;overflow:hidden}
+    .sfill{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-l));border-radius:2px;width:0;transition:width 1s ease}
+
+    /* EXPERIENCE */
+    #experience{background:var(--surface)}
+    .exp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:22px}
+    .flip{height:350px;perspective:1200px;cursor:pointer}
+    .flip-i{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .65s cubic-bezier(.4,0,.2,1)}
+    .flip:hover .flip-i{transform:rotateY(180deg)}
+    .ff,.fb{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--rl);padding:28px}
+    .ff{background:var(--s2);border:1px solid var(--bdr);display:flex;flex-direction:column;justify-content:space-between}
+    .fb{background:var(--s3);border:1px solid var(--teal-b);transform:rotateY(180deg);overflow-y:auto}
+    .ftype{font-family:var(--fm);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:14px}
+    .ftitle{font-family:var(--fh);font-size:1.25rem;font-weight:700;color:var(--txt);margin-bottom:6px}
+    .fco{font-size:13.5px;color:var(--muted);margin-bottom:14px}
+    .ftags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+    .fhint{font-size:11px;color:var(--dim);font-family:var(--fm);margin-top:10px}
+    .fbtit{font-family:var(--fh);font-size:.95rem;font-weight:600;color:var(--teal);margin-bottom:12px}
+    .fb ul li{position:relative;padding-left:18px;margin-bottom:8px;font-size:13.5px;color:var(--muted);line-height:1.5}
+    .fb ul li::before{content:'→';position:absolute;left:0;color:var(--teal);font-size:11px}
+    .flink{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:13px;color:var(--teal);border-bottom:1px solid var(--teal-b);padding-bottom:2px}
+
+    /* CERTIFICATES */
+    #certificates{background:var(--bg)}
+    .certs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px}
+    .cert{padding:24px;background:var(--surface);border-radius:var(--r);border:1px solid var(--bdr);display:flex;flex-direction:column;gap:10px;transition:var(--tr)}
+    .cert:hover{border-color:var(--teal-b);transform:translateY(-3px);box-shadow:var(--glow)}
+    .cion{width:42px;height:42px;border-radius:10px;background:var(--teal-d);border:1px solid var(--teal-b);display:flex;align-items:center;justify-content:center;font-size:20px}
+    .cname{font-family:var(--fh);font-size:1rem;font-weight:600;color:var(--txt)}
+    .cfrom{font-size:13px;color:var(--muted)} .cdate{font-family:var(--fm);font-size:12px;color:var(--teal)}
+    .cbtn{display:inline-flex;align-items:center;gap:6px;margin-top:auto;font-size:13px;color:var(--muted);border:1px solid var(--bdr);border-radius:7px;padding:6px 14px;width:fit-content;transition:var(--tr);cursor:pointer}
+    .cbtn:hover{border-color:var(--teal);color:var(--teal)}
+    .cbtn.broken{opacity:.5;cursor:not-allowed;color:var(--gold);border-color:rgba(240,180,41,.3)}
+
+    /* TESTIMONIALS */
+    #testimonials{background:var(--surface)}
+    .test-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px}
+    .tcard{padding:32px;background:var(--s2);border-radius:var(--rl);border:1px solid var(--bdr)}
+    .qmark{font-size:52px;color:var(--teal-d);font-family:Georgia,serif;line-height:1;margin-bottom:10px}
+    .ttext{font-size:15px;color:var(--muted);line-height:1.8;font-style:italic;margin-bottom:22px}
+    .tauth{display:flex;align-items:center;gap:12px}
+    .tavt{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid var(--teal-b)}
+    .tname{font-weight:600;font-size:14px;color:var(--txt)} .trole{font-size:12px;color:var(--muted);font-family:var(--fm)}
+    .tph{padding:32px;background:var(--s2);border-radius:var(--rl);border:1px dashed var(--bdr);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:12px;min-height:200px}
+    .tph p{font-size:14px;color:var(--dim)} .tph a{color:var(--teal)}
+
+    /* CONTACT */
+    #contact{background:var(--bg)}
+    .contact-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:60px;align-items:start}
+    .ci h3{font-family:var(--fh);font-size:1.5rem;margin-bottom:10px} .ci>p{color:var(--muted);margin-bottom:28px}
+    .citem{display:flex;align-items:center;gap:14px;padding:15px;background:var(--surface);border-radius:var(--r);border:1px solid var(--bdr);margin-bottom:10px;transition:var(--tr)}
+    .citem:hover{border-color:var(--teal-b)}
+    .xico{width:40px;height:40px;border-radius:8px;background:var(--teal-d);display:flex;align-items:center;justify-content:center;color:var(--teal);font-size:15px;flex-shrink:0}
+    .xlbl{font-size:11px;font-family:var(--fm);color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+    .xval{font-size:14px;font-weight:500;color:var(--txt)}
+    .cf{background:var(--surface);border-radius:var(--rl);border:1px solid var(--bdr);padding:36px}
+    .fg{margin-bottom:18px}
+    .fl{display:block;font-size:12px;font-family:var(--fm);color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+    .fi,.ft{width:100%;padding:12px 15px;background:var(--s2);border:1px solid var(--bdr);border-radius:8px;color:var(--txt);font-family:var(--fb);font-size:14px;transition:var(--tr);outline:none}
+    .fi:focus,.ft:focus{border-color:var(--teal);box-shadow:0 0 0 3px var(--teal-d)}
+    .ft{resize:vertical;min-height:130px}
+    .factions{display:flex;gap:12px;flex-wrap:wrap}
+
+    /* FOOTER */
+    footer{background:var(--surface);border-top:1px solid var(--bdr);padding:44px 0;text-align:center}
+    .flogo{font-family:var(--fh);font-size:20px;font-weight:800;margin-bottom:6px} .flogo span{color:var(--teal)}
+    .ftag{font-size:13px;color:var(--muted);font-family:var(--fm);margin-bottom:22px}
+    .fsoc{display:flex;justify-content:center;gap:10px;margin-bottom:22px}
+    .fsoc a{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--s2);border:1px solid var(--bdr);color:var(--muted);font-size:14px;transition:var(--tr)}
+    .fsoc a:hover{border-color:var(--teal);color:var(--teal)}
+    .fcopy{font-size:13px;color:var(--dim)} .fcopy a{color:var(--teal)}
+
+    /* ═══════════════════════════════
+       CHATBOT
+    ═══════════════════════════════ */
+    .chat-toggle{position:fixed;bottom:28px;right:28px;width:58px;height:58px;border-radius:50%;background:var(--teal);color:#03081a;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:22px;z-index:997;box-shadow:0 4px 24px rgba(0,201,167,.45);transition:var(--tr)}
+    .chat-toggle:hover{transform:scale(1.1)}
+    .chat-win{position:fixed;bottom:100px;right:28px;width:380px;height:520px;background:var(--surface);border:1px solid var(--teal-b);border-radius:var(--rl);box-shadow:var(--shadow);z-index:996;display:none;flex-direction:column;overflow:hidden}
+    .chat-win.open{display:flex}
+    .chead{padding:16px 18px;background:var(--s2);border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between}
+    .chead-l{display:flex;align-items:center;gap:10px}
+    .cavt{width:36px;height:36px;border-radius:50%;background:var(--teal-d);border:1px solid var(--teal-b);display:flex;align-items:center;justify-content:center;color:var(--teal);font-size:17px}
+    .cbot-name{font-size:14px;font-weight:700}
+    .cbot-status{font-size:11px;color:var(--teal);font-family:var(--fm);display:flex;align-items:center;gap:5px}
+    .cbot-status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);animation:blink 2s infinite}
+    .cx{background:none;border:none;color:var(--muted);cursor:pointer;font-size:17px;padding:4px}
+    .cmsgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+    .msg{max-width:85%;padding:10px 14px;border-radius:12px;font-size:13.5px;line-height:1.55}
+    .msg.bot{background:var(--s2);border:1px solid var(--bdr);color:var(--muted);align-self:flex-start;border-radius:4px 12px 12px 12px}
+    .msg.user{background:var(--teal);color:#03081a;font-weight:500;align-self:flex-end;border-radius:12px 12px 4px 12px}
+    .cchips{padding:10px 14px;display:flex;flex-wrap:wrap;gap:6px;border-top:1px solid var(--bdr);background:var(--s2)}
+    .chip{padding:5px 12px;border-radius:100px;border:1px solid var(--bdr);background:var(--surface);font-size:12px;color:var(--muted);cursor:pointer;transition:var(--tr)}
+    .chip:hover{border-color:var(--teal);color:var(--teal)}
+    .cinput-row{padding:12px 14px;border-top:1px solid var(--bdr);display:flex;gap:8px;background:var(--s2)}
+    .cinput{flex:1;padding:9px 13px;background:var(--surface);border:1px solid var(--bdr);border-radius:8px;color:var(--txt);font-size:13px;font-family:var(--fb);outline:none;transition:var(--tr)}
+    .cinput:focus{border-color:var(--teal-b)}
+    .csend{width:38px;height:38px;border-radius:8px;background:var(--teal);color:#03081a;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:var(--tr);flex-shrink:0}
+    .csend:hover{background:var(--teal-l)}
+    .typing-ind{display:flex;gap:4px;padding:10px 14px;background:var(--s2);border:1px solid var(--bdr);border-radius:4px 12px 12px 12px;align-self:flex-start}
+    .td{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:bounce 1.2s infinite}
+    .td:nth-child(2){animation-delay:.2s} .td:nth-child(3){animation-delay:.4s}
+    @keyframes bounce{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-6px);opacity:1}}
+
+    /* API KEY BANNER */
+    .api-banner{padding:12px 16px;background:rgba(240,180,41,.08);border-bottom:1px solid rgba(240,180,41,.2);font-size:12px;color:var(--gold);text-align:center;font-family:var(--fm)}
+    .api-banner a{color:var(--teal);text-decoration:underline}
+
+    /* RESPONSIVE */
+    @media(max-width:900px){
+      .hero-grid,.about-grid,.contact-grid{grid-template-columns:1fr}
+      .hero-vis{order:-1} .hero-photo{width:260px;height:320px}
+      .stat-card.bl{left:0;bottom:0} .stat-card.tr{right:0;top:0}
+      .nav-links,.nav-cta{display:none} .hamburger{display:flex}
+      .section{padding:70px 0} .about-panels{padding-top:0}
+    }
+    @media(max-width:600px){
+      .exp-grid,.certs-grid,.test-grid,.about-details{grid-template-columns:1fr}
+      .hero-actions,.factions{flex-direction:column}
+      .chat-win{width:calc(100vw - 40px);right:20px}
+    }
+  </style>
+</head>
+<body>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mobMenu">
+  <button class="mob-x" onclick="closeMob()">✕</button>
+  <a href="#about" onclick="closeMob()">About</a>
+  <a href="#skills" onclick="closeMob()">Skills</a>
+  <a href="#experience" onclick="closeMob()">Experience</a>
+  <a href="#certificates" onclick="closeMob()">Certificates</a>
+  <a href="#contact" onclick="closeMob()">Contact</a>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-i">
+    <a href="#top" class="nav-logo">CM<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#certificates">Certificates</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Hire Me</a>
+    <div class="hamburger" onclick="openMob()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="top">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-badge"><span class="dot"></span>Available for Junior Dev Roles</div>
+
+        <!-- TYPEWRITER NAME -->
+        <h1 class="hero-name" id="heroName"><span class="cursor name-cursor" id="nameCursor"></span></h1>
+
+        <!-- TYPEWRITER ROLE -->
+        <p class="hero-role" id="heroRole"><span class="cursor role-cursor" id="roleCursor"></span></p>
+
+        <div class="hero-tags">
+          <span class="tag tt">Java · Spring Boot</span>
+          <span class="tag tb">AWS Cloud</span>
+          <span class="tag tt">SQL · MySQL</span>
+          <span class="tag tg">NMU Graduate 2024</span>
+        </div>
+        <div class="hero-actions">
+          <a href="#experience" class="btn bp"><i class="fas fa-briefcase"></i> View My Work</a>
+          <a href="/CarvenMaceke_Resume.pdf" class="btn bo" download><i class="fas fa-download"></i> Download CV</a>
+        </div>
+        <div class="hero-social">
+          <a href="https://www.linkedin.com/in/carven-maceke-a29985235" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://github.com/Carvenmaceke" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://twitter.com/MacekeCarven" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.instagram.com/carven_sa15" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="mailto:carvenmaceke9@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="hero-vis">
+        <div class="hero-glow"></div>
+        <img class="hero-photo" src="images/WhatsApp Image 2025-04-11 at 16.25.33_7bceeb2f.jpg" alt="Carven Maceke" />
+        <div class="stat-card bl"><div class="sv">3+</div><div class="sl">Roles &amp; Internships</div></div>
+        <div class="stat-card tr"><div class="sv">☁️ AWS</div><div class="sl">Currently Training</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+  <div class="container">
+    <div class="about-grid fade-in">
+      <div class="about-text">
+        <div class="lbl">01 — About Me</div>
+        <h2 class="stitle">Building Scalable Solutions with Java &amp; Cloud</h2>
+        <p>I'm a <strong>National Diploma in IT (Software Development)</strong> graduate from Nelson Mandela University (NQF Level 6, 2024), currently completing an <strong>AWS re/Start internship at Forge Academy × Nokia</strong> in Roodepoort.</p>
+        <p>My core strengths are in <strong>Java/Spring Boot backend development</strong> — building REST APIs, designing SQL schemas, and contributing to real production systems. I complement this with experience in IT support, WordPress, data analysis, and enterprise tools including <strong>IBM Content Manager and SQL Server Management Studio</strong>.</p>
+        <p>I'm actively seeking <strong>Junior Technical Specialist, Graduate Developer, or Cloud Engineer roles</strong> where I can contribute, grow, and solve real problems through technology.</p>
+        <div class="about-details">
+          <div class="detail"><div class="dlbl">Degree</div><div class="dval">NDip IT — NMU, 2024</div></div>
+          <div class="detail"><div class="dlbl">Location</div><div class="dval">Pretoria West 🇿🇦</div></div>
+          <div class="detail"><div class="dlbl">Email</div><div class="dval">carvenmaceke9@gmail.com</div></div>
+          <div class="detail"><div class="dlbl">Status</div><div class="dval" style="color:var(--teal)">✓ Open to Opportunities</div></div>
+        </div>
+        <div class="about-actions">
+          <a href="/CarvenMaceke_Resume.pdf" class="btn bp" download><i class="fas fa-download"></i> Download CV</a>
+          <a href="#contact" class="btn bo"><i class="fas fa-envelope"></i> Get In Touch</a>
+        </div>
+      </div>
+      <div class="about-panels">
+        <div class="about-panel">
+          <div class="lbl">What I'm Doing Now</div>
+          <p>🔭 Completing AWS re/Start training at Forge Academy × Nokia — preparing for AWS Cloud Practitioner certification with hands-on labs in EC2, S3, IAM, and VPC.</p>
+          <p>📍 Based in Pretoria West, open to remote and on-site junior developer roles.</p>
+        </div>
+        <div class="about-panel">
+          <div class="lbl">Career Goals</div>
+          <p>🎯 Secure a junior developer or cloud engineer role focused on Java/Spring Boot or AWS cloud technologies.</p>
+          <p>🌱 Grow toward AWS Solutions Architect certification and full-stack expertise.</p>
+        </div>
+        <div class="about-panel">
+          <div class="lbl">Highlights</div>
+          <p>⚡ Competed in two hackathons — 4IR AquaTech and ICT Hackathon Challenge (2021).</p>
+          <p>🤖 Built a live AI chatbot into this very portfolio. Go ahead — ask it something!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="section">
+  <div class="container fade-in">
+    <div class="lbl">02 — Skills</div>
+    <h2 class="stitle">What I Bring to Your Team</h2>
+    <p class="ssub">Hands-on skills built through internships, academic projects, and continuous self-development.</p>
+    <div class="skills-tabs">
+      <button class="stab active" onclick="showSkills(this,'backend')">🟧 Backend &amp; Databases</button>
+      <button class="stab" onclick="showSkills(this,'web')">🟦 Web Development</button>
+      <button class="stab" onclick="showSkills(this,'cloud')">☁️ Cloud &amp; Networking</button>
+      <button class="stab" onclick="showSkills(this,'tools')">🟩 Tools &amp; Enterprise</button>
+    </div>
+    <div class="skills-panel active" id="panel-backend">
+      <div class="sc"><div class="si">☕</div><div class="sn">Java</div><div class="slvl">Intermediate</div><div class="sbar"><div class="sfill" data-w="75"></div></div></div>
+      <div class="sc"><div class="si">🍃</div><div class="sn">Spring Boot</div><div class="slvl">Intermediate</div><div class="sbar"><div class="sfill" data-w="70"></div></div></div>
+      <div class="sc"><div class="si">🗄️</div><div class="sn">SQL / MySQL</div><div class="slvl">Intermediate</div><div class="sbar"><div class="sfill" data-w="72"></div></div></div>
+      <div class="sc"><div class="si">🔌</div><div class="sn">REST APIs</div><div class="slvl">Intermediate</div><div class="sbar"><div class="sfill" data-w="68"></div></div></div>
+      <div class="sc"><div class="si">🏢</div><div class="sn">MS SQL Server</div><div class="slvl">Intermediate</div><div class="sbar"><div class="sfill" data-w="65"></div></div></div>
+      <div class="sc"><div class="si">📋</div><div class="sn">Technical Docs</div><div class="slvl">Proficient</div><div class="sbar"><div class="sfill" data-w="80"></div></div></div>
+    </div>
+    <div class="skills-panel" id="panel-web">
+      <div class="sc"><div class="si">🌐</div><div class="sn">HTML / CSS</div><div class="slvl">Proficient</div><div class="sbar"><div class="sfill" data-w="82"></div></div></div>
+      <div class="sc"><div class="si">⚡</div><div class="sn">JavaScript</div><div class="slvl">Intermediate</div><div class="sbar"><div class="sfill" data-w="65"></div></div></div>
+      <div class="sc"><div class="si">🅱️</div><div class="sn">Bootstrap / MVC</div><div class="slvl">Proficient</div><div class="sbar"><div class="sfill" data-w="78"></div></div></div>
+      <div class="sc"><div class="si">🐘</div><div class="sn">PHP</div><div class="slvl">Beginner</div><div class="sbar"><div class="sfill" data-w="40"></div></div></div>
+      <div class="sc"><div class="si">🐍</div><div class="sn">Python / Django</div><div class="slvl">Beginner</div><div class="sbar"><div class="sfill" data-w="38"></div></div></div>
+      <div class="sc"><div class="si">🖊️</div><div class="sn">WordPress</div><div class="slvl">Intermediate</div><div class="sbar"><div class="sfill" data-w="65"></div></div></div>
+    </div>
+    <div class="skills-panel" id="panel-cloud">
+      <div class="sc"><div class="si">☁️</div><div class="sn">AWS (EC2, S3, IAM)</div><div class="slvl">Learning</div><div class="sbar"><div class="sfill" data-w="45"></div></div></div>
+      <div class="sc"><div class="si">🔒</div><div class="sn">AWS VPC &amp; CloudWatch</div><div class="slvl">Learning</div><div class="sbar"><div class="sfill" data-w="40"></div></div></div>
+      <div class="sc"><div class="si">🐧</div><div class="sn">Linux / Red Hat</div><div class="slvl">Intermediate</div><div class="sbar"><div class="sfill" data-w="60"></div></div></div>
+      <div class="sc"><div class="si">🌐</div><div class="sn">Networking (CCNA)</div><div class="slvl">Intermediate</div><div class="sbar"><div class="sfill" data-w="58"></div></div></div>
+      <div class="sc"><div class="si">🔐</div><div class="sn">Cybersecurity</div><div class="slvl">Foundational</div><div class="sbar"><div class="sfill" data-w="50"></div></div></div>
+      <div class="sc"><div class="si">🪟</div><div class="sn">Windows Server</div><div class="slvl">Admin Basics</div><div class="sbar"><div class="sfill" data-w="55"></div></div></div>
+    </div>
+    <div class="skills-panel" id="panel-tools">
+      <div class="sc"><div class="si">📊</div><div class="sn">Microsoft Excel</div><div class="slvl">Proficient</div><div class="sbar"><div class="sfill" data-w="80"></div></div></div>
+      <div class="sc"><div class="si">🏢</div><div class="sn">IBM Content Manager</div><div class="slvl">Exposure</div><div class="sbar"><div class="sfill" data-w="35"></div></div></div>
+      <div class="sc"><div class="si">🔧</div><div class="sn">IT Support &amp; Hardware</div><div class="slvl">Proficient</div><div class="sbar"><div class="sfill" data-w="78"></div></div></div>
+      <div class="sc"><div class="si">🐙</div><div class="sn">Git / GitHub</div><div class="slvl">Intermediate</div><div class="sbar"><div class="sfill" data-w="62"></div></div></div>
+      <div class="sc"><div class="si">📦</div><div class="sn">SDLC / Agile</div><div class="slvl">Familiar</div><div class="sbar"><div class="sfill" data-w="60"></div></div></div>
+      <div class="sc"><div class="si">📈</div><div class="sn">Data Analysis / Anaconda</div><div class="slvl">Beginner</div><div class="sbar"><div class="sfill" data-w="38"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="section">
+  <div class="container fade-in">
+    <div class="lbl">03 — Experience</div>
+    <h2 class="stitle">Projects &amp; Internships</h2>
+    <p class="ssub">Hover each card to see what I actually did — tools, responsibilities, and outcomes.</p>
+    <div class="exp-grid">
+
+      <div class="flip">
+        <div class="flip-i">
+          <div class="ff">
+            <div><div class="ftype">🔴 Current Role</div><h3 class="ftitle">AWS re/Start Intern</h3><p class="fco">Forge Academy × Nokia · Mar 2026 – Present</p></div>
+            <div><div class="ftags"><span class="tag tb">AWS</span><span class="tag tt">Linux</span><span class="tag tt">Networking</span></div><p class="fhint">↩ Hover to see details</p></div>
+          </div>
+          <div class="fb">
+            <div class="fbtit">What I'm Learning &amp; Building</div>
+            <ul>
+              <li>Training on AWS core services: EC2, S3, IAM, VPC, and CloudWatch</li>
+              <li>Preparing for AWS Cloud Practitioner certification with focus on cloud architecture and security</li>
+              <li>Applying Linux and networking fundamentals in hands-on cloud labs</li>
+              <li>Based at Clearwater Office Park, Roodepoort — aligned with AWS certification pathways</li>
             </ul>
           </div>
         </div>
-      </nav>
+      </div>
 
-      
-    </header>
-    
-    <style>
-      /* Theme colours handled by main.css */
-
-      /* Hide all left/right arrows on page */
-.carousel-control-prev,
-.carousel-control-next,
-.slick-prev,
-.slick-next {
-  display: none !important;
-}
-
-    </style>
-    <div class="page-content">
-      <div id="content">
-<header>
-  <div class="cover">
-    <div class="container px-3">
-      <div class="row">
-        <div class="col-lg-6 p-2">
-          <img class="img-fluid" src="images/illustrations/folks-man-programmer-writing-code.png" alt="Hello, I'm a Software Developer" />
-        </div>
-        <div class="col-lg-6">
-          <div class="mt-5">
-            <p class="lead text-uppercase mb-1" data-aos="fade-up" data-aos-delay="100">Hello!</p>
-            <h1 class="intro-title marker" id="typing-name" data-aos="fade-left" data-aos-delay="200"></h1>
-            <p class="lead fw-normal mt-2" data-aos="fade-up" data-aos-delay="300"><span id="typing-role" style="opacity:0;transition:opacity 0.4s;"></span></p>
-            <div class="social-nav" data-aos="fade-up" data-aos-delay="500">
-              <nav role="navigation">
-                <ul class="nav justify-content-left">
-                  <li class="nav-item"><a class="nav-link" href="https://twitter.com/MacekeCarven" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-                  <li class="nav-item"><a class="nav-link" href="https://www.facebook.com/carven.axe.5" title="Facebook"><i class="fab fa-facebook"></i></a></li>
-                  <li class="nav-item"><a class="nav-link" href="https://www.instagram.com/carven_sa15" title="Instagram"><i class="fab fa-instagram"></i></a></li>
-                  <li class="nav-item"><a class="nav-link" href="https://www.linkedin.com/in/carven-maceke-a29985235" title="LinkedIn"><i class="fab fa-linkedin"></i></a></li>
-                  <li class="nav-item"><a class="nav-link" href="https://github.com/s224515837" title="GitHub" target="_blank" rel="noopener"><i class="fab fa-github"></i></a></li>
-                </ul>
-              </nav>
-            </div>
-            <div class="mt-3" data-aos="fade-up" data-aos-delay="600">
-              <a class="btn btn-primary shadow-sm mt-1 hover-effect" href="#contact">Let’s Connect <i class="fas fa-arrow-right"></i></a>
-            </div>
+      <div class="flip">
+        <div class="flip-i">
+          <div class="ff">
+            <div><div class="ftype">🟡 Internship</div><h3 class="ftitle">Junior Java Developer</h3><p class="fco">Zaio Technologies · Sep 2023 – Aug 2024</p></div>
+            <div><div class="ftags"><span class="tag tt">Java</span><span class="tag tt">Spring Boot</span><span class="tag tb">SQL</span></div><p class="fhint">↩ Hover to see details</p></div>
+          </div>
+          <div class="fb">
+            <div class="fbtit">What I Worked On</div>
+            <ul>
+              <li>Developed and maintained backend services and REST API integrations using Java and Spring Boot</li>
+              <li>Designed SQL queries for reporting and analysis, improving system responsiveness and reliability</li>
+              <li>Participated in troubleshooting, performance tuning, and issue tracking on deployed applications</li>
+              <li>Supported testing, change control, and basic deployment tasks in staging/production environments</li>
+              <li>Drafted technical documentation for feature implementations and support procedures</li>
+            </ul>
+            <a class="flink" href="/dc/REFERRAL LETTER.pdf" target="_blank">Referral Letter <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-   
-  
-  <style>
-  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
-  #typing-name::after { content:"|"; color:var(--teal,#00A8B5); font-weight:300; animation:blink 0.85s step-start infinite; margin-left:2px; }
-  #typing-role { min-height:1.5em; display:inline-block; }
-  </style>
-  <script>
-  /* ── Keyboard click sound: new AudioContext per click (no gesture lock) ── */
-  function playKey() {
-    try {
-      var AC = window.AudioContext || window.webkitAudioContext;
-      if (!AC) return;
-      var ctx = new AC();
-      var rate = ctx.sampleRate;
-      var len  = Math.floor(rate * 0.022);
-      var buf  = ctx.createBuffer(1, len, rate);
-      var d    = buf.getChannelData(0);
-      for (var i = 0; i < len; i++) d[i] = (Math.random()*2-1) * Math.pow(1 - i/len, 2.8);
-      var src  = ctx.createBufferSource();
-      var gain = ctx.createGain();
-      gain.gain.value = 0.28;
-      src.buffer = buf;
-      src.connect(gain);
-      gain.connect(ctx.destination);
-      src.start(0);
-      /* auto-close context after clip finishes */
-      src.onended = function(){ try{ ctx.close(); }catch(e){} };
-    } catch(e) {}
-  }
 
-  function typeWords(el, text, speed, done) {
-    var i = 0;
-    (function tick() {
-      if (i < text.length) {
-        el.textContent += text[i++];
-        playKey();
-        setTimeout(tick, speed + Math.random()*35 - 8);
-      } else if (done) {
-        setTimeout(done, 360);
-      }
-    })();
-  }
-
-  document.addEventListener('DOMContentLoaded', function() {
-    var nameEl = document.getElementById('typing-name');
-    var roleEl = document.getElementById('typing-role');
-    if (!nameEl) return;
-    setTimeout(function() {
-      typeWords(nameEl, '’m Carven Maceke', 88, function() {
-        if (roleEl) {
-          roleEl.style.opacity = '1';
-          typeWords(roleEl, 'A Software Developer.', 76, null);
-        }
-      });
-    }, 800);
-  });
-  </script>
-  
-  <div class="wave-bg"></div>
-</header>
-<div class="section pt-4 px-3 px-lg-4" id="about">
-  <div class="container-narrow">
-    <div class="row">
-      <div class="col-md-6" data-aos="fade-right" data-aos-delay="200">
-        <h2 class="h4 my-2">About Me</h2>
-        <p data-aos="fade-up" data-aos-delay="300">I’m an IT graduate and aspiring cloud & software developer, currently completing an AWS re/Start internship at Forge Academy × Nokia in Roodepoort. My background spans Java/Spring Boot backend development, WordPress web support, data analysis with Excel, and hands-on IT support — and I’m passionate about building practical, scalable solutions that make a real impact. 
-          
-          I enjoy building practical solutions, learning continuously, and working in spaces where collaboration and growth are encouraged.
-
-I’m passionate about creating meaningful digital experiences and developing myself further in the tech industry. I’m currently focused on opportunities where I can contribute, grow, and make a real impact through technology.</p>
-        
-        <p data-aos="fade-up" data-aos-delay="400">Passionate about problem-solving and innovation, I enjoy contributing to projects that make a real impact. Let’s connect and explore how we can create solutions together! 🚀</p>
-        
-        <div class="row mt-3">
-          <div class="col-sm-2" data-aos="fade-up" data-aos-delay="500">
-            <div class="pb-1">Degree:</div>
+      <div class="flip">
+        <div class="flip-i">
+          <div class="ff">
+            <div><div class="ftype">🟣 Internship</div><h3 class="ftitle">IT Software &amp; Networks Intern</h3><p class="fco">K &amp; K Media / Solwazi · Sep 2025 – Jun 2026</p></div>
+            <div><div class="ftags"><span class="tag tt">IT Support</span><span class="tag tb">Networking</span><span class="tag tt">WordPress</span></div><p class="fhint">↩ Hover to see details</p></div>
           </div>
-          <div class="col-sm-10" data-aos="fade-up" data-aos-delay="600">
-            <div class="pb-1 fw-bolder">National Diploma in IT (Software Dev) – NMU, 2024</div>
+          <div class="fb">
+            <div class="fbtit">What I Did</div>
+            <ul>
+              <li>Improved efficiency of staff work using technology tools and automation</li>
+              <li>Provided IT support for helpdesk operations and server security</li>
+              <li>Performed software updates and hardware maintenance across the office</li>
+              <li>Supported and maintained data communication networks</li>
+              <li>Managed WordPress website content, plugins, and performance</li>
+            </ul>
           </div>
-          <div class="col-sm-2" data-aos="fade-up" data-aos-delay="500">
-            <div class="pb-1">Age:</div>
-          </div>
-          <div class="col-sm-10" data-aos="fade-up" data-aos-delay="600">
-            <div class="pb-1 fw-bolder">23</div>
-          </div>
-          <div class="col-sm-2" data-aos="fade-up" data-aos-delay="700">
-            <div class="pb-1">Email:</div>
-          </div>
-          <div class="col-sm-10" data-aos="fade-up" data-aos-delay="800">
-            <div class="pb-1 fw-bolder">Carvenmaceke9@gmail.com</div>
-          </div>
-          <div class="col-sm-2" data-aos="fade-up" data-aos-delay="900">
-            <div class="pb-1">Phone:</div>
-          </div>
-          <div class="col-sm-10" data-aos="fade-up" data-aos-delay="1000">
-            <div class="pb-1 fw-bolder">+27 60 795 0837</div>
-          </div>
-          <div class="col-sm-2" data-aos="fade-up" data-aos-delay="1100">
-            <div class="pb-1">Location:</div>
-          </div>
-          <div class="col-sm-10" data-aos="fade-up" data-aos-delay="1200">
-            <div class="pb-1 fw-bolder"> South Africa</div>
-          </div>
-          <div class="col-sm-2" data-aos="fade-up" data-aos-delay="1300">
-            <div class="pb-1">Status:</div>
-          </div>
-          <div class="col-sm-10" data-aos="fade-up" data-aos-delay="1400">
-            <div class="pb-1 fw-bolder">Available for Opportunities</div>
-          </div>
-        </div>
-
-        <!-- Request CV Button aligned to the left -->
-       <div class="mt-4">
- <a href="CarvenMaceke_Resume.pdf" download class="btn btn-primary">Download CV</a>
-
-</div>
-
-      </div>
-      <div class="col-md-5 offset-md-1" data-aos="zoom-in" data-aos-delay="500">
-        <img class="avatar img-fluid mt-2" src="images/WhatsApp Image 2025-04-11 at 16.25.33_7bceeb2f.jpg" width="400" height="400" alt="Carven Maceke"/>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Animated Interactive Skills Section</title>
-  <style>
-    :root {
-      /* Light theme to match your portfolio */
-      --bg: #f8fafc;
-      --card: #ffffff;
-      --card-soft: #f9fafb;
-      --accent: #00A8B5; /* teal */
-      --accent-soft: rgba(168, 85, 247, 0.12);
-      --text-main: #111827;
-      --text-muted: #6b7280;
-      --bar-bg: #e5e7eb;
-      --bar-fill: linear-gradient(90deg, #00838F, #00A8B5);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    /* No centering / full-screen here – your main page layout handles that */
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text-main);
-      background-color: var(--bg);
-    }
-
-    .skills-shell {
-      max-width: 1140px;
-      width: 100%;
-      margin: 40px auto;
-      background: var(--card);
-      border-radius: 24px;
-      border: 1px solid #e5e7eb;
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
-      padding: 24px 24px 28px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .skills-shell::before {
-      content: "";
-      position: absolute;
-      width: 220px;
-      height: 220px;
-      background: radial-gradient(circle, var(--accent-soft), transparent 65%);
-      top: -70px;
-      right: -40px;
-      pointer-events: none;
-      opacity: 0.7;
-    }
-
-    .skills-header {
-      display: flex;
-      justify-content: space-between;
-      gap: 24px;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .skills-heading-block h2 {
-      margin: 0 0 4px;
-      font-size: 1.6rem;
-      letter-spacing: 0.03em;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .accent-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 12px rgba(168, 85, 247, 0.85);
-    }
-
-    .skills-heading-block p {
-      margin: 0;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    .skills-meta-chip {
-      border-radius: 999px;
-      border: 1px solid #e5e7eb;
-      padding: 6px 12px;
-      font-size: 0.75rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--text-muted);
-      white-space: nowrap;
-      background-color: #ffffff;
-    }
-
-    .skills-meta-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 8px rgba(34, 197, 94, 0.8);
-    }
-
-    .skills-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
-      gap: 20px;
-    }
-
-    @media (max-width: 800px) {
-      .skills-layout {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .skills-header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
-
-    .skills-left {
-      background: #ffffff;
-      border-radius: 18px;
-      padding: 14px 14px 16px;
-      border: 1px solid #e5e7eb;
-    }
-
-    .skills-tabs {
-      display: inline-flex;
-      border-radius: 999px;
-      background: #f3f4f6;
-      padding: 3px;
-      margin-bottom: 12px;
-      flex-wrap: wrap;
-      gap: 4px;
-    }
-
-    .skills-tab {
-      border: none;
-      padding: 6px 14px;
-      border-radius: 999px;
-      font-size: 0.82rem;
-      cursor: pointer;
-      background: transparent;
-      color: var(--text-muted);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
-    }
-
-    .skills-tab span.icon {
-      font-size: 0.85rem;
-    }
-
-    .skills-tab.active {
-      background: #ffffff;
-      color: var(--accent);
-      transform: translateY(-1px);
-      box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.25);
-    }
-
-    .skills-tab:not(.active):hover {
-      color: #111827;
-    }
-
-    .skills-subtitle {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-    }
-
-    .skills-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .skill-row {
-      padding: 8px 10px 9px;
-      border-radius: 12px;
-      background: #ffffff;
-      border: 1px solid #e5e7eb;
-      cursor: pointer;
-      transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease, background 0.12s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .skill-row::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top left, rgba(168, 85, 247, 0.08), transparent 60%);
-      opacity: 0;
-      transition: opacity 0.15s ease;
-      pointer-events: none;
-    }
-
-    .skill-row:hover::before,
-    .skill-row.active::before {
-      opacity: 1;
-    }
-
-    .skill-row:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08);
-      border-color: rgba(148, 163, 184, 0.8);
-    }
-
-    .skill-row.active {
-      border-color: rgba(168, 85, 247, 0.9);
-      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.1);
-      background: #f9fafb;
-    }
-
-    .skill-header-line {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 4px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .skill-name {
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
-
-    .skill-percent {
-      font-size: 0.76rem;
-      color: var(--text-muted);
-    }
-
-    .skill-bar {
-      position: relative;
-      width: 100%;
-      height: 7px;
-      border-radius: 999px;
-      background: var(--bar-bg);
-      overflow: hidden;
-      z-index: 1;
-    }
-
-    .skill-bar-fill {
-      position: absolute;
-      inset: 0;
-      width: 0;
-      border-radius: inherit;
-      background: var(--bar-fill);
-      box-shadow: 0 0 12px rgba(99, 102, 241, 0.5);
-      transform-origin: left;
-      transition: width 0.5s ease;
-    }
-
-    .skill-row.active .skill-bar-fill {
-      box-shadow: 0 0 18px rgba(99, 102, 241, 0.7);
-    }
-
-    .skill-meta-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      z-index: 1;
-      position: relative;
-      flex-wrap: wrap;
-    }
-
-    .skill-meta-pill {
-      padding: 2px 6px;
-      border-radius: 999px;
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-      white-space: nowrap;
-    }
-
-    .skill-meta-pill.key {
-      border-color: rgba(168, 85, 247, 0.7);
-      color: #4b5563;
-      background-color: #fff7ff;
-    }
-
-    .skills-right {
-      background: var(--card-soft);
-      border-radius: 18px;
-      padding: 14px 16px 16px;
-      border: 1px solid #e5e7eb;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .skills-right::before {
-      content: "";
-      position: absolute;
-      width: 170px;
-      height: 170px;
-      background: radial-gradient(circle, rgba(148, 163, 184, 0.2), transparent 65%);
-      bottom: -80px;
-      left: -40px;
-      pointer-events: none;
-      opacity: 0.8;
-    }
-
-    .skill-detail-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-    }
-
-    .skill-detail-title {
-      font-size: 1.05rem;
-      margin: 0 0 8px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .skill-detail-title span.pulse-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 14px rgba(168, 85, 247, 0.9);
-      animation: pulse 1.6s infinite;
-    }
-
-    .skill-detail-years {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-    }
-
-    .skill-detail-tools {
-      font-size: 0.8rem;
-      color: #111827;
-      margin-bottom: 12px;
-    }
-
-    .skill-detail-tools span.label {
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      font-size: 0.68rem;
-      display: block;
-      margin-bottom: 2px;
-    }
-
-    .skill-detail-project {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-bottom: 12px;
-    }
-
-    .skill-detail-project strong {
-      color: #111827;
-    }
-
-    .skill-detail-actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .btn-ghost,
-    .btn-primary {
-      border-radius: 999px;
-      font-size: 0.75rem;
-      padding: 6px 11px;
-      border: 1px solid #e5e7eb;
-      background: #ffffff;
-      color: var(--text-main);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
-    }
-
-    .btn-primary {
-      border-color: rgba(168, 85, 247, 0.9);
-      background: linear-gradient(90deg, #00838F, #00A8B5);
-      color: #ffffff;
-    }
-
-    .btn-ghost:hover,
-    .btn-primary:hover {
-      transform: translateY(-1px);
-    }
-
-    .btn-primary:hover {
-      filter: brightness(1.05);
-    }
-
-    .btn-ghost:hover {
-      border-color: rgba(148, 163, 184, 1);
-      background: #f9fafb;
-    }
-
-    .btn-ghost span.icon,
-    .btn-primary span.icon {
-      font-size: 0.85rem;
-    }
-
-    .skill-detail-empty {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      font-style: italic;
-    }
-
-    .fade-enter {
-      opacity: 0;
-      transform: translateY(6px);
-    }
-
-    .fade-enter-active {
-      opacity: 1;
-      transform: translateY(0);
-      transition: opacity 0.22s ease, transform 0.22s ease;
-    }
-
-    @keyframes pulse {
-      0%, 100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-      50% {
-        transform: scale(1.15);
-        opacity: 0.6;
-      }
-    }
-  </style>
-  <section class="skills-shell" id="services">
-    <header class="skills-header">
-      <div class="skills-heading-block">
-        <h2><span class="accent-dot"></span> Skills I bring to your projects</h2>
-        <p>Switch between categories, then click a specific skill to see experience, tools, and a real project example.</p>
-      </div>
-      <div class="skills-meta-chip">
-        <span class="skills-meta-dot"></span>
-        Open to junior dev, data & lecturer roles
-      </div>
-    </header>
-
-    <div class="skills-layout">
-      <div class="skills-left">
-        <div class="skills-tabs" role="tablist">
-          <button class="skills-tab active" data-category="web" role="tab"><span class="icon">🟦</span>Web development</button>
-          <button class="skills-tab" data-category="backend" role="tab"><span class="icon">🟧</span>Backend & databases</button>
-          <button class="skills-tab" data-category="support" role="tab"><span class="icon">🟫</span>IT support & systems</button>
-          <button class="skills-tab" data-category="tools" role="tab"><span class="icon">🟩</span>Software tools</button>
-        </div>
-
-        <p class="skills-subtitle">Tap a skill row to see years of experience, tools I use, and where I've applied it.</p>
-
-        <div class="skills-list" id="skills-list">
-          <!-- Skill rows will be injected here by JavaScript -->
         </div>
       </div>
 
-      <aside class="skills-right" aria-live="polite">
-        <div id="skill-detail" class="fade-enter fade-enter-active">
-          <div class="skill-detail-label">Skill spotlight</div>
-          <h3 class="skill-detail-title">
-            <span class="pulse-dot"></span>
-            <span id="detail-name">Pick a skill on the left</span>
-          </h3>
-          <div id="detail-years" class="skill-detail-years">
-            I’ll show you how long I’ve been using it and in what context.
+      <div class="flip">
+        <div class="flip-i">
+          <div class="ff">
+            <div><div class="ftype">🎓 Final Year Project</div><h3 class="ftitle">Healthcare System Web App</h3><p class="fco">Nelson Mandela University · Mar–Nov 2023</p></div>
+            <div><div class="ftags"><span class="tag tt">MySQL</span><span class="tag tb">Bootstrap</span><span class="tag tt">JavaScript</span><span class="tag tt">MVC</span></div><p class="fhint">↩ Hover to see details</p></div>
           </div>
-          <div id="detail-tools" class="skill-detail-tools">
-            <span class="label">TOOLS & STACK</span>
-            <span id="detail-tools-text">Select a skill to see the exact tools and technologies I use.</span>
+          <div class="fb">
+            <div class="fbtit">What I Built</div>
+            <ul>
+              <li>Led development of a responsive healthcare system web app for clinic management</li>
+              <li>Implemented database optimization strategies aligned with MVC design principles</li>
+              <li>Used Git for version control and collaborated with teammates to deliver a working solution</li>
+              <li>Prepared technical reports and user documentation for client-facing functionality</li>
+              <li>Technologies: HTML, CSS, JavaScript, MySQL, MVC, Git</li>
+            </ul>
           </div>
-          <div id="detail-project" class="skill-detail-project">
-            <strong>Project example:</strong>
-            <span id="detail-project-text">Once you choose a skill, I’ll show a practical way I've applied it in studies or work.</span>
-          </div>
-          <div class="skill-detail-actions">
-             
-            <a href="#contact" class="btn-ghost">
-              <span class="icon">✉️</span>
-              Talk to me about this skill
-            </a>
-          </div>
-        </div>
-      </aside>
-    </div>
-  </section>
-
-  <script>
-    const skillData = {
-      web: [
-        {
-          name: "Java",
-          level: 90,
-          years: "3+ years of academic + project experience",
-          key: "Backend logic & application development",
-          tools: "Java SE, OOP, Spring Boot basics",
-          project: "Backend features in university software development projects (e.g. business logic, data handling)."
-        },
-        {
-          name: "Spring Boot",
-          level: 85,
-          years: "2+ years exposure through projects",
-          key: "API design & backend services",
-          tools: "Spring Boot, Controllers, REST basics",
-          project: "Integrated Spring Boot in backend modules to expose REST endpoints and handle service logic."
-        },
-        {
-          name: "HTML / CSS",
-          level: 88,
-          years: "3+ years building small web apps",
-          key: "Responsive layouts & clean UI",
-          tools: "HTML5, CSS3, Bootstrap",
-          project: "Front-end for course-based web applications with responsive layouts and structured content."
-        },
-        {
-          name: "JavaScript",
-          level: 80,
-          years: "2+ years in front-end projects",
-          key: "Client-side logic & interactivity",
-          tools: "JavaScript fundamentals, DOM handling",
-          project: "Validation and interactivity in web-based university projects (forms, dynamic UI updates)."
-        },
-        {
-          name: "WordPress",
-          level: 78,
-          years: "1+ year – K & K Media internship",
-          key: "CMS management & web content updates",
-          tools: "WordPress CMS, plugin & theme customisation, content management",
-          project: "Updated and maintained a live WordPress website for K & K Media / Solwazi Institute, including content updates, plugin management, and basic theme adjustments."
-        },
-        {
-          name: "PHP",
-          level: 65,
-          years: "Academic + WordPress context",
-          key: "Server-side scripting",
-          tools: "PHP basics, WordPress template files",
-          project: "Used PHP alongside WordPress and in academic web development modules."
-        }
-      ],
-      backend: [
-        {
-          name: "SQL",
-          level: 92,
-          years: "4+ years writing queries and reports",
-          key: "Database queries, CRUD & reporting",
-          tools: "SQL Server Management Studio (SSMS), MySQL, joins, indexing basics",
-          project: "Building and managing relational databases for final-year projects and reporting tasks."
-        },
-        {
-          name: "Database Management",
-          level: 90,
-          years: "3+ years designing and optimising databases",
-          key: "Design, optimisation & maintenance",
-          tools: "ERD design, SQL Server, MySQL, data modelling",
-          project: "Full database design for academic software development assessments, including relationships and constraints."
-        },
-        {
-          name: "IBM Content Manager",
-          level: 75,
-          years: "Practical exposure during work experience",
-          key: "Enterprise content management",
-          tools: "IBM Content Manager, document indexing, metadata handling",
-          project: "Supporting enterprise content workflows during YES4Youth work experience."
-        },
-        {
-          name: "Web Server & Publishing",
-          level: 82,
-          years: "1–2 years in controlled environments",
-          key: "System configuration & deployment",
-          tools: "Web server management, deployment in test/controlled environments",
-          project: "Deploying small applications for functional system testing and validation."
-        }
-      ],
-      support: [
-        {
-          name: "IT Support",
-          level: 90,
-          years: "Hands-on work experience under YES4Youth",
-          key: "Hardware, software & network troubleshooting",
-          tools: "User support, device setup, troubleshooting, ticket handling",
-          project: "Supporting users across printers, PCs, and software systems in a real work environment."
-        },
-        {
-          name: "Windows Server",
-          level: 78,
-          years: "Practical exposure in support contexts",
-          key: "User, software & storage management",
-          tools: "Windows Server admin basics, roles, users, updates",
-          project: "Assisting with server-related support activities such as user management and basic maintenance."
-        },
-        {
-          name: "Linux (Red Hat)",
-          level: 72,
-          years: "Exposure through training",
-          key: "Basic Linux operations & navigation",
-          tools: "RHEL fundamentals, basic commands",
-          project: "Linux-based configurations and tasks in training labs."
-        },
-        {
-          name: "Networks (Cisco)",
-          level: 80,
-          years: "Certified through Cisco Networking Academy",
-          key: "Foundational networking principles",
-          tools: "CCNAv7 basics, routing concepts, IP addressing",
-          project: "Network configuration labs and scenarios completed during Cisco training."
-        },
-        {
-          name: "AWS Cloud",
-          level: 72,
-          years: "Current – Forge Academy x Nokia (2026)",
-          key: "Cloud infrastructure & services",
-          tools: "AWS EC2, S3, IAM, VPC, CloudWatch, Linux, cloud architecture",
-          project: "Currently completing AWS re/Start training at Forge Academy x Nokia — building cloud solutions, working with core AWS services, and preparing for AWS certification."
-        }
-      ],
-      tools: [
-        {
-          name: "SQL Server Management Studio",
-          level: 95,
-          years: "Used extensively in studies and projects",
-          key: "Database admin & querying",
-          tools: "SSMS, query editor, execution plans, basic tuning",
-          project: "Managing and querying SQL Server databases for assignments and practical projects."
-        },
-        {
-          name: "MySQL",
-          level: 85,
-          years: "Several projects and academic work",
-          key: "Database creation & manipulation",
-          tools: "MySQL, phpMyAdmin or CLI, schema creation",
-          project: "Creating and maintaining MySQL databases for web applications and prototypes."
-        },
-        {
-          name: "Microsoft Excel",
-          level: 88,
-          years: "1+ year – K & K Media data work",
-          key: "Data analysis, cleaning & reporting",
-          tools: "Excel pivot tables, formulas, data cleaning, report generation",
-          project: "Processed and structured large application datasets at K & K Media, improving data accuracy and accessibility for internal reporting."
-        },
-        {
-          name: "Microsoft Office",
-          level: 90,
-          years: "Daily use for academic and work tasks",
-          key: "Documentation, analysis & presentations",
-          tools: "Excel, Word, PowerPoint for reports and documentation",
-          project: "Preparing reports, documentation and slide decks for projects, training and presentations."
-        },
-        {
-          name: "Git & GitHub",
-          level: 80,
-          years: "Version control for software projects",
-          key: "Source control & collaboration",
-          tools: "Git, GitHub, branching, commits, pull/push",
-          project: "Managing code for university and personal projects using Git and GitHub repositories."
-        }
-      ]
-    };
-
-    const tabs = document.querySelectorAll(".skills-tab");
-    const skillsListEl = document.getElementById("skills-list");
-
-    const detailNameEl = document.getElementById("detail-name");
-    const detailYearsEl = document.getElementById("detail-years");
-    const detailToolsTextEl = document.getElementById("detail-tools-text");
-    const detailProjectTextEl = document.getElementById("detail-project-text");
-    const detailContainer = document.getElementById("skill-detail");
-
-    function setActiveTab(category) {
-      tabs.forEach((tab) => {
-        tab.classList.toggle("active", tab.dataset.category === category);
-      });
-    }
-
-    function createSkillRow(skill, index) {
-      const row = document.createElement("div");
-      row.className = "skill-row fade-enter";
-      row.dataset.index = index;
-
-      const header = document.createElement("div");
-      header.className = "skill-header-line";
-      header.innerHTML = `<span class="skill-name">${skill.name}</span><span class="skill-percent">${skill.level}%</span>`;
-
-      const bar = document.createElement("div");
-      bar.className = "skill-bar";
-      const barFill = document.createElement("div");
-      barFill.className = "skill-bar-fill";
-      barFill.style.width = "0";
-      bar.appendChild(barFill);
-
-      const metaRow = document.createElement("div");
-      metaRow.className = "skill-meta-row";
-      metaRow.innerHTML = `
-        <span class="skill-meta-pill key">${skill.key}</span>
-        <span class="skill-meta-pill">${skill.years}</span>
-      `;
-
-      row.appendChild(header);
-      row.appendChild(bar);
-      row.appendChild(metaRow);
-
-      requestAnimationFrame(() => {
-        row.classList.add("fade-enter-active");
-        barFill.style.width = skill.level + "%";
-      });
-
-      row.addEventListener("click", () => {
-        document
-          .querySelectorAll(".skill-row")
-          .forEach((r) => r.classList.remove("active"));
-        row.classList.add("active");
-        updateDetail(skill);
-      });
-
-      return row;
-    }
-
-    function updateDetail(skill) {
-      detailContainer.classList.remove("fade-enter-active");
-      detailContainer.classList.add("fade-enter");
-
-      setTimeout(() => {
-        detailNameEl.textContent = skill.name;
-        detailYearsEl.textContent = skill.years;
-        detailToolsTextEl.textContent = skill.tools;
-        detailProjectTextEl.textContent = skill.project;
-
-        detailContainer.classList.remove("fade-enter");
-        detailContainer.classList.add("fade-enter-active");
-      }, 80);
-    }
-
-    function renderSkills(category) {
-      skillsListEl.innerHTML = "";
-      const skills = skillData[category] || [];
-      skills.forEach((skill, index) => {
-        const row = createSkillRow(skill, index);
-        skillsListEl.appendChild(row);
-      });
-
-      if (skills.length > 0) {
-        const firstRow = skillsListEl.querySelector(".skill-row");
-        if (firstRow) {
-          firstRow.classList.add("active");
-          updateDetail(skills[0]);
-        }
-      }
-    }
-
-    tabs.forEach((tab) => {
-      tab.addEventListener("click", () => {
-        const category = tab.dataset.category;
-        setActiveTab(category);
-        renderSkills(category);
-      });
-    });
-
-    setActiveTab("web");
-    renderSkills("web");
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- Include the AOS CSS and JS libraries (ensure they are included in your project) -->
-<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-
-<!-- Centering the entire section with top margin for spacing -->
- 
-
-<!-- AOS initialization script -->
-<script>
-  // Initialize AOS for animation effects
-  AOS.init({
-    startEvent: 'DOMContentLoaded', // Ensures the animation starts when the DOM is fully loaded
-    once: true, // Animation triggers only once
-    duration: 1000, // Duration of the animation
-    easing: 'ease-in-out', // Easing for smooth transitions
-  });
-
-  // To animate progress bars smoothly when the page loads
-  document.addEventListener('DOMContentLoaded', function() {
-    let progressBars = document.querySelectorAll('.progress-bar');
-    progressBars.forEach(function(progressBar) {
-      let width = progressBar.getAttribute('aria-valuenow');
-      progressBar.style.transition = 'width 1s ease-in-out';
-      progressBar.style.width = `${width}%`;
-    });
-  });
-</script>
-
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Projects & Internships Flip Cards</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-
-  <style>
-    body {
-      background-color: #f8fafc;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
-    .flip-section-title {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 0.75rem;
-    }
-
-    .flip-section-subtitle {
-      max-width: 650px;
-      margin: 0 auto 2rem;
-      color: #6b7280;
-    }
-
-    .flip-card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .flip-card {
-      background: transparent;
-      perspective: 1000px;
-    }
-
-    .flip-card-inner {
-      position: relative;
-      width: 100%;
-      height: 290px;
-      transition: transform 0.6s;
-      transform-style: preserve-3d;
-    }
-
-    .flip-card:hover .flip-card-inner {
-      transform: rotateY(180deg);
-    }
-
-    .flip-card-face {
-      position: absolute;
-      inset: 0;
-      border-radius: 16px;
-      backface-visibility: hidden;
-      background: #ffffff;
-      border: 1px solid #e5e7eb;
-      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.06);
-      padding: 1.2rem 1.3rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .flip-card-back {
-      transform: rotateY(180deg);
-      background: linear-gradient(145deg, #f9fafb, #fdf4ff);
-    }
-
-    .flip-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 3px 10px;
-      border-radius: 999px;
-      background: #f3e8ff;
-      color: #6b21a8;
-      font-size: 0.75rem;
-      font-weight: 600;
-    }
-
-    .flip-badge span.dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #00A8B5;
-    }
-
-    .flip-title {
-      font-size: 1rem;
-      font-weight: 700;
-      margin-top: 0.6rem;
-      margin-bottom: 0.25rem;
-    }
-
-    .flip-subtitle {
-      font-size: 0.85rem;
-      color: #6b7280;
-      margin-bottom: 0.5rem;
-    }
-
-    .flip-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-top: 0.4rem;
-    }
-
-    .flip-tag {
-      font-size: 0.72rem;
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: #f3f4f6;
-      color: #4b5563;
-    }
-
-    .flip-front-footer {
-      font-size: 0.8rem;
-      color: #9ca3af;
-      margin-top: 0.7rem;
-    }
-
-    .flip-back-heading {
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin-bottom: 0.4rem;
-    }
-
-    .flip-back-text {
-      font-size: 0.8rem;
-      color: #4b5563;
-      margin-bottom: 0.4rem;
-    }
-
-    .flip-back-list {
-      padding-left: 1.1rem;
-      margin: 0;
-      font-size: 0.78rem;
-      color: #4b5563;
-    }
-
-    .flip-back-list li {
-      margin-bottom: 0.18rem;
-    }
-
-    .flip-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: #00A8B5;
-      text-decoration: none;
-      margin-top: 0.5rem;
-    }
-
-    .flip-link:hover {
-      text-decoration: underline;
-    }
-  </style>
-  <div class="section px-3 px-lg-4 pt-5" id="skills">
-    <div class="container-narrow">
-      <div class="text-center mb-4">
-        <h2  >Projects & Internships</h2>
-        <p class="flip-section-subtitle">
-          Hover over each card to flip it and see what I actually did – tools, responsibilities, and outcomes.
-        </p>
-      </div>
-
-      <div class="flip-card-grid">
-        <!-- Card 0: Forge Academy x Nokia – CURRENT ROLE -->
-        <div class="flip-card">
-          <div class="flip-card-inner">
-            <!-- FRONT -->
-            <div class="flip-card-face flip-card-front" style="border-top: 3px solid #00A8B5;">
-              <div>
-                <div class="flip-badge" style="background:#e0f7fa;color:#007A85;">
-                  <span class="dot" style="background:#00A8B5;"></span>
-                  Current Role
-                </div>
-                <div class="flip-title">AWS re/Start Intern</div>
-                <div class="flip-subtitle">Forge Academy x Nokia · Mar 2026 – Present</div>
-                <div class="flip-tags">
-                  <span class="flip-tag">AWS</span>
-                  <span class="flip-tag">Cloud Computing</span>
-                  <span class="flip-tag">Linux</span>
-                  <span class="flip-tag">Networking</span>
-                </div>
-              </div>
-              <div class="flip-front-footer">
-                Hover to see what I'm learning and building in the cloud.
-              </div>
-            </div>
-            <!-- BACK -->
-            <div class="flip-card-face flip-card-back">
-              <div>
-                <div class="flip-back-heading">What I'm doing</div>
-                <p class="flip-back-text">
-                  Completing cloud computing training at Clearwater Office Park, Roodepoort, aligned with AWS certification pathways.
-                </p>
-                <ul class="flip-back-list">
-                  <li>Training on AWS services: EC2, S3, IAM, VPC, and CloudWatch.</li>
-                  <li>Preparing for AWS certification with focus on cloud architecture, security, and deployment.</li>
-                  <li>Gaining practical experience through real-world cloud labs and scenarios.</li>
-                  <li>Applying Linux and networking fundamentals in cloud environments.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 1: Java Backend Internship -->
-        <div class="flip-card">
-          <div class="flip-card-inner">
-            <!-- FRONT -->
-            <div class="flip-card-face flip-card-front">
-              <div>
-                <div class="flip-badge">
-                  <span class="dot"></span>
-                  Internship
-                </div>
-                <div class="flip-title">Java Backend Developer Intern</div>
-                <div class="flip-subtitle">Zaio Technologies · 2023–2024</div>
-
-                <div class="flip-tags">
-                  <span class="flip-tag">Java</span>
-                  <span class="flip-tag">Spring Boot</span>
-                  <span class="flip-tag">REST APIs</span>
-                  <span class="flip-tag">SQL</span>
-                </div>
-              </div>
-              <div class="flip-front-footer">
-                Hover to see the backend tasks I handled and the impact I made.
-              </div>
-            </div>
-
-            <!-- BACK -->
-            <div class="flip-card-face flip-card-back">
-              <div>
-                <div class="flip-back-heading">What I worked on</div>
-                <p class="flip-back-text">
-                  I contributed to backend features for training and internal projects, focusing on clean,
-                  testable code.
-                </p>
-                <ul class="flip-back-list">
-                  <li>Developed backend services and API integrations using Java and Spring Boot.</li>
-                  <li>Designed SQL queries for reporting and data analysis.</li>
-                  <li>Assisted with system testing, deployments, and environment configuration.</li>
-                  <li>Created technical documentation for features and system support processes.</li>
-                </ul>
-              </div>
-              <a href="#" class="flip-link" target="_blank">
-
-               
- <a href="dc/REFERRAL LETTER.pdf" class="flip-link" target="_blank">
-                Referral letter →
-
-              </a>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 2: 3rd Year Project -->
-        <div class="flip-card">
-          <div class="flip-card-inner">
-            <!-- FRONT -->
-            <div class="flip-card-face flip-card-front">
-              <div>
-                <div class="flip-badge">
-                  <span class="dot"></span>
-                  Final Year Project
-                </div>
-                <div class="flip-title">Clinic Management Web App</div>
-                <div class="flip-subtitle">Nelson Mandela University · 2023</div>
-
-                <div class="flip-tags">
-                  <span class="flip-tag">HTML/CSS</span>
-                  <span class="flip-tag">Bootstrap</span>
-                  <span class="flip-tag">JavaScript</span>
-                  <span class="flip-tag">MySQL</span>
-                </div>
-              </div>
-              <div class="flip-front-footer">
-                Hover to see how I structured the app and used the tech stack.
-              </div>
-            </div>
-
-            <!-- BACK -->
-            <div class="flip-card-face flip-card-back">
-              <div>
-                <div class="flip-back-heading">What I built</div>
-                <p class="flip-back-text">
-                  A role-based web application for clinic appointments and patient management using the MVC
-                  pattern.
-                </p>
-                <ul class="flip-back-list">
-                  <li>Designed the database schema in MySQL and implemented CRUD operations.</li>
-                  <li>Built responsive UI with Bootstrap and custom CSS.</li>
-                  <li>Used JavaScript to handle validation and improve user interactions.</li>
-                </ul>
-              </div>
-               
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 3: Hackathon -->
-        <div class="flip-card">
-          <div class="flip-card-inner">
-            <!-- FRONT -->
-            <div class="flip-card-face flip-card-front">
-              <div>
-                <div class="flip-badge">
-                  <span class="dot"></span>
-                  Hackathon
-                </div>
-                <div class="flip-title">4IR AquaTech Challenge</div>
-                <div class="flip-subtitle">Water · Energy · Food Sustainability</div>
-
-                <div class="flip-tags">
-                  <span class="flip-tag">Prototyping</span>
-                  <span class="flip-tag">Teamwork</span>
-                  <span class="flip-tag">Problem-Solving</span>
-                </div>
-              </div>
-              <div class="flip-front-footer">
-                Hover to see the solution we worked on and my role in the team.
-              </div>
-            </div>
-
-            <!-- BACK -->
-            <div class="flip-card-face flip-card-back">
-              <div>
-                <div class="flip-back-heading">My contribution</div>
-                <p class="flip-back-text">
-                  Worked with a small team to design a tech-driven solution to improve resource management.
-                </p>
-                <ul class="flip-back-list">
-                  <li>Helped define the problem statement and user requirements.</li>
-                  <li>Prototyped interface ideas and data flows for the solution.</li>
-                  <li>Pitched the concept to judges with a clear, structured presentation.</li>
-                </ul>
-              </div>
-              <a href="https://wefnexus.org/event/welcome-to-aquatech-hackathon-2021/" class="flip-link" target="_blank">
-                View hackathon summary →
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 4: IT Software & Networks Intern – K and K Media -->
-        <div class="flip-card">
-          <div class="flip-card-inner">
-            <!-- FRONT -->
-            <div class="flip-card-face flip-card-front">
-              <div>
-                <div class="flip-badge">
-                  <span class="dot"></span>
-                  Internship
-                </div>
-                <div class="flip-title">IT &amp; Web Support Intern</div>
-                <div class="flip-subtitle">K &amp; K Media / Solwazi · Sep 2025 – Mar 2026</div>
-
-                <div class="flip-tags">
-                  <span class="flip-tag">WordPress</span>
-                  <span class="flip-tag">Excel</span>
-                  <span class="flip-tag">IT Support</span>
-                  <span class="flip-tag">Data Analysis</span>
-                </div>
-              </div>
-              <div class="flip-front-footer">
-                Hover to see how I supported users, systems and networks in a real office environment.
-              </div>
-            </div>
-
-            <!-- BACK -->
-            <div class="flip-card-face flip-card-back">
-              <div>
-                <div class="flip-back-heading">What I did</div>
-                <p class="flip-back-text">
-                  Supported IT operations and web/data tasks at Constantia Square Office Park, Midrand.
-                </p>
-                <ul class="flip-back-list">
-                  <li>Analysed and cleaned application data using Microsoft Excel for internal reporting.</li>
-                  <li>Updated and maintained a WordPress-based website (content, plugins, themes).</li>
-                  <li>Repaired laptops and resolved hardware/software issues for staff.</li>
-                  <li>Configured email accounts, Wi-Fi connections, and printers.</li>
-                  <li>Supported daily admin tasks using Microsoft Word and Excel.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div> <!-- /.flip-card-grid -->
-    </div>
-  </div>
-
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-
-
-
-
-
-<style>
-  /* Style for the card container */
-  .carousel-item .card {
-    width: 90%;
-    max-width: 600px;
-    margin: auto;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    border-radius: 12px;
-    transition: transform 0.3s ease-in-out;
-  }
-
-  /* Slight zoom effect when hovering over cards */
-  .carousel-item .card:hover {
-    transform: scale(1.02);
-    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
-  }
-
-  /* Smaller image thumbnails */
-  .carousel-item .card img {
-    width: 100px;
-    height: auto;
-    border-radius: 8px;
-    margin-right: 15px;
-  }
-
-  /* Arrange text and image side by side */
-  .card-body {
-    display: flex;
-    align-items: center;
-  }
-
-  /* Hide full text by default */
-  .full-text {
-    display: none;
-  }
-
-  /* Style for Read More button */
-  .read-more {
-    color: blue;
-    cursor: pointer;
-    font-weight: bold;
-  }
-
-  /* Button to view document */
-  .view-btn {
-    background-color: black;
-    color: white;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    display: block;
-    margin-top: 10px;
-    width: fit-content;
-  }
-
-  /* Increase visibility of buttons */
-  .carousel-control-prev-icon,
-  .carousel-control-next-icon {
-    background-color: black;
-    padding: 10px;
-    border-radius: 50%;
-  }
-
-  .carousel-control-prev, .carousel-control-next {
-    width: 10%;
-  }
-</style>
-
- 
-
-      <!-- Carousel Controls -->
-      <button class="carousel-control-prev" type="button" data-bs-target="#venturesCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#venturesCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-
-    </div>
-  </div>
-</div>
-
-<script>
-  function toggleText(element) {
-    let shortText = element.previousElementSibling.previousElementSibling;
-    let fullText = element.previousElementSibling;
-
-    if (fullText.style.display === "none" || fullText.style.display === "") {
-      fullText.style.display = "inline";
-      shortText.style.display = "none";
-      element.textContent = "Read Less";
-    } else {
-      fullText.style.display = "none";
-      shortText.style.display = "inline";
-      element.textContent = "Read More";
-    }
-  }
-</script>
-
-
- 
-
-
-
-
-<div class="section px-3 px-lg-4 pt-5" id="certificate"></div>
-
-<div id="certificates" class="py-5" style="background: #f8f9fa;">
-  <h2 class="text-center mb-5" style="color: var(--navy, #0F2B4A);">My Certificates</h2>
-  <div class="container">
-    <div class="row g-4">
-
-      <!-- Java Certification -->
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-        <div class="certificate-card">
-          <h5>Java Certification</h5>
-          <p>ZAIO Institute of Technology (December 2023)</p>
-          <a href=".vscode/JAVA.pdf" target="_blank" class="btn btn-primary btn-sm mt-2">View Certificate</a>
         </div>
       </div>
 
-      <!-- SQL Certification -->
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-        <div class="certificate-card">
-          <h5>SQL Certification</h5>
-          <p>ZAIO Institute of Technology (December 2023)</p>
-          <a href=".vscode/SQL.pdf" target="_blank" class="btn btn-primary btn-sm mt-2">View Certificate</a>
-        </div>
-      </div>
-
-      <!-- Quality Work Experience -->
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-        <div class="certificate-card">
-          <h5>Quality Work Experience</h5>
-          <p>YES4Youth (September 2024)</p>
-          <a href=".vscode/SQL.pdf" target="_blank" class="btn btn-primary btn-sm mt-2">View Certificate</a>
-        </div>
-      </div>
-
-      <!-- Cybersecurity for Everyone -->
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
-        <div class="certificate-card">
-          <h5>Cybersecurity for Everyone</h5>
-          <p>University of Maryland (February 2024)</p>
-          <a href=".vscode/CyberSecurity.pdf" target="_blank" class="btn btn-primary btn-sm mt-2">View Certificate</a>
-        </div>
-      </div>
-
-      <!-- CCNAv7: Introduction to Networks -->
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
-        <div class="certificate-card">
-          <h5>CCNAv7: Introduction to Networks</h5>
-          <p>Cisco Networking Academy</p>
-          <a href=".vscode/CCNA-_Introduction_to_Networks_certificate_s224515837-mandela-ac-za_e0857e0f-0dc4-4de0-b7c6-720e9db30509.pdf" target="_blank" class="btn btn-primary btn-sm mt-2">View Certificate</a>
-        </div>
-      </div>
-
-      <!-- Introduction to Cybersecurity -->
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="600">
-        <div class="certificate-card">
-          <h5>Introduction to Cybersecurity</h5>
-          <p>Cisco Networking Academy</p>
-          <a href=".vscode/Introduction_to_Cybersecurity_certificate_s224515837-mandela-ac-za_1f9839bc-1f89-4222-b869-ed5cd5427ef2.pdf" target="_blank" class="btn btn-primary btn-sm mt-2">View Certificate</a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-<div class="section px-3 px-lg-4 pt-5" id="portfolio">
-  <div class="container-narrow">
-    <div class="text-center mb-5">
-      <h2 class="marker marker-center"> Testimonials</h2>
-    </div>
-    <div class="row"> 
-      <div class="col-md-6 mb-5" data-aos="fade-right" data-aos-delay="100">
-        <div class="d-flex ms-md-3">
-          <span><i class="fas fa-2x fa-quote-left"></i></span>
-          <span class="m-2"> What I admire most about Carven is his ability to adapt and thrive in a field that's constantly changing. Whether it's learning a new programming language, exploring the latest advancements in cybersecurity, or diving into the world of data science, he approaches every challenge with determination and a thirst for knowledge.</span>
-        </div>
-        <div class="d-flex justify-content-end align-items-end">
-          <div class="text-end me-2">
-            <div class="fw-bolder">Irvin Maceke </div>
-            <div class="text-small">Senior Technical Support Analyst </div>
+      <div class="flip">
+        <div class="flip-i">
+          <div class="ff">
+            <div><div class="ftype">🏆 Hackathon</div><h3 class="ftitle">4IR AquaTech Challenge</h3><p class="fco">Water · Energy · Food Sustainability · 2021</p></div>
+            <div><div class="ftags"><span class="tag tg">Prototyping</span><span class="tag tb">Teamwork</span><span class="tag tt">Problem-Solving</span></div><p class="fhint">↩ Hover to see details</p></div>
           </div>
-          <img class="me-md-3 rounded" src="images/clients/1659092172338.jpeg" width="96" height="96" alt="client 1"/>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="section px-2 px-lg-4 pb-4 pt-5 mb-5" id="contact">
-  <div class="container-narrow">
-    <div class="text-center mb-5">
-      <h2 class="marker marker-center">Contact Me</h2>
-    </div>
-    <div class="row">
-      <!-- WhatsApp Contact Form -->
-      <div class="col-md-6" data-aos="zoom-in" data-aos-delay="100">
-        <div class="bg-light my-2 p-3 pt-2">
-          <form onsubmit="sendWhatsApp(event)">
-            <div class="form-group my-2">
-              <label for="name" class="form-label fw-bolder">Name</label>
-              <input class="form-control" type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group my-2">
-              <label for="message" class="form-label fw-bolder">Message</label>
-              <textarea class="form-control" style="resize: none;" id="message" name="message" rows="4" required></textarea>
-            </div>
-            <button class="btn btn-success mt-2" type="submit">
-              <i class="fab fa-whatsapp"></i> Send via WhatsApp
-            </button>
-          </form>
+          <div class="fb">
+            <div class="fbtit">My Contribution</div>
+            <ul>
+              <li>Collaborated with a small team to design a tech-driven resource management solution</li>
+              <li>Helped define the problem statement and mapped user requirements</li>
+              <li>Prototyped interface ideas and data flows for the proposed system</li>
+              <li>Pitched the concept to judges with a structured, clear presentation</li>
+              <li>Also competed in ICT Hackathon Challenge (Economic &amp; Skills Development) — 2021</li>
+            </ul>
+            <a class="flink" href="https://wefnexus.org/event/welcome-to-aquatech-hackathon-2021/" target="_blank">View Summary <i class="fas fa-arrow-right"></i></a>
+          </div>
         </div>
       </div>
 
-      <!-- Contact Info -->
-      <div class="col-md-6" data-aos="fade-left" data-aos-delay="300">
-        <div class="mt-3 px-1">
-          <div class="h5">Contact Me</div>
-          <p>
-            Available for Hire.  
-            If you have any ideas on how I can improve my website —  
-            whether it's design, usability, features, or content —  
-            please don’t hesitate to reach out. Your feedback helps me grow.
-          </p>
-        </div>
-
-        <div class="mt-3 px-1">
-          <div class="row"> 
-            <div class="col-sm-2">
-              <div class="pb-1">Email:</div>
-            </div>
-            <div class="col-sm-10">
-              <div class="pb-1 fw-bolder">carvenmaceke9@gmail.com</div>
-            </div>
-
-            <div class="col-sm-2">
-              <div class="pb-1">Phone:</div>
-            </div>
-            <div class="col-sm-10">
-              <div class="pb-1 fw-bolder">+27 60 795 0837</div>
-            </div>
+      <div class="flip">
+        <div class="flip-i">
+          <div class="ff">
+            <div><div class="ftype">🌐 Project</div><h3 class="ftitle">Portfolio Website</h3><p class="fco">Personal Project · carven.netlify.app</p></div>
+            <div><div class="ftags"><span class="tag tt">HTML/CSS</span><span class="tag tb">JavaScript</span><span class="tag tg">Netlify</span></div><p class="fhint">↩ Hover to see details</p></div>
+          </div>
+          <div class="fb">
+            <div class="fbtit">What I Built</div>
+            <ul>
+              <li>Designed and developed this portfolio from scratch showcasing modern web dev practices</li>
+              <li>Built interactive features including flip cards, skill tabs, and a live AI chatbot</li>
+              <li>Implemented responsive design with custom CSS animations and scroll effects</li>
+              <li>Deployed via Netlify with performance optimisation and OG meta tags for social sharing</li>
+            </ul>
+            <a class="flink" href="https://carven.netlify.app" target="_blank">View Live Site <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
       </div>
 
     </div>
   </div>
-</div>
+</section>
 
-<script>
-function sendWhatsApp(e) {
-  e.preventDefault();
-  const name = document.getElementById('name').value;
-  const msg = document.getElementById('message').value;
-  const number = '27607950837'; // Your WhatsApp number with country code
-  const url = `https://wa.me/${number}?text=Hi,%20my%20name%20is%20${encodeURIComponent(name)}.%20${encodeURIComponent(msg)}`;
-  window.open(url, '_blank');
-}
-</script>
+<!-- CERTIFICATES -->
+<section id="certificates" class="section">
+  <div class="container fade-in">
+    <div class="lbl">04 — Credentials</div>
+    <h2 class="stitle">My Certificates</h2>
+    <p class="ssub">Verified credentials from industry-recognised institutions.</p>
+    <div class="certs-grid">
+      <div class="cert"><div class="cion">☕</div><div class="cname">Java Certification</div><div class="cfrom">ZAIO Institute of Technology</div><div class="cdate">December 2023</div><a class="cbtn" href="/.vscode/JAVA.pdf" target="_blank"><i class="fas fa-external-link-alt"></i> View Certificate</a></div>
+      <div class="cert"><div class="cion">🗄️</div><div class="cname">SQL Certification</div><div class="cfrom">ZAIO Institute of Technology</div><div class="cdate">December 2023</div><a class="cbtn" href="/.vscode/SQL.pdf" target="_blank"><i class="fas fa-external-link-alt"></i> View Certificate</a></div>
+      <div class="cert"><div class="cion">🏆</div><div class="cname">Quality Work Experience</div><div class="cfrom">YES4Youth</div><div class="cdate">September 2024</div><span class="cbtn broken" title="⚠️ Update this with the correct YES4Youth PDF path"><i class="fas fa-exclamation-triangle"></i> Update link needed</span></div>
+      <div class="cert"><div class="cion">🔐</div><div class="cname">Cybersecurity for Everyone</div><div class="cfrom">University of Maryland</div><div class="cdate">February 2024</div><a class="cbtn" href="/.vscode/CyberSecurity.pdf" target="_blank"><i class="fas fa-external-link-alt"></i> View Certificate</a></div>
+      <div class="cert"><div class="cion">🌐</div><div class="cname">CCNAv7: Introduction to Networks</div><div class="cfrom">Cisco Networking Academy</div><a class="cbtn" href="/.vscode/CCNA-_Introduction_to_Networks_certificate_s224515837-mandela-ac-za_e0857e0f-0dc4-4de0-b7c6-720e9db30509.pdf" target="_blank"><i class="fas fa-external-link-alt"></i> View Certificate</a></div>
+      <div class="cert"><div class="cion">🛡️</div><div class="cname">Introduction to Cybersecurity</div><div class="cfrom">Cisco Networking Academy</div><a class="cbtn" href="/.vscode/Introduction_to_Cybersecurity_certificate_s224515837-mandela-ac-za_1f9839bc-1f89-4222-b869-ed5cd5427ef2.pdf" target="_blank"><i class="fas fa-external-link-alt"></i> View Certificate</a></div>
+    </div>
+  </div>
+</section>
 
+<!-- TESTIMONIALS -->
+<section id="testimonials" class="section">
+  <div class="container fade-in">
+    <div class="lbl">05 — Testimonials</div>
+    <h2 class="stitle">What People Say</h2>
+    <p class="ssub">Feedback from colleagues and peers who've worked with me.</p>
+    <div class="test-grid">
+      <div class="tcard">
+        <div class="qmark">"</div>
+        <p class="ttext">What I admire most about Carven is his ability to adapt and thrive in a field that's constantly changing. Whether it's learning a new programming language, exploring cybersecurity, or diving into data science — he approaches every challenge with determination and a genuine thirst for knowledge.</p>
+        <div class="tauth">
+          <img class="tavt" src="images/clients/1659092172338.jpeg" alt="Irvin Maceke" />
+          <div><div class="tname">Irvin Maceke</div><div class="trole">Senior Technical Support Analyst</div></div>
+        </div>
+      </div>
+      <div class="tph">
+        <div style="font-size:34px;color:var(--dim)">💬</div>
+        <p>More testimonials coming soon.<br/>Have we worked together? <a href="#contact">Get in touch</a> and I'll feature your feedback here.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- CONTACT -->
+<section id="contact" class="section">
+  <div class="container fade-in">
+    <div class="lbl">06 — Contact</div>
+    <h2 class="stitle">Let's Work Together</h2>
+    <div class="contact-grid">
+      <div class="ci">
+        <h3>Open to Opportunities</h3>
+        <p>I'm actively looking for junior developer, cloud engineering, or graduate IT roles. Let's connect — whether it's a role, collaboration, or just a tech chat.</p>
+        <a href="mailto:carvenmaceke9@gmail.com" class="citem"><div class="xico"><i class="fas fa-envelope"></i></div><div><div class="xlbl">Email</div><div class="xval">carvenmaceke9@gmail.com</div></div></a>
+        <a href="tel:+27607950837" class="citem"><div class="xico"><i class="fas fa-phone"></i></div><div><div class="xlbl">Phone</div><div class="xval">+27 60 795 0837</div></div></a>
+        <div class="citem"><div class="xico"><i class="fas fa-map-marker-alt"></i></div><div><div class="xlbl">Location</div><div class="xval">Pretoria West 🇿🇦 (Open to Remote)</div></div></div>
+        <a href="https://www.linkedin.com/in/carven-maceke-a29985235" target="_blank" class="citem"><div class="xico"><i class="fab fa-linkedin-in"></i></div><div><div class="xlbl">LinkedIn</div><div class="xval">carven-maceke-a29985235</div></div></a>
+        <a href="https://github.com/Carvenmaceke" target="_blank" class="citem"><div class="xico"><i class="fab fa-github"></i></div><div><div class="xlbl">GitHub</div><div class="xval">github.com/Carvenmaceke</div></div></a>
+      </div>
+      <div class="cf">
+        <div class="fg"><label class="fl">Your Name</label><input class="fi" type="text" id="cName" placeholder="Jane Smith" /></div>
+        <div class="fg"><label class="fl">Email Address</label><input class="fi" type="email" id="cEmail" placeholder="jane@company.com" /></div>
+        <div class="fg"><label class="fl">Message</label><textarea class="ft" id="cMsg" placeholder="Tell me about the role or project..."></textarea></div>
+        <div class="factions">
+          <button class="btn bp" onclick="sendEmail()"><i class="fas fa-paper-plane"></i> Send Email</button>
+          <button class="btn bw" onclick="sendWA()"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
-  <div class="container text-center">
-    <div class="h4 mb-1">Carven Maceke</div>
-    <p style="color:rgba(255,255,255,0.5);font-size:0.85rem;margin-bottom:1rem;">Software Developer · Java · Spring Boot · SQL</p>
-    <div class="social-nav">
-      <nav role="navigation">
-        <ul class="nav justify-content-center">
-          <li class="nav-item"><a class="nav-link" href="https://twitter.com/MacekeCarven" title="Twitter" target="_blank"><i class="fab fa-twitter"></i></a></li>
-          <li class="nav-item"><a class="nav-link" href="https://www.facebook.com/carven.axe.5" title="Facebook" target="_blank"><i class="fab fa-facebook"></i></a></li>
-          <li class="nav-item"><a class="nav-link" href="https://www.instagram.com/carven_sa15" title="Instagram" target="_blank"><i class="fab fa-instagram"></i></a></li>
-          <li class="nav-item"><a class="nav-link" href="https://www.linkedin.com/in/carven-maceke-a29985235" title="LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-          <li class="nav-item"><a class="nav-link" href="https://github.com/s224515837" title="GitHub" target="_blank"><i class="fab fa-github"></i></a></li>
-        </ul>
-      </nav>
+  <div class="container">
+    <div class="flogo">CM<span>.</span></div>
+    <div class="ftag">Software Developer · Java · Spring Boot · AWS · SQL</div>
+    <div class="fsoc">
+      <a href="https://www.linkedin.com/in/carven-maceke-a29985235" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://github.com/Carvenmaceke" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://twitter.com/MacekeCarven" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="https://www.instagram.com/carven_sa15" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.facebook.com/carven.axe.5" target="_blank"><i class="fab fa-facebook-f"></i></a>
     </div>
-    <hr class="footer-divider">
-    <div class="footer-copyright">&copy; 2025 Carven Maceke. All rights reserved.</div>
-  </div>
-  <div id="scrolltop">
-    <a class="btn btn-secondary" href="#top"><i class="fas fa-angle-up"></i></a>
+    <div class="fcopy">© 2026 Carven Maceke. All rights reserved. · <a href="/CarvenMaceke_Resume.pdf" download>Download CV</a></div>
   </div>
 </footer>
 
-<!-- Scripts -->
-<script src="./scripts/imagesloaded.pkgd.min.js?ver=1.2.0"></script>
-<script src="./scripts/masonry.pkgd.min.js?ver=1.2.0"></script>
-<script src="./scripts/BigPicture.min.js?ver=1.2.0"></script>
-<script src="./scripts/purecounter.min.js?ver=1.2.0"></script>
-<script src="./scripts/bootstrap.bundle.min.js?ver=1.2.0"></script>
-<script src="./scripts/aos.min.js?ver=1.2.0"></script>
-<script src="./scripts/main.js?ver=1.2.0"></script>
+<!-- ═══════════════════════════════════════
+     CHATBOT
+═══════════════════════════════════════ -->
+<button class="chat-toggle" id="chatToggle" onclick="toggleChat()" title="Ask me anything about Carven">
+  <i class="fas fa-robot" id="chatIcon"></i>
+</button>
 
-
-<!-- ══════════════════════════════════════════════
-     SLOW — Carven's Portfolio Chatbot
-══════════════════════════════════════════════════ -->
-<style>
-  /* ── Chatbot bubble & panel ────────────────── */
-  #slow-bubble {
-    position: fixed;
-    bottom: 24px;
-    right: 80px;
-    z-index: 9000;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-  }
-  #slow-bubble-btn {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #0F2B4A, #00A8B5);
-    border: none;
-    box-shadow: 0 6px 24px rgba(0,168,181,0.45);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    position: relative;
-  }
-  #slow-bubble-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 8px 28px rgba(0,168,181,0.6);
-  }
-  #slow-bubble-btn svg { width: 26px; height: 26px; }
-  #slow-pulse {
-    position: absolute;
-    top: -3px; right: -3px;
-    width: 14px; height: 14px;
-    background: #22c55e;
-    border-radius: 50%;
-    border: 2px solid white;
-    animation: slow-pulse-ring 1.8s infinite;
-  }
-  @keyframes slow-pulse-ring {
-    0%,100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.25); opacity: 0.7; }
-  }
-  #slow-label {
-    background: #0F2B4A;
-    color: #fff;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 0.82rem;
-    font-weight: 700;
-    white-space: nowrap;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.2);
-    letter-spacing: 0.03em;
-    animation: slow-label-pop 0.5s 1.5s both;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  @keyframes slow-label-pop {
-    from { opacity: 0; transform: translateX(10px); }
-    to   { opacity: 1; transform: translateX(0); }
-  }
-
-  /* ── Chat panel ───────────────────────────── */
-  #slow-panel {
-    position: fixed;
-    bottom: 96px;
-    right: 24px;
-    width: 360px;
-    max-width: calc(100vw - 32px);
-    height: 520px;
-    max-height: calc(100vh - 110px);
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 16px 56px rgba(15,43,74,0.28);
-    display: flex;
-    flex-direction: column;
-    z-index: 9001;
-    transform: scale(0.85) translateY(20px);
-    opacity: 0;
-    pointer-events: none;
-    transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1), opacity 0.22s ease;
-  }
-  /* open state handled via JS style.display */
-  /* Header */
-  #slow-header {
-    background: linear-gradient(135deg, #0F2B4A 0%, #1A4A6E 70%, #0F5F6E 100%);
-    padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
-  }
-  #slow-avatar {
-    width: 40px; height: 40px;
-    background: rgba(0,168,181,0.25);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.2rem;
-    border: 2px solid rgba(0,168,181,0.5);
-  }
-  #slow-header-info { flex: 1; }
-  #slow-header-name {
-    color: #fff;
-    font-weight: 800;
-    font-size: 0.95rem;
-    line-height: 1.2;
-    font-family: 'Nunito Sans', sans-serif;
-  }
-  #slow-header-status {
-    color: rgba(255,255,255,0.65);
-    font-size: 0.72rem;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-  #slow-header-status::before {
-    content: '';
-    width: 6px; height: 6px;
-    background: #22c55e;
-    border-radius: 50%;
-    display: inline-block;
-  }
-  #slow-close {
-    background: rgba(255,255,255,0.12);
-    border: none;
-    color: #fff;
-    width: 30px; height: 30px;
-    border-radius: 50%;
-    font-size: 1rem;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: background 0.2s;
-    flex-shrink: 0;
-  }
-  #slow-close:hover { background: rgba(255,255,255,0.22); }
-
-  /* Messages */
-  #slow-messages {
-    flex: 1;
-    overflow-y: auto;
-    padding: 14px 14px 6px;
-    background: #F7FAFE;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    scroll-behavior: smooth;
-  }
-  #slow-messages::-webkit-scrollbar { width: 4px; }
-  #slow-messages::-webkit-scrollbar-track { background: transparent; }
-  #slow-messages::-webkit-scrollbar-thumb { background: #DCE6F0; border-radius: 4px; }
-
-  .slow-msg {
-    display: flex;
-    gap: 8px;
-    align-items: flex-end;
-    animation: slow-msg-in 0.22s ease both;
-  }
-  @keyframes slow-msg-in {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .slow-msg.user { flex-direction: row-reverse; }
-  .slow-msg-icon {
-    width: 28px; height: 28px; border-radius: 50%;
-    background: linear-gradient(135deg, #0F2B4A, #00A8B5);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.8rem; flex-shrink: 0; color: white;
-  }
-  .slow-bubble-text {
-    max-width: 82%;
-    padding: 9px 13px;
-    border-radius: 16px;
-    font-size: 0.85rem;
-    line-height: 1.55;
-    font-family: 'Nunito Sans', sans-serif;
-  }
-  .slow-msg.bot .slow-bubble-text {
-    background: #fff;
-    color: #1A2B3C;
-    border-bottom-left-radius: 4px;
-    border: 1px solid #DCE6F0;
-  }
-  .slow-msg.user .slow-bubble-text {
-    background: linear-gradient(135deg, #0F2B4A, #00838F);
-    color: #fff;
-    border-bottom-right-radius: 4px;
-  }
-  .slow-bubble-text a {
-    color: #00A8B5;
-    text-decoration: underline;
-  }
-  .slow-msg.user .slow-bubble-text a { color: #E0F7FA; }
-
-  /* Chips */
-  #slow-chips {
-    padding: 8px 14px 6px;
-    background: #F7FAFE;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    flex-shrink: 0;
-    border-top: 1px solid #DCE6F0;
-  }
-  .slow-chip {
-    background: #E0F7FA;
-    color: #007A85;
-    border: 1.5px solid rgba(0,168,181,0.3);
-    border-radius: 20px;
-    padding: 4px 11px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.18s, color 0.18s;
-    font-family: 'Nunito Sans', sans-serif;
-  }
-  .slow-chip:hover {
-    background: #00A8B5;
-    color: white;
-    border-color: #00A8B5;
-  }
-
-  /* Input */
-  #slow-input-row {
-    display: flex;
-    gap: 8px;
-    padding: 10px 14px;
-    background: #fff;
-    border-top: 1px solid #DCE6F0;
-    flex-shrink: 0;
-  }
-  #slow-input {
-    flex: 1;
-    border: 1.5px solid #DCE6F0;
-    border-radius: 24px;
-    padding: 8px 14px;
-    font-size: 0.85rem;
-    outline: none;
-    font-family: 'Nunito Sans', sans-serif;
-    color: #1A2B3C;
-    transition: border-color 0.2s;
-  }
-  #slow-input:focus { border-color: #00A8B5; }
-  #slow-send {
-    width: 38px; height: 38px;
-    background: linear-gradient(135deg, #0F2B4A, #00A8B5);
-    border: none;
-    border-radius: 50%;
-    color: white;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    transition: transform 0.15s, box-shadow 0.15s;
-  }
-  #slow-send:hover {
-    transform: scale(1.08);
-    box-shadow: 0 4px 14px rgba(0,168,181,0.4);
-  }
-  #slow-send svg { width: 16px; height: 16px; }
-
-  /* Typing indicator */
-  .slow-typing-dots {
-    display: flex; gap: 4px; align-items: center; padding: 4px 2px;
-  }
-  .slow-typing-dots span {
-    width: 7px; height: 7px; background: #00A8B5;
-    border-radius: 50%;
-    animation: slow-dot 1.2s infinite;
-  }
-  .slow-typing-dots span:nth-child(2) { animation-delay: 0.2s; }
-  .slow-typing-dots span:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes slow-dot {
-    0%,60%,100% { transform: translateY(0); opacity: 0.4; }
-    30% { transform: translateY(-5px); opacity: 1; }
-  }
-</style>
-
-<!-- Bubble trigger -->
-<div id="slow-bubble">
-  <div id="slow-label">👋 Ask me anything</div>
-  <button id="slow-bubble-btn" aria-label="Open Slow chatbot">
-    <div id="slow-pulse"></div>
-    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-    </svg>
-  </button>
-</div>
-
-<!-- Chat panel -->
-<div id="slow-panel" role="dialog" aria-label="Slow chatbot">
-  <div id="slow-header">
-    <div id="slow-avatar">🤖</div>
-    <div id="slow-header-info">
-      <div id="slow-header-name">Slow</div>
-      <div id="slow-header-status">Carven's portfolio assistant</div>
+<div class="chat-win" id="chatWin">
+  <div class="chead">
+    <div class="chead-l">
+      <div class="cavt"><i class="fas fa-robot"></i></div>
+      <div>
+        <div class="cbot-name">Carven's Portfolio Assistant</div>
+        <div class="cbot-status">Online — Ask me anything</div>
+      </div>
     </div>
-    <button id="slow-close" aria-label="Close chatbot">✕</button>
+    <button class="cx" onclick="toggleChat()">✕</button>
   </div>
-
-  <div id="slow-messages"></div>
-
-  <div id="slow-chips">
-    <button class="slow-chip" data-q="skills">💻 Skills</button>
-    <button class="slow-chip" data-q="experience">💼 Experience</button>
-    <button class="slow-chip" data-q="aws">☁️ AWS</button>
-    <button class="slow-chip" data-q="projects">🚀 Projects</button>
-    <button class="slow-chip" data-q="certifications">📜 Certs</button>
-    <button class="slow-chip" data-q="contact">📞 Contact</button>
+  <div id="apiBanner" class="api-banner" style="display:none">
+    ⚠️ AI mode needs an API key. <a href="#" onclick="promptKey()">Click to add yours</a> — or I'll use my built-in knowledge.
   </div>
-
-  <div id="slow-input-row">
-    <input id="slow-input" type="text" placeholder="Ask me about Carven..." maxlength="200" autocomplete="off"/>
-    <button id="slow-send" aria-label="Send">
-      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="22" y1="2" x2="11" y2="13"/>
-        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-      </svg>
-    </button>
+  <div class="cmsgs" id="chatMsgs">
+    <div class="msg bot">👋 Hi! I'm Carven's AI assistant. I know everything about his CV, skills, and experience. What would you like to know?</div>
+  </div>
+  <div class="cchips">
+    <span class="chip" onclick="chipAsk('What are Carven\'s main technical skills?')">💻 Skills</span>
+    <span class="chip" onclick="chipAsk('Tell me about his work experience')">💼 Experience</span>
+    <span class="chip" onclick="chipAsk('What AWS skills does he have?')">☁️ AWS</span>
+    <span class="chip" onclick="chipAsk('What certifications does he hold?')">📜 Certs</span>
+    <span class="chip" onclick="chipAsk('How can I contact Carven?')">📞 Contact</span>
+    <span class="chip" onclick="chipAsk('What projects has he built?')">🚀 Projects</span>
+  </div>
+  <div class="cinput-row">
+    <input class="cinput" id="chatInput" placeholder="Ask me anything about Carven..." onkeydown="if(event.key==='Enter')sendChat()" />
+    <button class="csend" onclick="sendChat()"><i class="fas fa-paper-plane"></i></button>
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════ -->
 <script>
-<script>
-(function(){
-  var KB = {
-    greeting:       `Hi! I'm <strong>Slow</strong> 👋 — Carven's portfolio assistant. Ask me about his skills, experience, projects, certs or contact details!`,
-    summary:        `Carven Maceke is an IT graduate with hands-on experience in <strong>software development, cloud computing, web development and IT support</strong>. He works with Java, Spring Boot, SQL, WordPress and AWS. 🚀`,
-    skills:         `☕ <strong>Programming:</strong> Java, Spring Boot, C#, Python, JavaScript<br>🌐 <strong>Web:</strong> HTML, CSS, JavaScript, WordPress, PHP<br>🗄️ <strong>Databases:</strong> MySQL, SQL Server<br>☁️ <strong>Cloud:</strong> AWS (EC2, S3, IAM, VPC, CloudWatch)<br>🛠️ <strong>Tools:</strong> Git/GitHub, Microsoft Excel, Word<br>💻 <strong>IT Support:</strong> Networking, hardware/software troubleshooting`,
-    experience:     `☁️ <strong>AWS re/Start Intern</strong> — Forge Academy × Nokia (2026–Present)<br>→ Cloud training, AWS services, Linux, cloud architecture<br><br>🖥️ <strong>IT & Web Support Intern</strong> — K & K Media (Sep 2025–Mar 2026)<br>→ WordPress, Excel data analysis, IT helpdesk, hardware support<br><br>☕ <strong>Junior Java Developer</strong> — ZAIO Institute (2023–2024)<br>→ Java, Spring Boot, REST APIs, SQL, debugging, documentation`,
-    aws:            `Currently training at <strong>Forge Academy × Nokia</strong> (Roodepoort):<br>• AWS EC2, S3, IAM, VPC, CloudWatch<br>• Linux system administration<br>• Cloud architecture & deployment<br>• Preparing for AWS certification ☁️`,
-    java:           `Carven's Java backend experience from ZAIO:<br>• Built backend services using <strong>Java & Spring Boot</strong><br>• Created REST APIs and database integrations<br>• Designed SQL queries for reporting<br>• Debugging, testing and documentation ☕`,
-    web:            `• <strong>HTML, CSS, JavaScript</strong> — responsive UIs<br>• <strong>WordPress</strong> — CMS, plugins, themes (K & K Media)<br>• <strong>PHP</strong> — server-side scripting<br>• Netlify deployment 🌐`,
-    projects:       `🌐 <strong>Portfolio Website</strong><br>Built with HTML/CSS/JS, deployed on Netlify<br><a href="https://carven.netlify.app" target="_blank">carven.netlify.app ↗</a><br><br>🏥 <strong>Healthcare System (NMU Final Year)</strong><br>MVC architecture, MySQL database, Git/GitHub, full documentation`,
-    certifications: `• ☕ Java — ZAIO Institute (Dec 2023)<br>• 🗄️ SQL — ZAIO Institute (Dec 2023)<br>• 🔐 Cybersecurity — University of Maryland (Feb 2024)<br>• 🌐 CCNAv7 — Cisco Networking Academy<br>• 🔒 Intro to Cybersecurity — Cisco<br>• 🏅 YES4Youth Work Experience (Sep 2024)`,
-    education:      `🎓 <strong>National Diploma in Information Technology</strong> (Software Development)<br>Nelson Mandela University — NQF Level 6 — Completed 2024`,
-    database:       `• <strong>MySQL</strong> — design, CRUD, query optimisation<br>• <strong>SQL Server (SSMS)</strong> — querying and reporting<br>• Data cleaning and analysis with Excel<br>• ERD design and data modelling`,
-    support:        `• Laptop troubleshooting & repair<br>• Wi-Fi, printer & email configuration<br>• IT helpdesk and user support<br>• Basic server security monitoring<br>• Network setup (CCNA certified)`,
-    contact:        `📧 <a href="mailto:Carvenmaceke9@gmail.com">Carvenmaceke9@gmail.com</a><br>📱 <a href="tel:+27607950837">060 795 0837</a><br>🌐 <a href="https://carven.netlify.app" target="_blank">carven.netlify.app</a><br>💼 <a href="https://www.linkedin.com/in/carven-maceke-a29985235" target="_blank">LinkedIn Profile</a>`,
-    portfolio:      `Carven's portfolio is live at 🌐 <a href="https://carven.netlify.app" target="_blank">carven.netlify.app</a> — you're on it right now! 😄`,
-    fallback:       `I can answer questions about Carven's <strong>skills, experience, projects, certifications, education or contact details</strong>.<br>Try: "What skills does he have?" or "How do I contact him?"`
-  };
+/* ─────────────────────────────────────
+   ⚙️  CONFIG — Add your Anthropic API
+   key here to power the live AI chatbot.
+   Get one free at console.anthropic.com
+   Leave blank to use built-in answers.
+───────────────────────────────────── */
+let ANTHROPIC_KEY = localStorage.getItem('cm_apikey') || '';
 
-  function detect(q) {
-    q = q.toLowerCase();
-    if (/^(hi|hello|hey|howzit|sup|greet)/.test(q))             return 'greeting';
-    if (/summary|who is|about carven|introduce/.test(q))         return 'summary';
-    if (/aws|cloud|ec2|s3|iam|vpc|cloudwatch|forge|nokia/.test(q)) return 'aws';
-    if (/java|spring|backend|api|rest/.test(q))                  return 'java';
-    if (/wordpress|php|web dev|html|css|netlify|frontend/.test(q)) return 'web';
-    if (/skill|know|can he|tech|language|stack|tools/.test(q))   return 'skills';
-    if (/experi|work|intern|job|role|career|zaio|media|kk/.test(q)) return 'experience';
-    if (/project|built|portfolio|healthcare|clinic/.test(q))     return 'projects';
-    if (/cert|certifi|cisco|ccna|maryland/.test(q))              return 'certifications';
-    if (/educat|degree|diploma|university|study|nmu/.test(q))    return 'education';
-    if (/database|sql|mysql|db|data|query/.test(q))              return 'database';
-    if (/support|helpdesk|hardware|laptop|repair|network/.test(q)) return 'support';
-    if (/contact|email|phone|reach|hire|linkedin/.test(q))       return 'contact';
-    if (/portfolio|website|site|link|url/.test(q))               return 'portfolio';
-    return 'fallback';
-  }
+/* ─── Full CV as system context for the AI ─── */
+const CV_SYSTEM = `You are a helpful, friendly portfolio assistant for Carven Maceke, a South African IT graduate and junior developer. Answer questions ONLY based on the following CV information. Keep answers concise (2-4 sentences max). Sound warm and professional. If something isn't in the CV, say so honestly and suggest contacting Carven directly.
 
-  var panel   = document.getElementById('slow-panel');
-  var btn     = document.getElementById('slow-btn');
-  var closeX  = document.getElementById('slow-x');
-  var msgs    = document.getElementById('slow-msgs');
-  var inp     = document.getElementById('slow-inp');
-  var sendBtn = document.getElementById('slow-send');
-  var label   = document.getElementById('slow-label');
+=== CARVEN MACEKE — CV DATA ===
 
-  if (!btn || !panel) { console.error('Slow: elements not found'); return; }
+CONTACT:
+- Name: Carven Maceke
+- Address: 1 WF Nkomo Street, Pretoria West, South Africa
+- Email: Carvenmaceke9@gmail.com
+- Phone: 0607950837 / +27 60 795 0837
+- LinkedIn: linkedin.com/in/carven-maceke-a29985235
+- GitHub: github.com/Carvenmaceke
+- Portfolio: carven.netlify.app
 
-  var isOpen   = false;
-  var greeted  = false;
+OBJECTIVE:
+Detail-oriented and adaptable IT graduate with strong foundations in Java, SQL, Spring Boot, and database management. Experienced in backend development, web application projects, and providing IT support across hardware, software, and network environments. Skilled in enterprise tools such as IBM Content Manager and SQL Server Management Studio, with exposure to Linux and Windows Server administration. Seeking a Junior Technical Specialist or Graduate IT role.
 
-  function openPanel() {
-    isOpen = true;
-    panel.style.display = 'flex';
-    if (label) label.style.display = 'none';
-    inp.focus();
-    if (!greeted) { greeted = true; setTimeout(function(){ addBot(KB.greeting); }, 300); }
-  }
+EDUCATION:
+- Nelson Mandela University (NMU), Port Elizabeth
+- National Diploma in Information Technology (Software Development) — NQF Level 6
+- Completed: 2024
 
-  function closePanel() {
-    isOpen = false;
-    panel.style.display = 'none';
-  }
+WORK EXPERIENCE:
 
-  btn.addEventListener('click',    function(){ isOpen ? closePanel() : openPanel(); });
-  closeX.addEventListener('click', closePanel);
+1. Forge Academy × Nokia (Clearwater Office Park, Roodepoort)
+   Role: AWS re/Start Intern
+   Period: March 2026 – Present (Current)
+   Responsibilities: Cloud computing training aligned with AWS certification. Training on EC2, S3, IAM, VPC, CloudWatch. Preparing for AWS Cloud Practitioner certification. Hands-on cloud labs. Applying Linux and networking fundamentals.
 
-  document.querySelectorAll('.sc').forEach(function(c) {
-    c.addEventListener('click', function() {
-      addUser(c.textContent.trim());
-      thinking(function(){ addBot(KB[c.dataset.q] || KB.fallback); });
-    });
+2. ZAIO Institute of Technology (96 Rivonia Rd, Sandton)
+   Role: Junior Java Developer
+   Period: September 2023 – August 2024
+   Responsibilities:
+   - Developed and maintained backend services and API integrations using Java and Spring Boot
+   - Designed SQL queries for reporting and analysis, improving system responsiveness and reliability
+   - Participated in troubleshooting, performance tuning, and issue tracking on deployed applications
+   - Supported testing, change control, and basic deployment tasks in staging/production environments
+   - Drafted technical documentation for feature implementations and support procedures
+   Key Skills: Java, SQL, Spring Boot, Debugging, Technical Documentation, Software Support
+
+3. K AND K Media / Solwazi (Constantia Square Office Park, Midrand)
+   Role: IT Software & Networks Intern
+   Period: September 2025 – June 2026
+   Responsibilities:
+   - Improved efficiency of staff work using technology
+   - Provided IT support regarding helpdesk operations and server security
+   - Performed software updates and hardware maintenance
+   - Supported and maintained data communication networks
+   Key Skills: IT Support, Troubleshooting, Server Security, Hardware & Software Maintenance, Networking
+
+PROJECTS:
+
+1. Portfolio Website (carven.netlify.app)
+   - Built with HTML, CSS, JavaScript — deployed on Netlify
+   - Interactive and responsive design with flip cards, skill tabs, and AI chatbot
+
+2. Healthcare System Web App — NMU 3rd Year Project (March–November 2023)
+   - Led development of responsive healthcare system for clinic appointments
+   - Technologies: HTML, CSS, JavaScript, MySQL, MVC pattern, Git
+   - Implemented database optimization, version control, and technical documentation
+   - Prepared user documentation for client-facing functionality
+
+3. 4IR AquaTech Hackathon (2021) — Water, Energy, Food sustainability
+   - Competed in tech hackathon to solve resource management challenges
+   - Also participated in ICT Hackathon Challenge (Economic & Skills Development) — 2021
+
+TECHNICAL SKILLS:
+- Programming: Java, Spring Boot, Python, C#, JavaScript, HTML, CSS, ASP.NET MVC, Django, Bash (basic)
+- Database: MySQL, Microsoft SQL Server, DB2 (basic), Database Design, Data Analysis with Anaconda
+- Web Development: PHP, Bootstrap, MVC Architecture, Responsive Web Design
+- Platforms & OS: Windows Server (admin basics), Red Hat Linux (introductory)
+- Enterprise Tools: IBM Content Manager (exposure), SQL Server Management Studio, Git/GitHub
+- SDLC: Requirements Gathering, Design, Development, Testing, Deployment, Maintenance
+- Productivity: Microsoft Excel, Access, PowerPoint, Word
+
+CERTIFICATIONS:
+- Java Certification — ZAIO Institute of Technology (December 2023)
+- SQL Certification — ZAIO Institute of Technology (December 2023)
+- Quality Work Experience — YES4Youth (September 2024)
+- Cybersecurity for Everyone — University of Maryland (February 2024)
+- CCNAv7: Introduction to Networks — Cisco Networking Academy
+- Introduction to Cybersecurity — Cisco Networking Academy
+
+AVAILABILITY: Open to opportunities. Available immediately for Junior Technical Specialist, Graduate Developer, or Cloud Engineer roles.
+=== END OF CV ===`;
+
+/* ─── Built-in fallback answers (no API key needed) ─── */
+const KB = {
+  skills:     "Carven's core technical skills are Java and Spring Boot (backend development), SQL/MySQL and MS SQL Server (databases), REST APIs, HTML/CSS/JavaScript (frontend), AWS cloud services (EC2, S3, IAM, VPC, CloudWatch), Linux, and networking. He also has experience with Python, C#, ASP.NET MVC, PHP, and enterprise tools like IBM Content Manager.",
+  experience: "Carven has 3 internships: (1) Junior Java Developer at Zaio Technologies (Sep 2023–Aug 2024) — built Spring Boot APIs and SQL systems; (2) IT Software & Networks Intern at K&K Media (Sep 2025–Jun 2026) — IT support, networking, WordPress; (3) AWS re/Start Intern at Forge Academy × Nokia (Mar 2026–Present) — AWS cloud training. He also built a Healthcare System Web App for his NMU final year project.",
+  aws:        "Carven is currently completing the AWS re/Start program at Forge Academy × Nokia in Roodepoort. He's training on EC2, S3, IAM, VPC, and CloudWatch, and is actively preparing for his AWS Cloud Practitioner certification through hands-on cloud labs.",
+  contact:    "You can reach Carven at: 📧 carvenmaceke9@gmail.com | 📱 +27 60 795 0837 | 💼 LinkedIn: carven-maceke-a29985235 | 🐙 GitHub: Carvenmaceke. He's also available via WhatsApp — just use the contact form below!",
+  certs:      "Carven's certifications: Java (ZAIO, Dec 2023), SQL (ZAIO, Dec 2023), Cybersecurity for Everyone (University of Maryland, Feb 2024), Quality Work Experience (YES4Youth, Sep 2024), CCNAv7 Introduction to Networks (Cisco), and Introduction to Cybersecurity (Cisco).",
+  education:  "Carven holds a National Diploma in Information Technology (Software Development) at NQF Level 6 from Nelson Mandela University (NMU) in Port Elizabeth, completed in 2024.",
+  projects:   "Carven's key projects: (1) This portfolio website — built with HTML/CSS/JS, deployed on Netlify; (2) Healthcare System Web App — his NMU final year project using MySQL, MVC, JavaScript and Git; (3) 4IR AquaTech Hackathon and ICT Hackathon (2021). He also worked on backend features during his Zaio internship.",
+  hire:       "Carven is actively seeking Junior Technical Specialist, Graduate Developer, or Cloud Engineer roles. He's based in Pretoria West but open to remote work. You can reach him at carvenmaceke9@gmail.com or +27 60 795 0837.",
+  java:       "Carven has solid intermediate-level Java skills gained through his Junior Java Developer role at Zaio Technologies (Sep 2023–Aug 2024), where he built backend services, REST APIs with Spring Boot, and wrote SQL queries for reporting and analysis. Java is his strongest language.",
+  python:     "Carven has beginner-level Python skills listed on his CV, along with Django. He's more experienced in Java/Spring Boot for backend work, but Python is part of his technical toolkit.",
+  default:    "Great question! I'm Carven's portfolio assistant. I can tell you about his skills, work experience, AWS training, projects, certifications, education, or how to contact him. What would you like to know?"
+};
+
+function classify(t) {
+  t = t.toLowerCase();
+  if (t.match(/skill|tech|stack|language|program|what can|know how|expertise/)) return 'skills';
+  if (t.match(/experience|work|intern|job|career|history|previous|past|role/)) return 'experience';
+  if (t.match(/aws|cloud|amazon|ec2|s3|iam|vpc|cloudwatch|certif.*aws/)) return 'aws';
+  if (t.match(/contact|reach|email|phone|whatsapp|hire|available|get in touch|find/)) return 'contact';
+  if (t.match(/cert|certificat|cisco|ccna|yes4youth|zaio cert|qualif/)) return 'certs';
+  if (t.match(/study|degree|nmu|universi|educat|diploma|school|graduate|nqf/)) return 'education';
+  if (t.match(/project|build|app|website|portfo|healthcare|clinic|hackathon/)) return 'projects';
+  if (t.match(/hire|employ|opport|looking|seek|availab|open to/)) return 'hire';
+  if (t.match(/java|spring|boot|backend/)) return 'java';
+  if (t.match(/python|django/)) return 'python';
+  return 'default';
+}
+
+/* ─── API call to Anthropic ─── */
+async function askClaude(userMsg, history) {
+  const messages = history.map(m => ({ role: m.role, content: m.content }));
+  messages.push({ role: 'user', content: userMsg });
+
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': ANTHROPIC_KEY,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 300,
+      system: CV_SYSTEM,
+      messages
+    })
   });
 
-  function addBot(html)  { addMsg(html, 'b'); }
-  function addUser(text) { addMsg(text, 'u'); }
+  if (!res.ok) throw new Error('API error ' + res.status);
+  const data = await res.json();
+  return data.content[0].text;
+}
 
-  function addMsg(html, side) {
-    var row = document.createElement('div');
-    row.className = 'sm ' + side;
-    var ico = document.createElement('div');
-    ico.className = 'sm-ico';
-    ico.textContent = side === 'b' ? '🤖' : '👤';
-    var bub = document.createElement('div');
-    bub.className = 'sm-bub';
-    bub.innerHTML = html;
-    row.appendChild(ico);
-    row.appendChild(bub);
-    msgs.appendChild(row);
-    msgs.scrollTop = msgs.scrollHeight;
-  }
+/* ─── Chat state ─── */
+let chatOpen = false;
+let chatHistory = [];
+let isThinking = false;
 
-  function thinking(cb) {
-    var row = document.createElement('div');
-    row.className = 'sm b';
-    row.id = 'slow-tr';
-    var ico = document.createElement('div');
-    ico.className = 'sm-ico';
-    ico.textContent = '🤖';
-    var bub = document.createElement('div');
-    bub.className = 'sm-bub';
-    bub.innerHTML = '<div class="tdots"><span></span><span></span><span></span></div>';
-    row.appendChild(ico);
-    row.appendChild(bub);
-    msgs.appendChild(row);
-    msgs.scrollTop = msgs.scrollHeight;
-    setTimeout(function() {
-      var t = document.getElementById('slow-tr');
-      if (t) t.remove();
-      cb();
-    }, 900 + Math.random() * 300);
-  }
+function toggleChat() {
+  chatOpen = !chatOpen;
+  document.getElementById('chatWin').classList.toggle('open', chatOpen);
+  document.getElementById('chatIcon').className = chatOpen ? 'fas fa-times' : 'fas fa-robot';
+}
 
-  function send() {
-    var text = inp.value.trim();
-    if (!text) return;
-    inp.value = '';
-    addUser(text);
-    thinking(function(){ addBot(KB[detect(text)]); });
-    if (!isOpen) openPanel();
-  }
+function addMsg(text, isUser) {
+  const c = document.getElementById('chatMsgs');
+  const d = document.createElement('div');
+  d.className = 'msg ' + (isUser ? 'user' : 'bot');
+  d.textContent = text;
+  c.appendChild(d);
+  c.scrollTop = c.scrollHeight;
+  return d;
+}
 
-  sendBtn.addEventListener('click', send);
-  inp.addEventListener('keydown', function(e){ if (e.key === 'Enter') send(); });
+function showTyping() {
+  const c = document.getElementById('chatMsgs');
+  const d = document.createElement('div');
+  d.className = 'typing-ind'; d.id = 'typing';
+  d.innerHTML = '<div class="td"></div><div class="td"></div><div class="td"></div>';
+  c.appendChild(d); c.scrollTop = c.scrollHeight;
+}
 
-  setTimeout(function() {
-    if (!isOpen && label) {
-      label.style.transition = 'opacity .5s';
-      label.style.opacity = '0';
-      setTimeout(function(){ if(label) label.style.display = 'none'; }, 500);
+function removeTyping() { const t = document.getElementById('typing'); if (t) t.remove(); }
+
+async function sendChat() {
+  if (isThinking) return;
+  const inp = document.getElementById('chatInput');
+  const txt = inp.value.trim();
+  if (!txt) return;
+  inp.value = '';
+  addMsg(txt, true);
+  chatHistory.push({ role: 'user', content: txt });
+  showTyping();
+  isThinking = true;
+
+  try {
+    let reply;
+    if (ANTHROPIC_KEY && ANTHROPIC_KEY.startsWith('sk-ant')) {
+      reply = await askClaude(txt, chatHistory.slice(-6));
+    } else {
+      // Fallback: smart keyword-based answers
+      await new Promise(r => setTimeout(r, 600 + Math.random() * 500));
+      reply = KB[classify(txt)];
     }
-  }, 5000);
-})();
+    removeTyping();
+    addMsg(reply, false);
+    chatHistory.push({ role: 'assistant', content: reply });
+  } catch (e) {
+    removeTyping();
+    const fallback = KB[classify(txt)];
+    addMsg(fallback, false);
+    chatHistory.push({ role: 'assistant', content: fallback });
+  }
+
+  isThinking = false;
+}
+
+function chipAsk(txt) {
+  document.getElementById('chatInput').value = txt;
+  sendChat();
+}
+
+function promptKey() {
+  const key = prompt('Enter your Anthropic API key (starts with sk-ant-).\nGet one free at console.anthropic.com');
+  if (key && key.startsWith('sk-ant')) {
+    ANTHROPIC_KEY = key;
+    localStorage.setItem('cm_apikey', key);
+    document.getElementById('apiBanner').style.display = 'none';
+    addMsg('✅ API key saved! I can now answer using live AI. Ask me anything!', false);
+  }
+}
+
+/* ═══════════════════════════════════════
+   TYPEWRITER + KEYBOARD SOUND
+═══════════════════════════════════════ */
+let audioCtx = null;
+
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+
+function playKeyClick(vol = 0.18) {
+  try {
+    const ctx = getAudioCtx();
+    const len = Math.floor(ctx.sampleRate * 0.045);
+    const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+    const data = buf.getChannelData(0);
+
+    for (let i = 0; i < len; i++) {
+      const t = i / ctx.sampleRate;
+      const envelope = Math.pow(1 - t / 0.045, 4);
+      data[i] = (Math.random() * 2 - 1) * envelope;
+    }
+
+    const src = ctx.createBufferSource();
+    const gain = ctx.createGain();
+    const filter = ctx.createBiquadFilter();
+
+    filter.type = 'bandpass';
+    filter.frequency.value = 3500 + Math.random() * 1000;
+    filter.Q.value = 0.4;
+
+    gain.gain.value = vol;
+    src.buffer = buf;
+    src.connect(filter);
+    filter.connect(gain);
+    gain.connect(ctx.destination);
+    src.start();
+  } catch (e) { /* silent if audio unavailable */ }
+}
+
+async function typeText(el, text, speed = 65, soundOn = true) {
+  for (let i = 0; i < text.length; i++) {
+    el.insertAdjacentText('beforebegin', text[i]);
+    if (soundOn && text[i] !== ' ') playKeyClick();
+    await new Promise(r => setTimeout(r, speed + (Math.random() * 40 - 20)));
+  }
+}
+
+async function startTypewriter() {
+  // Init AudioContext on first user interaction to comply with browser policy
+  document.addEventListener('click', () => getAudioCtx(), { once: true });
+  document.addEventListener('keydown', () => getAudioCtx(), { once: true });
+
+  const nameEl     = document.getElementById('heroName');
+  const nameCursor = document.getElementById('nameCursor');
+  const roleEl     = document.getElementById('heroRole');
+  const roleCursor = document.getElementById('roleCursor');
+
+  await new Promise(r => setTimeout(r, 600)); // initial pause
+
+  // Type the name
+  await typeText(nameCursor, 'Carven', 80, true);
+  await new Promise(r => setTimeout(r, 120));
+  nameEl.insertAdjacentHTML('beforeend', '<br>');
+  const spanEl = document.createElement('span');
+  nameEl.insertBefore(spanEl, nameCursor);
+  await typeTextIntoSpan(spanEl, nameCursor, 'Maceke', 80);
+
+  await new Promise(r => setTimeout(r, 400));
+
+  // Remove name cursor blink after done
+  nameCursor.style.display = 'none';
+
+  // Type the role
+  await typeText(roleCursor, 'Java Backend Developer & AWS Cloud Practitioner', 45, true);
+  await new Promise(r => setTimeout(r, 300));
+
+  // Cycle through roles
+  const roles = [
+    'Java Backend Developer & AWS Cloud Practitioner',
+    'Spring Boot · SQL · REST APIs',
+    'NMU Graduate · Open to Junior Dev Roles',
+    'Cloud Enthusiast · Problem Solver 🚀'
+  ];
+  let roleIdx = 0;
+  setInterval(async () => {
+    // Erase
+    const current = roleEl.textContent.replace('|', '');
+    for (let i = current.length; i >= 0; i--) {
+      const allText = Array.from(roleEl.childNodes)
+        .filter(n => n.nodeType === 3)
+        .map(n => n.textContent).join('');
+      if (allText.length > 0) {
+        // Remove last text node char
+        const textNodes = Array.from(roleEl.childNodes).filter(n => n.nodeType === 3);
+        const last = textNodes[textNodes.length - 1];
+        if (last && last.textContent.length > 0) {
+          last.textContent = last.textContent.slice(0, -1);
+        }
+      }
+      await new Promise(r => setTimeout(r, 25));
+    }
+    roleIdx = (roleIdx + 1) % roles.length;
+    await new Promise(r => setTimeout(r, 200));
+    await typeText(roleCursor, roles[roleIdx], 45, false);
+  }, 4000);
+}
+
+async function typeTextIntoSpan(span, cursor, text, speed) {
+  for (let i = 0; i < text.length; i++) {
+    span.textContent += text[i];
+    if (text[i] !== ' ') playKeyClick();
+    await new Promise(r => setTimeout(r, speed + (Math.random() * 40 - 20)));
+  }
+}
+
+// ── Nav scroll ──
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ── Mobile menu ──
+function openMob()  { document.getElementById('mobMenu').classList.add('open'); }
+function closeMob() { document.getElementById('mobMenu').classList.remove('open'); }
+
+// ── Scroll fade-in ──
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+// ── Skill bars animate when visible ──
+const barObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.sfill').forEach(f => {
+        f.style.width = f.dataset.w + '%';
+      });
+    }
+  });
+}, { threshold: 0.2 });
+document.querySelectorAll('.skills-panel').forEach(p => barObs.observe(p));
+
+// ── Skills tabs ──
+function showSkills(btn, cat) {
+  document.querySelectorAll('.skills-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.stab').forEach(t => t.classList.remove('active'));
+  const panel = document.getElementById('panel-' + cat);
+  panel.classList.add('active');
+  btn.classList.add('active');
+  // Animate bars in newly shown panel
+  panel.querySelectorAll('.sfill').forEach(f => {
+    f.style.width = '0';
+    setTimeout(() => f.style.width = f.dataset.w + '%', 50);
+  });
+}
+
+// ── Contact form ──
+function sendEmail() {
+  const name = document.getElementById('cName').value.trim();
+  const email = document.getElementById('cEmail').value.trim();
+  const msg   = document.getElementById('cMsg').value.trim();
+  if (!name || !msg) { alert('Please enter your name and message.'); return; }
+  const sub  = encodeURIComponent('Portfolio Enquiry from ' + name);
+  const body = encodeURIComponent(`Hi Carven,\n\n${msg}\n\nFrom: ${name}\nEmail: ${email}`);
+  window.location.href = `mailto:carvenmaceke9@gmail.com?subject=${sub}&body=${body}`;
+}
+
+function sendWA() {
+  const name = document.getElementById('cName').value.trim();
+  const msg  = document.getElementById('cMsg').value.trim();
+  const text = encodeURIComponent(`Hi Carven! I'm ${name || 'a visitor'}.\n\n${msg || 'I saw your portfolio and would love to connect.'}`);
+  window.open(`https://wa.me/27607950837?text=${text}`, '_blank');
+}
+
+// ── Smooth scroll ──
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); window.scrollTo({ top: t.offsetTop - 78, behavior: 'smooth' }); }
+  });
+});
+
+// ── START ──
+startTypewriter();
 </script>
-
-
-  </body>
+</body>
 </html>
