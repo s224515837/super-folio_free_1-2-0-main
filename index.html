@@ -1775,462 +1775,326 @@ function sendWhatsApp(e) {
 <!-- ══════════════════════════════════════════════
      SLOW — Carven's Portfolio Chatbot
 ══════════════════════════════════════════════════ -->
+<!--
+  ╔══════════════════════════════════════════════════════╗
+  ║   CARVEN MACEKE — AI PORTFOLIO CHATBOT               ║
+  ║   Paste this entire block just before </body>        ║
+  ║   in your existing index.html. That's it.            ║
+  ╚══════════════════════════════════════════════════════╝
+-->
+
+<!-- CHATBOT STYLES -->
 <style>
-  /* ── Chatbot bubble & panel ────────────────── */
-  #slow-bubble {
-    position: fixed;
-    bottom: 24px;
-    right: 80px;
-    z-index: 9000;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
+  #cm-chat-btn {
+    position: fixed; bottom: 28px; right: 28px; z-index: 9999;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: linear-gradient(135deg, #00c9a7, #0097e6);
+    border: none; cursor: pointer; box-shadow: 0 4px 24px rgba(0,201,167,.5);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; transition: transform .2s ease, box-shadow .2s ease;
+    animation: cm-pulse 3s infinite;
   }
-  #slow-bubble-btn {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #0F2B4A, #00A8B5);
-    border: none;
-    box-shadow: 0 6px 24px rgba(0,168,181,0.45);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    position: relative;
+  #cm-chat-btn:hover { transform: scale(1.1); box-shadow: 0 6px 32px rgba(0,201,167,.7); }
+  @keyframes cm-pulse {
+    0%,100% { box-shadow: 0 4px 24px rgba(0,201,167,.5); }
+    50%      { box-shadow: 0 4px 36px rgba(0,201,167,.85); }
   }
-  #slow-bubble-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 8px 28px rgba(0,168,181,0.6);
-  }
-  #slow-bubble-btn svg { width: 26px; height: 26px; }
-  #slow-pulse {
-    position: absolute;
-    top: -3px; right: -3px;
-    width: 14px; height: 14px;
-    background: #22c55e;
-    border-radius: 50%;
-    border: 2px solid white;
-    animation: slow-pulse-ring 1.8s infinite;
-  }
-  @keyframes slow-pulse-ring {
-    0%,100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.25); opacity: 0.7; }
-  }
-  #slow-label {
-    background: #0F2B4A;
-    color: #fff;
-    padding: 5px 12px;
+
+  #cm-chat-window {
+    position: fixed; bottom: 102px; right: 28px; z-index: 9998;
+    width: 370px; height: 530px;
+    background: #0b1a2e;
+    border: 1px solid rgba(0,201,167,.3);
     border-radius: 20px;
-    font-size: 0.82rem;
-    font-weight: 700;
-    white-space: nowrap;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.2);
-    letter-spacing: 0.03em;
-    animation: slow-label-pop 0.5s 1.5s both;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    box-shadow: 0 16px 48px rgba(0,0,0,.6);
+    display: none; flex-direction: column; overflow: hidden;
+    font-family: 'Segoe UI', system-ui, sans-serif;
   }
-  @keyframes slow-label-pop {
-    from { opacity: 0; transform: translateX(10px); }
-    to   { opacity: 1; transform: translateX(0); }
-  }
+  #cm-chat-window.cm-open { display: flex; animation: cm-slideup .25s ease; }
+  @keyframes cm-slideup { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
 
-  /* ── Chat panel ───────────────────────────── */
-  #slow-panel {
-    position: fixed;
-    bottom: 96px;
-    right: 24px;
-    width: 360px;
-    max-width: calc(100vw - 32px);
-    height: 520px;
-    max-height: calc(100vh - 110px);
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 16px 56px rgba(15,43,74,0.28);
-    display: flex;
-    flex-direction: column;
-    z-index: 9001;
-    transform: scale(0.85) translateY(20px);
-    opacity: 0;
-    pointer-events: none;
-    transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1), opacity 0.22s ease;
-  }
-  /* open state handled via JS style.display */
-  /* Header */
-  #slow-header {
-    background: linear-gradient(135deg, #0F2B4A 0%, #1A4A6E 70%, #0F5F6E 100%);
-    padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  #cm-header {
+    padding: 14px 18px; background: #0d2040;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+    display: flex; align-items: center; justify-content: space-between;
     flex-shrink: 0;
   }
-  #slow-avatar {
-    width: 40px; height: 40px;
-    background: rgba(0,168,181,0.25);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.2rem;
-    border: 2px solid rgba(0,168,181,0.5);
+  #cm-header-left { display: flex; align-items: center; gap: 10px; }
+  #cm-avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(0,201,167,.15); border: 1.5px solid rgba(0,201,167,.4);
+    display: flex; align-items: center; justify-content: center; font-size: 18px;
   }
-  #slow-header-info { flex: 1; }
-  #slow-header-name {
-    color: #fff;
-    font-weight: 800;
-    font-size: 0.95rem;
-    line-height: 1.2;
-    font-family: 'Nunito Sans', sans-serif;
+  #cm-bot-name { font-size: 14px; font-weight: 700; color: #dce8f5; }
+  #cm-bot-status { font-size: 11px; color: #00c9a7; display: flex; align-items: center; gap: 5px; margin-top: 2px; }
+  #cm-bot-status::before {
+    content: ''; width: 7px; height: 7px; border-radius: 50%;
+    background: #00c9a7; animation: cm-blink 2s infinite;
   }
-  #slow-header-status {
-    color: rgba(255,255,255,0.65);
-    font-size: 0.72rem;
-    display: flex;
-    align-items: center;
-    gap: 4px;
+  @keyframes cm-blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+  #cm-close-btn {
+    background: none; border: none; color: #7a93b3;
+    font-size: 18px; cursor: pointer; padding: 4px; line-height: 1;
+    transition: color .2s;
   }
-  #slow-header-status::before {
-    content: '';
-    width: 6px; height: 6px;
-    background: #22c55e;
-    border-radius: 50%;
-    display: inline-block;
-  }
-  #slow-close {
-    background: rgba(255,255,255,0.12);
-    border: none;
-    color: #fff;
-    width: 30px; height: 30px;
-    border-radius: 50%;
-    font-size: 1rem;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: background 0.2s;
-    flex-shrink: 0;
-  }
-  #slow-close:hover { background: rgba(255,255,255,0.22); }
+  #cm-close-btn:hover { color: #dce8f5; }
 
-  /* Messages */
-  #slow-messages {
-    flex: 1;
-    overflow-y: auto;
-    padding: 14px 14px 6px;
-    background: #F7FAFE;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    scroll-behavior: smooth;
+  #cm-messages {
+    flex: 1; overflow-y: auto; padding: 16px;
+    display: flex; flex-direction: column; gap: 10px;
+    scrollbar-width: thin; scrollbar-color: rgba(0,201,167,.2) transparent;
   }
-  #slow-messages::-webkit-scrollbar { width: 4px; }
-  #slow-messages::-webkit-scrollbar-track { background: transparent; }
-  #slow-messages::-webkit-scrollbar-thumb { background: #DCE6F0; border-radius: 4px; }
+  #cm-messages::-webkit-scrollbar { width: 4px; }
+  #cm-messages::-webkit-scrollbar-thumb { background: rgba(0,201,167,.2); border-radius: 4px; }
 
-  .slow-msg {
-    display: flex;
-    gap: 8px;
-    align-items: flex-end;
-    animation: slow-msg-in 0.22s ease both;
+  .cm-msg {
+    max-width: 86%; padding: 10px 14px;
+    font-size: 13.5px; line-height: 1.55; word-wrap: break-word;
   }
-  @keyframes slow-msg-in {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
+  .cm-msg.cm-bot {
+    background: #0d2040; border: 1px solid rgba(255,255,255,.07);
+    color: #9ab0cc; border-radius: 4px 14px 14px 14px; align-self: flex-start;
   }
-  .slow-msg.user { flex-direction: row-reverse; }
-  .slow-msg-icon {
-    width: 28px; height: 28px; border-radius: 50%;
-    background: linear-gradient(135deg, #0F2B4A, #00A8B5);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.8rem; flex-shrink: 0; color: white;
-  }
-  .slow-bubble-text {
-    max-width: 82%;
-    padding: 9px 13px;
-    border-radius: 16px;
-    font-size: 0.85rem;
-    line-height: 1.55;
-    font-family: 'Nunito Sans', sans-serif;
-  }
-  .slow-msg.bot .slow-bubble-text {
-    background: #fff;
-    color: #1A2B3C;
-    border-bottom-left-radius: 4px;
-    border: 1px solid #DCE6F0;
-  }
-  .slow-msg.user .slow-bubble-text {
-    background: linear-gradient(135deg, #0F2B4A, #00838F);
-    color: #fff;
-    border-bottom-right-radius: 4px;
-  }
-  .slow-bubble-text a {
-    color: #00A8B5;
-    text-decoration: underline;
-  }
-  .slow-msg.user .slow-bubble-text a { color: #E0F7FA; }
-
-  /* Chips */
-  #slow-chips {
-    padding: 8px 14px 6px;
-    background: #F7FAFE;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    flex-shrink: 0;
-    border-top: 1px solid #DCE6F0;
-  }
-  .slow-chip {
-    background: #E0F7FA;
-    color: #007A85;
-    border: 1.5px solid rgba(0,168,181,0.3);
-    border-radius: 20px;
-    padding: 4px 11px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.18s, color 0.18s;
-    font-family: 'Nunito Sans', sans-serif;
-  }
-  .slow-chip:hover {
-    background: #00A8B5;
-    color: white;
-    border-color: #00A8B5;
+  .cm-msg.cm-user {
+    background: linear-gradient(135deg,#00c9a7,#0097e6);
+    color: #03081a; font-weight: 600;
+    border-radius: 14px 14px 4px 14px; align-self: flex-end;
   }
 
-  /* Input */
-  #slow-input-row {
-    display: flex;
-    gap: 8px;
-    padding: 10px 14px;
-    background: #fff;
-    border-top: 1px solid #DCE6F0;
-    flex-shrink: 0;
+  #cm-typing {
+    display: none; align-self: flex-start; margin: 0 16px 4px;
+    background: #0d2040; border: 1px solid rgba(255,255,255,.07);
+    border-radius: 4px 14px 14px 14px; padding: 12px 16px;
   }
-  #slow-input {
-    flex: 1;
-    border: 1.5px solid #DCE6F0;
-    border-radius: 24px;
-    padding: 8px 14px;
-    font-size: 0.85rem;
-    outline: none;
-    font-family: 'Nunito Sans', sans-serif;
-    color: #1A2B3C;
-    transition: border-color 0.2s;
+  #cm-typing.cm-show { display: flex; gap: 4px; }
+  .cm-dot {
+    width: 7px; height: 7px; border-radius: 50%; background: #7a93b3;
+    animation: cm-bounce 1.2s infinite;
   }
-  #slow-input:focus { border-color: #00A8B5; }
-  #slow-send {
-    width: 38px; height: 38px;
-    background: linear-gradient(135deg, #0F2B4A, #00A8B5);
-    border: none;
-    border-radius: 50%;
-    color: white;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    transition: transform 0.15s, box-shadow 0.15s;
-  }
-  #slow-send:hover {
-    transform: scale(1.08);
-    box-shadow: 0 4px 14px rgba(0,168,181,0.4);
-  }
-  #slow-send svg { width: 16px; height: 16px; }
+  .cm-dot:nth-child(2) { animation-delay: .2s; }
+  .cm-dot:nth-child(3) { animation-delay: .4s; }
+  @keyframes cm-bounce { 0%,60%,100%{transform:translateY(0);opacity:.4} 30%{transform:translateY(-6px);opacity:1} }
 
-  /* Typing indicator */
-  .slow-typing-dots {
-    display: flex; gap: 4px; align-items: center; padding: 4px 2px;
+  #cm-chips {
+    padding: 10px 14px; display: flex; flex-wrap: wrap; gap: 6px;
+    border-top: 1px solid rgba(255,255,255,.06); background: #0d2040; flex-shrink: 0;
   }
-  .slow-typing-dots span {
-    width: 7px; height: 7px; background: #00A8B5;
-    border-radius: 50%;
-    animation: slow-dot 1.2s infinite;
+  .cm-chip {
+    padding: 5px 12px; border-radius: 100px; font-size: 12px;
+    border: 1px solid rgba(0,201,167,.25); background: rgba(0,201,167,.07);
+    color: #7a93b3; cursor: pointer; transition: all .2s; white-space: nowrap;
+    font-family: inherit;
   }
-  .slow-typing-dots span:nth-child(2) { animation-delay: 0.2s; }
-  .slow-typing-dots span:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes slow-dot {
-    0%,60%,100% { transform: translateY(0); opacity: 0.4; }
-    30% { transform: translateY(-5px); opacity: 1; }
+  .cm-chip:hover { border-color: #00c9a7; color: #00c9a7; background: rgba(0,201,167,.12); }
+
+  #cm-input-row {
+    padding: 12px 14px; border-top: 1px solid rgba(255,255,255,.06);
+    display: flex; gap: 8px; background: #0d2040; flex-shrink: 0;
+  }
+  #cm-input {
+    flex: 1; padding: 9px 14px; background: #0b1a2e;
+    border: 1px solid rgba(255,255,255,.1); border-radius: 10px;
+    color: #dce8f5; font-size: 13px; font-family: inherit; outline: none;
+    transition: border-color .2s;
+  }
+  #cm-input:focus { border-color: rgba(0,201,167,.4); }
+  #cm-input::placeholder { color: #3a5070; }
+  #cm-send-btn {
+    width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+    background: linear-gradient(135deg,#00c9a7,#0097e6);
+    border: none; cursor: pointer; display: flex; align-items: center;
+    justify-content: center; font-size: 14px; color: #03081a;
+    transition: transform .2s, opacity .2s;
+  }
+  #cm-send-btn:hover { transform: scale(1.08); }
+  #cm-send-btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+  @media(max-width:480px){
+    #cm-chat-window { width: calc(100vw - 32px); right: 16px; bottom: 90px; }
+    #cm-chat-btn    { right: 16px; bottom: 16px; }
   }
 </style>
 
-<!-- Bubble trigger -->
-<div id="slow-bubble">
-  <div id="slow-label">👋 Ask me anything</div>
-  <button id="slow-bubble-btn" aria-label="Open Slow chatbot">
-    <div id="slow-pulse"></div>
-    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-    </svg>
-  </button>
-</div>
+<!-- CHATBOT HTML -->
+<button id="cm-chat-btn" title="Ask me about Carven" onclick="cmToggle()">🤖</button>
 
-<!-- Chat panel -->
-<div id="slow-panel" role="dialog" aria-label="Slow chatbot">
-  <div id="slow-header">
-    <div id="slow-avatar">🤖</div>
-    <div id="slow-header-info">
-      <div id="slow-header-name">Slow</div>
-      <div id="slow-header-status">Carven's portfolio assistant</div>
+<div id="cm-chat-window">
+  <div id="cm-header">
+    <div id="cm-header-left">
+      <div id="cm-avatar">🤖</div>
+      <div>
+        <div id="cm-bot-name">Carven's Assistant</div>
+        <div id="cm-bot-status">Online — Ask me anything</div>
+      </div>
     </div>
-    <button id="slow-close" aria-label="Close chatbot">✕</button>
+    <button id="cm-close-btn" onclick="cmToggle()">✕</button>
   </div>
 
-  <div id="slow-messages"></div>
-
-  <div id="slow-chips">
-    <button class="slow-chip" data-q="skills">💻 Skills</button>
-    <button class="slow-chip" data-q="experience">💼 Experience</button>
-    <button class="slow-chip" data-q="aws">☁️ AWS</button>
-    <button class="slow-chip" data-q="projects">🚀 Projects</button>
-    <button class="slow-chip" data-q="certifications">📜 Certs</button>
-    <button class="slow-chip" data-q="contact">📞 Contact</button>
+  <div id="cm-messages">
+    <div class="cm-msg cm-bot">
+      👋 Hi! I'm Carven's AI assistant. I know his full CV — skills, experience, projects, and certifications. What would you like to know?
+    </div>
   </div>
 
-  <div id="slow-input-row">
-    <input id="slow-input" type="text" placeholder="Ask me about Carven..." maxlength="200" autocomplete="off"/>
-    <button id="slow-send" aria-label="Send">
-      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="22" y1="2" x2="11" y2="13"/>
-        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-      </svg>
-    </button>
+  <div id="cm-typing">
+    <div class="cm-dot"></div>
+    <div class="cm-dot"></div>
+    <div class="cm-dot"></div>
+  </div>
+
+  <div id="cm-chips">
+    <span class="cm-chip" onclick="cmChip('What are his main skills?')">💻 Skills</span>
+    <span class="cm-chip" onclick="cmChip('Tell me about his work experience')">💼 Experience</span>
+    <span class="cm-chip" onclick="cmChip('What AWS experience does he have?')">☁️ AWS</span>
+    <span class="cm-chip" onclick="cmChip('What certifications does he have?')">📜 Certs</span>
+    <span class="cm-chip" onclick="cmChip('What projects has he built?')">🚀 Projects</span>
+    <span class="cm-chip" onclick="cmChip('How can I contact Carven?')">📞 Contact</span>
+  </div>
+
+  <div id="cm-input-row">
+    <input id="cm-input" placeholder="Ask me about Carven…" onkeydown="if(event.key==='Enter')cmSend()" />
+    <button id="cm-send-btn" onclick="cmSend()">➤</button>
   </div>
 </div>
 
+<!-- CHATBOT SCRIPT -->
 <script>
-<script>
-(function(){
-  var KB = {
-    greeting:       `Hi! I'm <strong>Slow</strong> 👋 — Carven's portfolio assistant. Ask me about his skills, experience, projects, certs or contact details!`,
-    summary:        `Carven Maceke is an IT graduate with hands-on experience in <strong>software development, cloud computing, web development and IT support</strong>. He works with Java, Spring Boot, SQL, WordPress and AWS. 🚀`,
-    skills:         `☕ <strong>Programming:</strong> Java, Spring Boot, C#, Python, JavaScript<br>🌐 <strong>Web:</strong> HTML, CSS, JavaScript, WordPress, PHP<br>🗄️ <strong>Databases:</strong> MySQL, SQL Server<br>☁️ <strong>Cloud:</strong> AWS (EC2, S3, IAM, VPC, CloudWatch)<br>🛠️ <strong>Tools:</strong> Git/GitHub, Microsoft Excel, Word<br>💻 <strong>IT Support:</strong> Networking, hardware/software troubleshooting`,
-    experience:     `☁️ <strong>AWS re/Start Intern</strong> — Forge Academy × Nokia (2026–Present)<br>→ Cloud training, AWS services, Linux, cloud architecture<br><br>🖥️ <strong>IT & Web Support Intern</strong> — K & K Media (Sep 2025–Mar 2026)<br>→ WordPress, Excel data analysis, IT helpdesk, hardware support<br><br>☕ <strong>Junior Java Developer</strong> — ZAIO Institute (2023–2024)<br>→ Java, Spring Boot, REST APIs, SQL, debugging, documentation`,
-    aws:            `Currently training at <strong>Forge Academy × Nokia</strong> (Roodepoort):<br>• AWS EC2, S3, IAM, VPC, CloudWatch<br>• Linux system administration<br>• Cloud architecture & deployment<br>• Preparing for AWS certification ☁️`,
-    java:           `Carven's Java backend experience from ZAIO:<br>• Built backend services using <strong>Java & Spring Boot</strong><br>• Created REST APIs and database integrations<br>• Designed SQL queries for reporting<br>• Debugging, testing and documentation ☕`,
-    web:            `• <strong>HTML, CSS, JavaScript</strong> — responsive UIs<br>• <strong>WordPress</strong> — CMS, plugins, themes (K & K Media)<br>• <strong>PHP</strong> — server-side scripting<br>• Netlify deployment 🌐`,
-    projects:       `🌐 <strong>Portfolio Website</strong><br>Built with HTML/CSS/JS, deployed on Netlify<br><a href="https://carven.netlify.app" target="_blank">carven.netlify.app ↗</a><br><br>🏥 <strong>Healthcare System (NMU Final Year)</strong><br>MVC architecture, MySQL database, Git/GitHub, full documentation`,
-    certifications: `• ☕ Java — ZAIO Institute (Dec 2023)<br>• 🗄️ SQL — ZAIO Institute (Dec 2023)<br>• 🔐 Cybersecurity — University of Maryland (Feb 2024)<br>• 🌐 CCNAv7 — Cisco Networking Academy<br>• 🔒 Intro to Cybersecurity — Cisco<br>• 🏅 YES4Youth Work Experience (Sep 2024)`,
-    education:      `🎓 <strong>National Diploma in Information Technology</strong> (Software Development)<br>Nelson Mandela University — NQF Level 6 — Completed 2024`,
-    database:       `• <strong>MySQL</strong> — design, CRUD, query optimisation<br>• <strong>SQL Server (SSMS)</strong> — querying and reporting<br>• Data cleaning and analysis with Excel<br>• ERD design and data modelling`,
-    support:        `• Laptop troubleshooting & repair<br>• Wi-Fi, printer & email configuration<br>• IT helpdesk and user support<br>• Basic server security monitoring<br>• Network setup (CCNA certified)`,
-    contact:        `📧 <a href="mailto:Carvenmaceke9@gmail.com">Carvenmaceke9@gmail.com</a><br>📱 <a href="tel:+27607950837">060 795 0837</a><br>🌐 <a href="https://carven.netlify.app" target="_blank">carven.netlify.app</a><br>💼 <a href="https://www.linkedin.com/in/carven-maceke-a29985235" target="_blank">LinkedIn Profile</a>`,
-    portfolio:      `Carven's portfolio is live at 🌐 <a href="https://carven.netlify.app" target="_blank">carven.netlify.app</a> — you're on it right now! 😄`,
-    fallback:       `I can answer questions about Carven's <strong>skills, experience, projects, certifications, education or contact details</strong>.<br>Try: "What skills does he have?" or "How do I contact him?"`
+(function() {
+
+  const CV = `You are a friendly, concise portfolio assistant for Carven Maceke, a South African IT graduate and junior developer. Answer ONLY based on this CV data. Keep responses to 2-4 sentences. Be warm and professional. If something is not in the CV, say so and suggest contacting Carven directly.
+
+CONTACT: Email: Carvenmaceke9@gmail.com | Phone: +27 60 795 0837 | LinkedIn: linkedin.com/in/carven-maceke-a29985235 | GitHub: github.com/Carvenmaceke | Portfolio: carven.netlify.app | Address: 1 WF Nkomo Street, Pretoria West
+
+OBJECTIVE: Detail-oriented IT graduate with strong foundations in Java, SQL, Spring Boot, and database management. Experienced in backend development, web application projects, and IT support. Skilled in IBM Content Manager and SQL Server Management Studio. Seeking a Junior Technical Specialist or Graduate IT role.
+
+EDUCATION: National Diploma in Information Technology (Software Development) — NQF Level 6 | Nelson Mandela University (NMU), Port Elizabeth | Completed 2024
+
+WORK EXPERIENCE:
+1. Forge Academy x Nokia — AWS re/Start Intern | March 2026–Present | Training on EC2, S3, IAM, VPC, CloudWatch. Preparing for AWS Cloud Practitioner certification. Applying Linux and networking fundamentals in cloud labs.
+2. ZAIO Institute of Technology — Junior Java Developer | September 2023–August 2024 | Built backend services and REST APIs with Java and Spring Boot. Designed SQL queries for reporting. Troubleshooting, performance tuning, testing, deployments, technical documentation.
+3. K AND K Media / Solwazi — IT Software & Networks Intern | September 2025–June 2026 | IT support, helpdesk, server security, hardware/software maintenance, networking, WordPress management.
+
+PROJECTS:
+1. Portfolio Website (carven.netlify.app) — HTML, CSS, JavaScript, Netlify.
+2. Healthcare System Web App — NMU 3rd Year (Mar–Nov 2023) — HTML, CSS, JS, MySQL, MVC, Git. Database optimization, documentation.
+3. 4IR AquaTech Hackathon 2021 — water/energy/food sustainability solution. Also ICT Hackathon Challenge 2021.
+
+TECHNICAL SKILLS: Java, Spring Boot, Python, C#, JavaScript, HTML, CSS, ASP.NET MVC, Django, Bash | MySQL, MS SQL Server, DB2, Anaconda | PHP, Bootstrap, MVC, Responsive Design | Windows Server, Red Hat Linux | IBM Content Manager, SQL Server Management Studio, Git/GitHub | SDLC, Microsoft Excel, Access, PowerPoint, Word
+
+CERTIFICATIONS: Java (ZAIO, Dec 2023) | SQL (ZAIO, Dec 2023) | Cybersecurity for Everyone (Univ. of Maryland, Feb 2024) | Quality Work Experience (YES4Youth, Sep 2024) | CCNAv7 Intro to Networks (Cisco) | Intro to Cybersecurity (Cisco)
+
+AVAILABILITY: Open to Junior Developer, Technical Specialist, or Cloud Engineer roles. Available immediately.`;
+
+  const KB = {
+    skills:     "Carven's core skills are Java & Spring Boot (backend), SQL/MySQL & MS SQL Server (databases), REST APIs, HTML/CSS/JavaScript (frontend), and AWS cloud services (EC2, S3, IAM, VPC). He also has experience with Python, C#, ASP.NET MVC, PHP, Linux, and enterprise tools like IBM Content Manager.",
+    experience: "Carven has 3 internships: Junior Java Developer at Zaio Technologies (Sep 2023–Aug 2024) building Spring Boot APIs; IT Software & Networks Intern at K&K Media (Sep 2025–Jun 2026) for IT support and networking; and currently AWS re/Start Intern at Forge Academy × Nokia (Mar 2026–present). He also led a Healthcare Web App for his NMU final year project.",
+    aws:        "Carven is currently in the AWS re/Start program at Forge Academy × Nokia in Roodepoort. He's training on EC2, S3, IAM, VPC, and CloudWatch, actively preparing for AWS Cloud Practitioner certification through hands-on cloud labs.",
+    certs:      "His certifications: Java & SQL (ZAIO, Dec 2023), Cybersecurity for Everyone (Univ. of Maryland, Feb 2024), Quality Work Experience (YES4Youth, Sep 2024), CCNAv7 Introduction to Networks (Cisco), and Introduction to Cybersecurity (Cisco).",
+    projects:   "Carven's projects: (1) This portfolio website — HTML/CSS/JS on Netlify; (2) Healthcare System Web App for NMU final year — MySQL, MVC, Git; (3) 4IR AquaTech Hackathon and ICT Hackathon (2021). He also built backend features during his Zaio internship.",
+    contact:    "Reach Carven at 📧 carvenmaceke9@gmail.com | 📱 +27 60 795 0837 | 💼 LinkedIn: carven-maceke-a29985235 | 🐙 GitHub: Carvenmaceke. WhatsApp works too using the contact form on this site!",
+    education:  "Carven holds a National Diploma in IT (Software Development) at NQF Level 6 from Nelson Mandela University (NMU) in Port Elizabeth, completed in 2024.",
+    hire:       "Carven is actively seeking Junior Developer, Technical Specialist, or Cloud Engineer roles. He's based in Pretoria West but open to remote work. Contact him at carvenmaceke9@gmail.com or +27 60 795 0837.",
+    java:       "Java is Carven's strongest language — used extensively at Zaio Technologies (Sep 2023–Aug 2024) building backend services, Spring Boot REST APIs, and SQL queries for data analysis and reporting.",
+    python:     "Python is listed at beginner level on Carven's CV, alongside Django. His strongest backend skills are in Java and Spring Boot, but Python is part of his broader toolkit.",
+    default:    "I'm Carven's portfolio assistant and I know his full CV! Ask me about his skills, work experience, AWS training, projects, certifications, or how to contact him."
   };
 
-  function detect(q) {
-    q = q.toLowerCase();
-    if (/^(hi|hello|hey|howzit|sup|greet)/.test(q))             return 'greeting';
-    if (/summary|who is|about carven|introduce/.test(q))         return 'summary';
-    if (/aws|cloud|ec2|s3|iam|vpc|cloudwatch|forge|nokia/.test(q)) return 'aws';
-    if (/java|spring|backend|api|rest/.test(q))                  return 'java';
-    if (/wordpress|php|web dev|html|css|netlify|frontend/.test(q)) return 'web';
-    if (/skill|know|can he|tech|language|stack|tools/.test(q))   return 'skills';
-    if (/experi|work|intern|job|role|career|zaio|media|kk/.test(q)) return 'experience';
-    if (/project|built|portfolio|healthcare|clinic/.test(q))     return 'projects';
-    if (/cert|certifi|cisco|ccna|maryland/.test(q))              return 'certifications';
-    if (/educat|degree|diploma|university|study|nmu/.test(q))    return 'education';
-    if (/database|sql|mysql|db|data|query/.test(q))              return 'database';
-    if (/support|helpdesk|hardware|laptop|repair|network/.test(q)) return 'support';
-    if (/contact|email|phone|reach|hire|linkedin/.test(q))       return 'contact';
-    if (/portfolio|website|site|link|url/.test(q))               return 'portfolio';
-    return 'fallback';
+  function classify(t) {
+    t = t.toLowerCase();
+    if (t.match(/skill|tech|stack|language|program|what can|good at|expertise/)) return 'skills';
+    if (t.match(/experience|work|intern|job|career|history|previous|role|employment/)) return 'experience';
+    if (t.match(/aws|cloud|amazon|ec2|s3|iam|vpc|cloudwatch/)) return 'aws';
+    if (t.match(/cert|certificat|cisco|ccna|yes4youth|qualification|credential/)) return 'certs';
+    if (t.match(/project|build|built|app|website|portfo|healthcare|clinic|hackathon/)) return 'projects';
+    if (t.match(/contact|reach|email|phone|whatsapp|hire|get in touch/)) return 'contact';
+    if (t.match(/study|degree|nmu|universi|educat|diploma|school|graduate|nqf/)) return 'education';
+    if (t.match(/hire|employ|opportun|looking|seeking|available|open to/)) return 'hire';
+    if (t.match(/java|spring boot|backend/)) return 'java';
+    if (t.match(/python|django/)) return 'python';
+    return 'default';
   }
 
-  var panel   = document.getElementById('slow-panel');
-  var btn     = document.getElementById('slow-btn');
-  var closeX  = document.getElementById('slow-x');
-  var msgs    = document.getElementById('slow-msgs');
-  var inp     = document.getElementById('slow-inp');
-  var sendBtn = document.getElementById('slow-send');
-  var label   = document.getElementById('slow-label');
+  let isOpen = false, isBusy = false, history = [];
 
-  if (!btn || !panel) { console.error('Slow: elements not found'); return; }
+  window.cmToggle = function() {
+    isOpen = !isOpen;
+    document.getElementById('cm-chat-window').classList.toggle('cm-open', isOpen);
+    document.getElementById('cm-chat-btn').textContent = isOpen ? '✕' : '🤖';
+  };
 
-  var isOpen   = false;
-  var greeted  = false;
-
-  function openPanel() {
-    isOpen = true;
-    panel.style.display = 'flex';
-    if (label) label.style.display = 'none';
-    inp.focus();
-    if (!greeted) { greeted = true; setTimeout(function(){ addBot(KB.greeting); }, 300); }
-  }
-
-  function closePanel() {
-    isOpen = false;
-    panel.style.display = 'none';
-  }
-
-  btn.addEventListener('click',    function(){ isOpen ? closePanel() : openPanel(); });
-  closeX.addEventListener('click', closePanel);
-
-  document.querySelectorAll('.sc').forEach(function(c) {
-    c.addEventListener('click', function() {
-      addUser(c.textContent.trim());
-      thinking(function(){ addBot(KB[c.dataset.q] || KB.fallback); });
-    });
-  });
-
-  function addBot(html)  { addMsg(html, 'b'); }
-  function addUser(text) { addMsg(text, 'u'); }
-
-  function addMsg(html, side) {
-    var row = document.createElement('div');
-    row.className = 'sm ' + side;
-    var ico = document.createElement('div');
-    ico.className = 'sm-ico';
-    ico.textContent = side === 'b' ? '🤖' : '👤';
-    var bub = document.createElement('div');
-    bub.className = 'sm-bub';
-    bub.innerHTML = html;
-    row.appendChild(ico);
-    row.appendChild(bub);
-    msgs.appendChild(row);
+  function addMsg(text, isUser) {
+    const msgs = document.getElementById('cm-messages');
+    const div = document.createElement('div');
+    div.className = 'cm-msg ' + (isUser ? 'cm-user' : 'cm-bot');
+    div.textContent = text;
+    msgs.appendChild(div);
     msgs.scrollTop = msgs.scrollHeight;
   }
 
-  function thinking(cb) {
-    var row = document.createElement('div');
-    row.className = 'sm b';
-    row.id = 'slow-tr';
-    var ico = document.createElement('div');
-    ico.className = 'sm-ico';
-    ico.textContent = '🤖';
-    var bub = document.createElement('div');
-    bub.className = 'sm-bub';
-    bub.innerHTML = '<div class="tdots"><span></span><span></span><span></span></div>';
-    row.appendChild(ico);
-    row.appendChild(bub);
-    msgs.appendChild(row);
+  function showTyping() {
+    document.getElementById('cm-typing').classList.add('cm-show');
+    const msgs = document.getElementById('cm-messages');
     msgs.scrollTop = msgs.scrollHeight;
-    setTimeout(function() {
-      var t = document.getElementById('slow-tr');
-      if (t) t.remove();
-      cb();
-    }, 900 + Math.random() * 300);
   }
+  function hideTyping() { document.getElementById('cm-typing').classList.remove('cm-show'); }
 
-  function send() {
-    var text = inp.value.trim();
+  window.cmSend = async function() {
+    if (isBusy) return;
+    const input = document.getElementById('cm-input');
+    const text = input.value.trim();
     if (!text) return;
-    inp.value = '';
-    addUser(text);
-    thinking(function(){ addBot(KB[detect(text)]); });
-    if (!isOpen) openPanel();
-  }
+    input.value = '';
+    addMsg(text, true);
+    history.push({ role: 'user', content: text });
+    showTyping();
+    isBusy = true;
+    document.getElementById('cm-send-btn').disabled = true;
 
-  sendBtn.addEventListener('click', send);
-  inp.addEventListener('keydown', function(e){ if (e.key === 'Enter') send(); });
-
-  setTimeout(function() {
-    if (!isOpen && label) {
-      label.style.transition = 'opacity .5s';
-      label.style.opacity = '0';
-      setTimeout(function(){ if(label) label.style.display = 'none'; }, 500);
+    let reply;
+    try {
+      const key = localStorage.getItem('cm_key') || '';
+      if (key && key.startsWith('sk-ant')) {
+        const messages = history.slice(-8).map(m => ({ role: m.role, content: m.content }));
+        const res = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': key,
+            'anthropic-version': '2023-06-01',
+            'anthropic-dangerous-direct-browser-access': 'true'
+          },
+          body: JSON.stringify({
+            model: 'claude-haiku-4-5-20251001',
+            max_tokens: 250,
+            system: CV,
+            messages
+          })
+        });
+        if (!res.ok) throw new Error('API ' + res.status);
+        const data = await res.json();
+        reply = data.content[0].text;
+      } else {
+        await new Promise(r => setTimeout(r, 700 + Math.random() * 500));
+        reply = KB[classify(text)];
+      }
+    } catch(e) {
+      await new Promise(r => setTimeout(r, 600));
+      reply = KB[classify(text)];
     }
-  }, 5000);
+
+    hideTyping();
+    addMsg(reply, false);
+    history.push({ role: 'assistant', content: reply });
+    isBusy = false;
+    document.getElementById('cm-send-btn').disabled = false;
+    input.focus();
+  };
+
+  window.cmChip = function(text) {
+    document.getElementById('cm-input').value = text;
+    cmSend();
+  };
+
 })();
 </script>
 
